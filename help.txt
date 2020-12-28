@@ -1,0 +1,20 @@
+employee: personal details,role,team,salary
+Personal details (editable by employee)
+Role (not editable)
+Team (not editable)
+Salary (not editable)
+
+
+Attendance management
+
+Admin pages:
+ Attendance
+ employees edit+view
+ search filter
+ 
+employees pages:
+ details
+ 
+common pages: 
+ login
+ company docs
