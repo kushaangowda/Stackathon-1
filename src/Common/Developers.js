@@ -1,6 +1,6 @@
 import React from "react";
-import { LoginButton } from "./components/LoginButton";
 import { useAuth0 } from "@auth0/auth0-react";
+import DevelopersText from "./components/DevelopersText";
 
 export const Developers = () => {
 	const { isLoading } = useAuth0();
@@ -9,8 +9,7 @@ export const Developers = () => {
 
 	return (
 		<div>
-			<p>Developers</p>
-			<LoginButton />
+			<DevelopersText />
 		</div>
 	);
 };

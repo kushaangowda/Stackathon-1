@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "jquery/dist/jquery.min.js";
 import "bootstrap/dist/js/bootstrap.min.js";
@@ -10,10 +10,12 @@ import { Home } from "./Home";
 import { Developers } from "./Developers";
 
 export const CommonScreen = () => {
+	const [active, setActive] = useState(false);
+
 	return (
 		<Router>
 			<div className="CommonScreen">
-				<Navbar />
+				<Navbar active={active} />
 				<div className="container-fluid">
 					<Route path="/" exact component={Home} />
 					<Route path="/developers" exact component={Developers} />
