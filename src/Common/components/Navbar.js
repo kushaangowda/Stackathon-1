@@ -3,7 +3,7 @@ import logo from "../../assets/logo.png";
 import { useAuth0 } from "@auth0/auth0-react";
 import { Link } from "react-router-dom";
 
-export const Navbar = ({ active }) => {
+export const Navbar = () => {
 	const { loginWithRedirect } = useAuth0();
 
 	return (
@@ -24,7 +24,7 @@ export const Navbar = ({ active }) => {
 			</button>
 			<div className="collapse navbar-collapse" id="navbarNavAltMarkup">
 				<div className="navbar-nav">
-					<Link className="nav-item nav-link active" to="/">
+					<Link className="nav-item nav-link" to="/">
 						Home
 					</Link>
 					<a
