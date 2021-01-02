@@ -18,8 +18,10 @@ router.route('/add').post((req,res)=>{
             Salary,
             attendance
         })
-        emp.save().then(()=>{
-            console.log('Employee Added');
+        emp.save().then((result)=>{
+            res.send({
+                "message":"Employee added"+ result
+            })
         }).catch(err => {
             res.send({
                 "error" : err.message
@@ -31,7 +33,13 @@ router.route('/add').post((req,res)=>{
 
 router.route('/').get((req,res)=>{
     Employee.find({}).then(result => {
-        console.log(result);
+        if(result.length){
+            res.send(result);
+        }else{
+            res.send({
+                "message": "No Employees found"
+            })
+        }
     })
 })
 
@@ -40,8 +48,9 @@ router.route('/:email').get((req,res)=>{
     
         Employee.findOne({email}).then(result => {
             if(result){
-                console.log(result);
-                res.send("MIL GAYA");
+                res.send({
+                    "message" : result
+                });
             }else{
                 let result = {
                     "error" : "No Employee present with the given email"
@@ -53,6 +62,19 @@ router.route('/:email').get((req,res)=>{
                 "err" : err.message
             })
         })
+})
+
+router.route('/:empID').delete((req,res)=>{
+    let empID = req.params.empID;
+    Employee.findByIdAndDelete({_id:empID}).then(result => {
+        res.send({
+            "message": "Deleted:"+result
+        })
+    }).catch(err => {
+        res.send({
+            "error" : err.message
+        })
+    })
 })
 
 module.exports = router;
