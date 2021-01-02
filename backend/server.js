@@ -3,9 +3,9 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const employeerouter = require('./routes/Employee');
 const requestrouter = require('./routes/Request');
+const teamRouter = require('./routes/team')
 require('dotenv').config();
 
-const teamRouter = require('./routes/team')
 
 const app = express();
 const port = process.env.PORT || 5000;
