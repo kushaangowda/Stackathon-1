@@ -4,9 +4,19 @@ const Employee = require('../models/employee');
 router.route('/add').post((req,res)=>{
         let email = req.body.email;
         let name =  req.body.name;
+        let teamID = req.body.teamID;
+        let Role = req.body.Role;
+        let Post = req.body.Post;
+        let Salary = req.body.Salary;
+        let attendance=0;
         let emp = new Employee({
+            email,
             name,
-            email
+            teamID,
+            Role,
+            Post,
+            Salary,
+            attendance
         })
         emp.save().then(()=>{
             console.log('Employee Added');
