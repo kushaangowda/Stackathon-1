@@ -2,6 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const employeerouter = require('./routes/Employee');
+const requestrouter = require('./routes/Request');
 require('dotenv').config();
 
 const app = express();
@@ -19,6 +20,7 @@ connection.once('open',()=>{
 })
 
 app.use('/employee',employeerouter);
+app.use('/request',requestrouter);
 
 app.listen(port,()=>{
   console.log("Server is running at port : " , port);
