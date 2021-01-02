@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 
 const TaskSchema = new Schema({
     name: String,
-    teamID: Schema.Types.ObjectId,
+    teamID: String,
     description: String,
     deadline: Date,
 })

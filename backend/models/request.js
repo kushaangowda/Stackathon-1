@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const RequestSchema = new Schema({
-    empID: Schema.Types.ObjectId,
+    empID: String,
     type: String,
     description: String,
     duration: Number,
