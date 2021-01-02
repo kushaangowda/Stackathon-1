@@ -29,9 +29,18 @@ router.route('/add').post((req,res)=>{
         })
         
     
+      emp.save().then(() => {
+        console.log('Employee Added');
+    }).catch(err => {
+        res.send({
+            "error": err.message
+        });
     })
 
-router.route('/').get((req,res)=>{
+
+})
+
+router.route('/').get((req, res) => {
     Employee.find({}).then(result => {
         if(result.length){
             res.send(result);
@@ -43,7 +52,7 @@ router.route('/').get((req,res)=>{
     })
 })
 
-router.route('/:email').get((req,res)=>{
+router.route('/:email').get((req, res) => {
     let email = req.params.email;
     
         Employee.findOne({email}).then(result => {
@@ -57,11 +66,13 @@ router.route('/:email').get((req,res)=>{
                 }
                 res.send(result);
             }
-        }).catch(err => {
-            res.send({
-                "err" : err.message
-            })
+            res.send(result);
+        }
+    ).catch(err => {
+        res.send({
+            "err": err.message
         })
+    })
 })
 
 router.route('/:empID').delete((req,res)=>{
