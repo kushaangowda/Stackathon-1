@@ -5,6 +5,8 @@ const employeerouter = require('./routes/Employee');
 const requestrouter = require('./routes/Request');
 require('dotenv').config();
 
+const teamRouter = require('./routes/team')
+
 const app = express();
 const port = process.env.PORT || 5000;
 
@@ -13,15 +15,16 @@ app.use(express.json());
 
 const uri = process.env.MONGO_URI;
 
-mongoose.connect(uri, {useNewUrlParser: true , useUnifiedTopology: true});
+mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 const connection = mongoose.connection;
-connection.once('open',()=>{
+connection.once('open', () => {
   console.log('MongoDB database linked successfully!');
 })
 
+app.use('/team', teamRouter)
 app.use('/employee',employeerouter);
 app.use('/request',requestrouter);
 
 app.listen(port,()=>{
   console.log("Server is running at port : " , port);
-})
+

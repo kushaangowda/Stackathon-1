@@ -6,6 +6,6 @@ const TeamSchema = new Schema({
     members: [Schema.Types.ObjectId]
 })
 
-const Team = mongoose.model('team' , TeamSchema);
+const Team = mongoose.model('team', TeamSchema);
 
 module.exports = Team;
