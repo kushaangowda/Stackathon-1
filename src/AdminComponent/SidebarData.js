@@ -15,31 +15,31 @@ export const SidebarData=[
     },
     {
       title:'Attendance',
-      path:'/Attendance',
+      path:'/admin/Attendance',
       icons:<FaIcons.FaRegIdBadge/>,
       CName:'nav-text'  
     },
     {
         title:'Team',
-        path:'/team',
+        path:'/admin/team',
         icons:<RiIcons.RiTeamLine/>,
         CName:'nav-text'  
       },
       {
         title:'Task',
-        path:'/task',
+        path:'/admin/task',
         icons:<BiIcons.BiTask/>,
         CName:'nav-text'  
       },
       {
         title:'Employee',
-        path:'/employee',
+        path:'/admin/employee',
         icons:<IoIcons.IoIosPeople/>, 
         CName:'nav-text'  
       },
       {
         title:'Document',
-        path:'/docs',
+        path:'/admin/docs',
         icons:<IoIcons.IoIosDocument/>,
         CName:'nav-text'  
       },

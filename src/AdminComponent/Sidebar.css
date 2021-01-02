@@ -1,5 +1,5 @@
 .nav-bar{
-    background-color:rgb(85, 171, 192);
+    background-color:rgb(55, 118, 255);
     height:80px;
     display:flex;
     justify-content: flex-start;
@@ -11,7 +11,7 @@ font-size: 2rem;
 background:none;
 }   
 .nav-menu{
-background-color: rgb(85, 171, 192);
+background-color: rgb(55, 118, 255);
 width:200px;
 height:100vh;
 display: flex;
@@ -45,13 +45,14 @@ padding:0 16px;
 border-radius: 4px;
 }
 .nav-text a:hover{
-    background-color:rgb(135, 177, 187);
+    background-color:rgb(86, 188, 228);
+    /* background-color: black; */
 }
 .nav-menu-items{
     width:100%;
 }
 .nav-bar-toggle{
-    background-color: rgb(85, 171, 192);
+    background-color:rgb(55, 118, 255);
     width:100%;
     height:80px;
     display:flex;
