@@ -20,10 +20,44 @@ router.route('/add').post((req, res) => {
 })
 
 router.route('/').get((req, res) => {
-    Team.findOne({}).then(result => {
-        console.log(result)
-        res.send("DONE")
+    Team.find({}, (err, result) => {
+
+        if (err) {
+            result = {
+                "error": err.message
+            }
+            res.send(result)
+        }
+        else {
+            if (!result) {
+                result = {
+                    "error": "No team present with this ID"
+                }
+            }
+            res.send(result)
+        }
     })
 })
 
+router.route('/:teamID').get(
+    (req, res) => {
+        Team.findById(req.params.teamID, (err, result) => {
+            if (err) {
+                result = {
+                    "error": err.message
+                }
+                res.send(result)
+            }
+            else {
+
+                console.log(result)
+                if (!result) {
+                    result = {
+                        "error": "No team present with this ID"
+                    }
+                }
+                res.send(result)
+            }
+        })
+    })
 module.exports = router
