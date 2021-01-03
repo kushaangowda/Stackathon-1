@@ -1,6 +1,6 @@
 import React from "react";
 // import './App.css';
-import Sidebar from "./AdminComponent/Sidebar";
+import Sidebar from "./components/Sidebar";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import Employee from "./pages/Employee";

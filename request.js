@@ -1,6 +1,4 @@
 
-
-
 var request = {
     empID: 1,
     type: "Payroll", //Payroll, Leave,
@@ -27,10 +25,17 @@ var team = {
         "empid1", "empid2"
     ]
 }
+
 var task = {
     _id: 12,
     name: "Name",
     description: "Descc",
     teamID: 23,
-    deadline: "30 days"
+    deadline: "30 days",
+    status: "Pending" //Completed
+}
+
+var documents = {
+	name: 'faq',
+	link: 'http://afregav.com/adera',
 }

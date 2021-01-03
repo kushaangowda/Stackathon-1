@@ -1,0 +1,40 @@
+document
+links stuff
+read: all(names, links)
+create: name, link
+update: name, link
+delete
+
+
+employee (Kushaan)
+employee details
+read: all(email, name, teamID, role, post, salary, attendance)
+create: email, name, teamID, role, post, salary
+update: team, role, post, salary
+delete
+
+
+task (Khushi)
+tasks details
+read: all(name, desc, team, deadline, status)
+create: name, desc, team, deadline
+update: name, desc, deadline
+delete
+
+
+attendance && payroll
+requests & stuff
+read: request details related to particular employee (include salary for payroll requests)
+update: status
+
+
+team
+team details
+read: all(name, members, taskId)
+update: name, members
+create: name, members
+delete
+
+
+home
+stataistics and other stuff
