@@ -15,16 +15,16 @@ app.use(express.json());
 
 const uri = process.env.MONGO_URI;
 
-mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true });
 const connection = mongoose.connection;
 connection.once('open', () => {
   console.log('MongoDB database linked successfully!');
 })
 
 app.use('/team', teamRouter)
-app.use('/employee',employeerouter);
-app.use('/request',requestrouter);
+app.use('/employee', employeerouter);
+app.use('/request', requestrouter);
 
-app.listen(port,()=>{
-  console.log("Server is running at port : " , port);
+app.listen(port, () => {
+  console.log("Server is running at port : ", port);
 })
