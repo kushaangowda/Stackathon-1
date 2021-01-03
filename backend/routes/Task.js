@@ -5,12 +5,12 @@ router.route('/add').post((req, res) => {
     let name = req.body.name;
     let description = req.body.description;
     let deadline = req.body.deadline;
-    let taskID = req.body.taskID;
+    let teamID = req.body.teamID;
     let task = new Task({
         name,
         description,
         deadline,
-        taskID
+        teamID 
     })
     task.save().then(() => {
             console.log('Task Added');
@@ -46,7 +46,7 @@ router.route('/').get((req, res) => {
 
 router.route('/:taskID').get((req, res) => {
     let taskID = req.params.taskID;
-    Task.find({ taskID }).then(result => {
+    Task.findById(taskID).then(result => {
         if (result) {
             res.send(result);
         } else {
@@ -71,6 +71,36 @@ router.route('/:taskID').delete((req,res)=>{
         res.send({
             "error" : err.message
         })
+    })
+})
+
+router.route('/update/:taskID').put((req, res) => {
+    let taskID = req.params.taskID;
+    let name = req.body.name;
+    let description = req.body.description;
+    let deadline = req.body.deadline;
+    let task = {}
+    if (name)
+        task['name'] = name;
+    if (description)
+        task['description'] = description;
+    if (deadline)
+        task['deadline'] = deadline;
+
+    Task.findByIdAndUpdate(taskID, task, (err, result) => {
+        if (err) {
+            console.log(err)
+            res.send({
+                "error": err
+            })
+        }
+        else {
+            console.log(result)
+            res.send({
+                "result": `Updated: ${result}`
+            })
+        }
+        console.log("DONE")
     })
 })
 
