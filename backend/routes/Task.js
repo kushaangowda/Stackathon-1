@@ -44,9 +44,9 @@ router.route('/').get((req, res) => {
     })
 })
 
-router.route('/:taskID').get((req, res) => {
-    let taskID = req.params.taskID;
-    Task.findById(taskID).then(result => {
+router.route('/:teamID').get((req, res) => {
+    let teamID = req.params.teamID;
+    Task.find({teamID}).then(result => {
         if (result) {
             res.send(result);
         } else {
