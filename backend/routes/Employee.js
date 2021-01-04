@@ -4,7 +4,6 @@ const Employee = require('../models/employee');
 router.route('/add').post((req, res) => {
     let email = req.body.email;
     let name = req.body.name;
-    let empID = req.body.empID;
     let Role = req.body.Role;
     let Post = req.body.Post;
     let Salary = req.body.Salary;
@@ -12,7 +11,6 @@ router.route('/add').post((req, res) => {
     let emp = new Employee({
         email,
         name,
-        empID,
         Role,
         Post,
         Salary,
@@ -20,7 +18,7 @@ router.route('/add').post((req, res) => {
     })
     emp.save().then((result) => {
         res.send({
-            "message": "Employee added" + result
+            "result": result
         })
     }).catch(err => {
         res.send({
@@ -93,7 +91,7 @@ router.route('/update/:empID').put((req, res) => {
     console.log(empID)
     let email = req.body.email;
     let name = req.body.name;
-    
+
     let Role = req.body.Role;
     let Post = req.body.Post;
     let Salary = req.body.Salary;
