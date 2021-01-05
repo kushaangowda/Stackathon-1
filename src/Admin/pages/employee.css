@@ -50,9 +50,7 @@
 	box-shadow: 0 0 0 0.2rem rgba(0, 0, 0, 0.25);
 }
 
-/* .addEmployee {
-	display: flex;
-	flex-wrap: wrap;
-	margin: 40px;
-	justify-content: center;
-} */
+.nav-bar {
+	position: sticky;
+	top: 0px;
+}

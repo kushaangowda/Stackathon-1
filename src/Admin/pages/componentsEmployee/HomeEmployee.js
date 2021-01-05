@@ -24,16 +24,16 @@ export const HomeEmployee = ({ employees, handleDelete }) => {
 				<tbody>
 					{employees.map((employee) => {
 						return (
-							<tr key={employee.id}>
+							<tr key={employee[`_id`]}>
 								<td>{employee.email}</td>
 								<td>{employee.name}</td>
 								<td>{employee.teamID || "N/A"}</td>
-								<td>{employee.role}</td>
-								<td>{employee.post}</td>
-								<td>{employee.salary}</td>
+								<td>{employee.Role}</td>
+								<td>{employee.Post}</td>
+								<td>{employee.Salary}</td>
 								<td>{employee.attendance}</td>
 								<td>
-									<Link to={"/employee/edit/" + employee.id} className="btn btn-warning">
+									<Link to={"/employee/edit/" + employee._id} className="btn btn-warning">
 										Edit <FaIcons.FaEdit />
 									</Link>
 								</td>
@@ -41,7 +41,7 @@ export const HomeEmployee = ({ employees, handleDelete }) => {
 									<button
 										className="btn btn-danger"
 										onClick={() => {
-											handleDelete(employee.id);
+											handleDelete(employee._id);
 										}}
 									>
 										Delete <RiIcons.RiDeleteBin5Fill />

@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { HomeEmployee } from "./componentsEmployee/HomeEmployee";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import { Navbar } from "./componentsEmployee/Navbar";
 import { AddEmployee } from "./componentsEmployee/AddEmployee";
 import { EditEmployee } from "./componentsEmployee/EditEmployee";
+import axios from "axios";
 import "./employee.css";
 
 function Employee() {
@@ -14,27 +15,49 @@ function Employee() {
 		{ id: 4, email: "d@b.c", name: "d b", teamID: 2, role: "employee", post: "eng", salary: 3000, attendance: 20 },
 	]);
 
+	useEffect(() => {
+		axios
+			.get("http://localhost:5000/employee/")
+			.then((res) => {
+				setEmployees(res.data);
+			})
+			.catch((err) => console.log(err));
+	}, []);
+
 	const handleDelete = (id) => {
 		var newEmployees = employees.filter((employee) => {
-			return employee.id != id;
+			return employee._id != id;
 		});
 		console.log("yo", newEmployees);
 		setEmployees(newEmployees);
+		var link = "http://localhost:5000/employee/" + id;
+		axios
+			.delete(link)
+			.then((res) => console.log(res.data))
+			.catch((err) => console.log(err));
 	};
 
-	const handleAdd = (employee, id = Date.now()) => {
-		employee.id = id;
+	const handleAdd = (employee) => {
 		employee.attendance = 0;
 		var newEmployees = [employee, ...employees];
 		setEmployees(newEmployees);
+		axios
+			.post("http://localhost:5000/employee/add", employee)
+			.then((res) => console.log(res.data))
+			.catch((err) => console.log(err));
 	};
 
 	const handleEdit = (employee) => {
 		var newEmployees1 = employees.filter((employeei) => {
-			return employeei.id != employee.id;
+			return employeei._id != employee.id;
 		});
 		var newEmployees = [employee, ...newEmployees1];
 		setEmployees(newEmployees);
+		var link = "http://localhost:5000/employee/update/" + employee.id;
+		axios
+			.put(link, employee)
+			.then((res) => console.log(res.data))
+			.catch((err) => console.log(err));
 	};
 
 	return (

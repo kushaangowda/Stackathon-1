@@ -7,10 +7,9 @@ export const AddEmployee = ({ handleAdd }) => {
 	const [employee, setEmployee] = useState({
 		email: "",
 		name: "",
-		teamID: null,
-		role: "",
-		post: "",
-		salary: 0,
+		Role: "",
+		Post: "",
+		Salary: 0,
 	});
 
 	const handleFormChange = (type, value) => {
@@ -29,7 +28,7 @@ export const AddEmployee = ({ handleAdd }) => {
 		<div>
 			<form className="addEmployee" onSubmit={handleSubmit}>
 				<div className="form-group">
-					<label for="exampleInputEmail1">Email address</label>
+					<label htmlFor="exampleInputEmail1">Email address</label>
 					<input
 						type="email"
 						className="form-control"
@@ -39,7 +38,7 @@ export const AddEmployee = ({ handleAdd }) => {
 					/>
 				</div>
 				<div className="form-group">
-					<label for="exampleInputEmail2">Name</label>
+					<label htmlFor="exampleInputEmail2">Name</label>
 					<input
 						type="text"
 						className="form-control"
@@ -48,8 +47,9 @@ export const AddEmployee = ({ handleAdd }) => {
 						onChange={(e) => handleFormChange("name", e.target.value)}
 					/>
 				</div>
-				<div className="form-group">
-					<label for="exampleInputEmail3">TeamID</label>
+				{/*
+					<div className="form-group">
+					<label htmlFor="exampleInputEmail3">TeamID</label>
 					<input
 						type="text"
 						className="form-control"
@@ -57,32 +57,33 @@ export const AddEmployee = ({ handleAdd }) => {
 						aria-describedby="emailHelp"
 						onChange={(e) => handleFormChange("teamID", e.target.value)}
 					/>
-				</div>
+					</div>
+				*/}
 				<div className="form-group">
-					<label for="exampleFormControlSelect1">Role</label>
-					<select className="form-control" id="exampleFormControlSelect1" onChange={(e) => handleFormChange("role", e.target.value)}>
+					<label htmlFor="exampleFormControlSelect1">Role</label>
+					<select className="form-control" id="exampleFormControlSelect1" onChange={(e) => handleFormChange("Role", e.target.value)}>
 						<option value="admin">Admin</option>
 						<option value="employee">Employee</option>
 					</select>
 				</div>
 				<div className="form-group">
-					<label for="exampleInputEmail5">Post</label>
+					<label htmlFor="exampleInputEmail5">Post</label>
 					<input
 						type="text"
 						className="form-control"
 						id="exampleInputEmail5"
 						aria-describedby="emailHelp"
-						onChange={(e) => handleFormChange("post", e.target.value)}
+						onChange={(e) => handleFormChange("Post", e.target.value)}
 					/>
 				</div>
 				<div className="form-group">
-					<label for="exampleInputEmail6">Salary</label>
+					<label htmlFor="exampleInputEmail6">Salary</label>
 					<input
 						type="number"
 						className="form-control"
 						id="exampleInputEmail6"
 						aria-describedby="emailHelp"
-						onChange={(e) => handleFormChange("salary", e.target.value)}
+						onChange={(e) => handleFormChange("Salary", e.target.value)}
 					/>
 				</div>
 				<button type="submit" className="btn btn-primary">
