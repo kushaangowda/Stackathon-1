@@ -89,15 +89,11 @@ export const EditEmployee = ({ handleEdit, employees }) => {
 					/>
 				</div>
 				<div className="form-group">
-					<label for="exampleInputEmail4">Role</label>
-					<input
-						type="text"
-						className="form-control"
-						id="exampleInputEmail4"
-						aria-describedby="emailHelp"
-						onChange={(e) => handleRoleChange(e.target.value)}
-						value={role}
-					/>
+					<label for="exampleFormControlSelect1">Role</label>
+					<select className="form-control" id="exampleFormControlSelect1" onChange={(e) => handleRoleChange(e.target.value)} value={role}>
+						<option value="admin">Admin</option>
+						<option value="employee">Employee</option>
+					</select>
 				</div>
 				<div className="form-group">
 					<label for="exampleInputEmail5">Post</label>

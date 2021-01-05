@@ -8,10 +8,10 @@ import "./employee.css";
 
 function Employee() {
 	const [employees, setEmployees] = useState([
-		{ id: 1, email: "a@b.c", name: "a b", teamID: 1, role: "emp", post: "eng", salary: 1000, attendance: 10 },
-		{ id: 2, email: "b@b.c", name: "b b", teamID: 2, role: "emp", post: "mkt", salary: 2000, attendance: 10 },
-		{ id: 3, email: "c@b.c", name: "c b", teamID: 3, role: "emp", post: "soc", salary: 1000, attendance: 100 },
-		{ id: 4, email: "d@b.c", name: "d b", teamID: 2, role: "emp", post: "eng", salary: 3000, attendance: 20 },
+		{ id: 1, email: "a@b.c", name: "a b", teamID: 1, role: "employee", post: "eng", salary: 1000, attendance: 10 },
+		{ id: 2, email: "b@b.c", name: "b b", teamID: 2, role: "employee", post: "mkt", salary: 2000, attendance: 10 },
+		{ id: 3, email: "c@b.c", name: "c b", teamID: 3, role: "employee", post: "soc", salary: 1000, attendance: 100 },
+		{ id: 4, email: "d@b.c", name: "d b", teamID: 2, role: "employee", post: "eng", salary: 3000, attendance: 20 },
 	]);
 
 	const handleDelete = (id) => {
