@@ -22,7 +22,7 @@ function Sidebar() {
 				</div>
 				<nav className={sidebar ? "nav-menu active" : "nav-menu"}>
 					<ul className="nav-menu-items" onClick={showSidebar}>
-						<li class="navbar-toggle">
+						<li className="navbar-toggle">
 							<Link to="#" className="menu-bar">
 								<AiIcons.AiOutlineClose />
 							</Link>
@@ -31,7 +31,7 @@ function Sidebar() {
 							if (item.title === "Log Out") {
 								return (
 									<li key={index} className={item.CName}>
-										<a href="http://localhost:3000" onclick={() => logout()}>
+										<a href="http://localhost:3000" onClick={() => logout()}>
 											{item.icons}
 											<span>{item.title}</span>
 										</a>
