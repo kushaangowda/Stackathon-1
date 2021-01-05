@@ -1,7 +1,9 @@
 import React, { useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
 
 export const EditEmployee = ({ handleEdit, employees }) => {
+	let history = useHistory();
+
 	let params = useParams();
 	const id = params.id;
 
@@ -55,6 +57,7 @@ export const EditEmployee = ({ handleEdit, employees }) => {
 		};
 		console.log(employee);
 		handleEdit(employee);
+		history.push("/employee");
 	};
 
 	return (
