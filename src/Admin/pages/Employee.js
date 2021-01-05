@@ -3,6 +3,7 @@ import { HomeEmployee } from "./componentsEmployee/HomeEmployee";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import { Navbar } from "./componentsEmployee/Navbar";
 import { AddEmployee } from "./componentsEmployee/AddEmployee";
+import { EditEmployee } from "./componentsEmployee/EditEmployee";
 
 function Employee() {
 	const [employees, setEmployees] = useState([
@@ -14,15 +15,24 @@ function Employee() {
 
 	const handleDelete = (id) => {
 		var newEmployees = employees.filter((employee) => {
-			return employee.id !== id;
+			return employee.id != id;
 		});
+		console.log("yo", newEmployees);
 		setEmployees(newEmployees);
 	};
 
-	const handleAdd = (employee) => {
-		employee.id = Date.now();
+	const handleAdd = (employee, id = Date.now()) => {
+		employee.id = id;
 		employee.attendance = 0;
 		var newEmployees = [employee, ...employees];
+		setEmployees(newEmployees);
+	};
+
+	const handleEdit = (employee) => {
+		var newEmployees1 = employees.filter((employeei) => {
+			return employeei.id != employee.id;
+		});
+		var newEmployees = [employee, ...newEmployees1];
 		setEmployees(newEmployees);
 	};
 
@@ -32,6 +42,7 @@ function Employee() {
 				<Navbar />
 				<Route path="/employee" exact component={() => <HomeEmployee employees={employees} handleDelete={handleDelete} />} />
 				<Route path="/employee/add" exact component={() => <AddEmployee handleAdd={handleAdd} />} />
+				<Route path="/employee/edit/:id" exact component={() => <EditEmployee handleEdit={handleEdit} employees={employees} />} />
 			</Router>
 		</div>
 	);

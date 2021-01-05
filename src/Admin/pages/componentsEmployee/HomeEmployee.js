@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 export const HomeEmployee = ({ employees, handleDelete }) => {
 	return (
@@ -14,6 +15,7 @@ export const HomeEmployee = ({ employees, handleDelete }) => {
 						<th>salary</th>
 						<th>attendance</th>
 						<th>delete</th>
+						<th>edit</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -35,6 +37,9 @@ export const HomeEmployee = ({ employees, handleDelete }) => {
 									>
 										Delete
 									</button>
+								</td>
+								<td>
+									<Link to={"/employee/edit/" + employee.id}>Edit</Link>
 								</td>
 							</tr>
 						);
