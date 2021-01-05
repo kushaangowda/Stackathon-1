@@ -27,26 +27,70 @@ export const AddEmployee = ({ handleAdd }) => {
 
 	return (
 		<div>
-			<form onSubmit={handleSubmit}>
-				<p>
-					Email: <input type="text" onChange={(e) => handleFormChange("email", e.target.value)} />
-				</p>
-				<p>
-					Name: <input type="text" onChange={(e) => handleFormChange("name", e.target.value)} />
-				</p>
-				<p>
-					TeamID: <input type="text" onChange={(e) => handleFormChange("teamID", e.target.value)} />
-				</p>
-				<p>
-					Role: <input type="text" onChange={(e) => handleFormChange("role", e.target.value)} />
-				</p>
-				<p>
-					Post: <input type="text" onChange={(e) => handleFormChange("post", e.target.value)} />
-				</p>
-				<p>
-					Salary: <input type="number" onChange={(e) => handleFormChange("salary", e.target.value)} />
-				</p>
-				<button type="submit">Add Employee</button>
+			<form className="addEmployee" onSubmit={handleSubmit}>
+				<div className="form-group">
+					<label for="exampleInputEmail1">Email address</label>
+					<input
+						type="email"
+						className="form-control"
+						id="exampleInputEmail1"
+						aria-describedby="emailHelp"
+						onChange={(e) => handleFormChange("email", e.target.value)}
+					/>
+				</div>
+				<div className="form-group">
+					<label for="exampleInputEmail2">Name</label>
+					<input
+						type="text"
+						className="form-control"
+						id="exampleInputEmail2"
+						aria-describedby="emailHelp"
+						onChange={(e) => handleFormChange("name", e.target.value)}
+					/>
+				</div>
+				<div className="form-group">
+					<label for="exampleInputEmail3">TeamID</label>
+					<input
+						type="text"
+						className="form-control"
+						id="exampleInputEmail3"
+						aria-describedby="emailHelp"
+						onChange={(e) => handleFormChange("teamID", e.target.value)}
+					/>
+				</div>
+				<div className="form-group">
+					<label for="exampleInputEmail4">Role</label>
+					<input
+						type="text"
+						className="form-control"
+						id="exampleInputEmail4"
+						aria-describedby="emailHelp"
+						onChange={(e) => handleFormChange("role", e.target.value)}
+					/>
+				</div>
+				<div className="form-group">
+					<label for="exampleInputEmail5">Post</label>
+					<input
+						type="text"
+						className="form-control"
+						id="exampleInputEmail5"
+						aria-describedby="emailHelp"
+						onChange={(e) => handleFormChange("post", e.target.value)}
+					/>
+				</div>
+				<div className="form-group">
+					<label for="exampleInputEmail6">Salary</label>
+					<input
+						type="number"
+						className="form-control"
+						id="exampleInputEmail6"
+						aria-describedby="emailHelp"
+						onChange={(e) => handleFormChange("salary", e.target.value)}
+					/>
+				</div>
+				<button type="submit" className="btn btn-primary">
+					Add Employee
+				</button>
 			</form>
 		</div>
 	);

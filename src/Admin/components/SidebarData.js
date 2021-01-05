@@ -8,7 +8,7 @@ import * as RiIcons from "react-icons/ri";
 export const SidebarData = [
 	{
 		title: "Home",
-		path: "/home",
+		path: "/",
 		icons: <AiIcons.AiFillHome />,
 		CName: "nav-text",
 	},

@@ -9,10 +9,3 @@ body {
 code {
 	font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
 }
-
-td,
-th {
-	padding: 5px;
-	padding-left: 10px;
-	padding-right: 10px;
-}

@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route } from "react-router-dom";
 import { Navbar } from "./componentsEmployee/Navbar";
 import { AddEmployee } from "./componentsEmployee/AddEmployee";
 import { EditEmployee } from "./componentsEmployee/EditEmployee";
+import "./employee.css";
 
 function Employee() {
 	const [employees, setEmployees] = useState([
@@ -37,7 +38,7 @@ function Employee() {
 	};
 
 	return (
-		<div className="employee">
+		<div className="employee container-fluid">
 			<Router>
 				<Navbar />
 				<Route path="/employee" exact component={() => <HomeEmployee employees={employees} handleDelete={handleDelete} />} />
