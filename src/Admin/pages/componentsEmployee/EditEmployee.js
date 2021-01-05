@@ -5,18 +5,8 @@ export const EditEmployee = ({ handleEdit, employees }) => {
 	let params = useParams();
 	const id = params.id;
 
-	const emp = employees.map((employee) => {
-		if (employee.id == id)
-			return {
-				id: employee.id,
-				email: employee.email,
-				name: employee.name,
-				teamID: employee.teamID,
-				role: employee.role,
-				post: employee.post,
-				salary: employee.salary,
-				attendance: employee.attendance,
-			};
+	const emp = employees.filter((employee) => {
+		return employee.id == id;
 	});
 
 	const [name, setName] = useState(emp[0].name);
@@ -30,6 +20,7 @@ export const EditEmployee = ({ handleEdit, employees }) => {
 		var newName = e.target.value;
 		setName(newName);
 		console.log(name);
+		console.log(emp);
 	};
 	const handleEmailChange = (e) => {
 		var newEmail = e.target.value;
