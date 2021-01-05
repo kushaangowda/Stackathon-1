@@ -18,33 +18,25 @@ export const EditEmployee = ({ handleEdit, employees }) => {
 	const [post, setPost] = useState(emp[0].post);
 	const [salary, setSalary] = useState(emp[0].salary);
 
-	const handleNameChange = (e) => {
-		var newName = e.target.value;
-		setName(newName);
-		console.log(name);
-		console.log(emp);
+	const handleNameChange = (value) => {
+		setName(value);
 	};
-	const handleEmailChange = (e) => {
-		var newEmail = e.target.value;
-		setEmail(newEmail);
+	const handleEmailChange = (value) => {
+		setEmail(value);
 	};
-	const handleTeamIDChange = (e) => {
-		var newName = e.target.value;
-		setTeamID(newName);
+	const handleTeamIDChange = (value) => {
+		setTeamID(value);
 	};
-	const handleRoleChange = (e) => {
-		var newName = e.target.value;
-		setRole(newName);
+	const handleRoleChange = (value) => {
+		setRole(value);
 	};
-	const handlePostChange = (e) => {
-		var newName = e.target.value;
-		setPost(newName);
+	const handlePostChange = (value) => {
+		setPost(value);
 	};
-	const handleSalaryChange = (e) => {
-		var newName = e.target.value;
-		setSalary(newName);
+	const handleSalaryChange = (value) => {
+		setSalary(value);
 	};
-	const handleSubmit = (e) => {
+	const handleSubmit = () => {
 		var employee = {
 			id: emp[0].id,
 			email: email,
@@ -61,26 +53,78 @@ export const EditEmployee = ({ handleEdit, employees }) => {
 	};
 
 	return (
-		<form onSubmit={(e) => handleSubmit(e)}>
-			<p>
-				Name: <input type="text" onChange={(e) => handleNameChange(e)} value={name} />
-			</p>
-			<p>
-				Email: <input type="text" onChange={(e) => handleEmailChange(e)} value={email} />
-			</p>
-			<p>
-				TeamID: <input type="text" onChange={(e) => handleTeamIDChange(e)} value={teamID} />
-			</p>
-			<p>
-				Role: <input type="text" onChange={(e) => handleRoleChange(e)} value={role} />
-			</p>
-			<p>
-				Post: <input type="text" onChange={(e) => handlePostChange(e)} value={post} />
-			</p>
-			<p>
-				Salary: <input type="number" onChange={(e) => handleSalaryChange(e)} value={salary} />
-			</p>
-			<button type="submit">Update Employee</button>
-		</form>
+		<div>
+			<form className="addEmployee" onSubmit={handleSubmit}>
+				<div className="form-group">
+					<label for="exampleInputEmail1">Email address</label>
+					<input
+						type="email"
+						className="form-control"
+						id="exampleInputEmail1"
+						aria-describedby="emailHelp"
+						onChange={(e) => handleEmailChange(e.target.value)}
+						value={email}
+					/>
+				</div>
+				<div className="form-group">
+					<label for="exampleInputEmail2">Name</label>
+					<input
+						type="text"
+						className="form-control"
+						id="exampleInputEmail2"
+						aria-describedby="emailHelp"
+						onChange={(e) => handleNameChange(e.target.value)}
+						value={name}
+					/>
+				</div>
+				<div className="form-group">
+					<label for="exampleInputEmail3">TeamID</label>
+					<input
+						type="text"
+						className="form-control"
+						id="exampleInputEmail3"
+						aria-describedby="emailHelp"
+						onChange={(e) => handleTeamIDChange(e.target.value)}
+						value={teamID}
+					/>
+				</div>
+				<div className="form-group">
+					<label for="exampleInputEmail4">Role</label>
+					<input
+						type="text"
+						className="form-control"
+						id="exampleInputEmail4"
+						aria-describedby="emailHelp"
+						onChange={(e) => handleRoleChange(e.target.value)}
+						value={role}
+					/>
+				</div>
+				<div className="form-group">
+					<label for="exampleInputEmail5">Post</label>
+					<input
+						type="text"
+						className="form-control"
+						id="exampleInputEmail5"
+						aria-describedby="emailHelp"
+						onChange={(e) => handlePostChange(e.target.value)}
+						value={post}
+					/>
+				</div>
+				<div className="form-group">
+					<label for="exampleInputEmail6">Salary</label>
+					<input
+						type="number"
+						className="form-control"
+						id="exampleInputEmail6"
+						aria-describedby="emailHelp"
+						onChange={(e) => handleSalaryChange(e.target.value)}
+						value={salary}
+					/>
+				</div>
+				<button type="submit" className="btn btn-primary">
+					Update Employee
+				</button>
+			</form>
+		</div>
 	);
 };
