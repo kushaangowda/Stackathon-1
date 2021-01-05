@@ -18,17 +18,9 @@ router.route('/add').post((req, res) => {
     })
     emp.save().then((result) => {
         res.send({
-            "result": result
+            "result": result,
+            "message": "Employee Added!!"
         })
-    }).catch(err => {
-        res.send({
-            "error": err.message
-        });
-    })
-
-
-    emp.save().then(() => {
-        console.log('Employee Added');
     }).catch(err => {
         res.send({
             "error": err.message
