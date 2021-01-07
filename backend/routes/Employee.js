@@ -8,13 +8,15 @@ router.route('/add').post((req, res) => {
     let Post = req.body.Post;
     let Salary = req.body.Salary;
     let attendance = 0;
+    let teamID = 0;
     let emp = new Employee({
         email,
         name,
         Role,
         Post,
         Salary,
-        attendance
+        attendance,
+        teamID
     })
     emp.save().then((result) => {
         res.send({
@@ -42,7 +44,7 @@ router.route('/').get((req, res) => {
     })
 })
 
-router.route('/:email').get((req, res) => {
+router.route('/email/:email').get((req, res) => {
     let email = req.params.email;
 
     Employee.findOne({ email }).then(result => {
@@ -56,7 +58,31 @@ router.route('/:email').get((req, res) => {
             }
             res.send(result);
         }
-        res.send(result);
+       
+    }
+    ).catch(err => {
+        res.send({
+            "err": err.message
+        })
+    })
+})
+
+
+router.route('/id/:empid').get((req, res) => {
+    let empid = req.params.empid;
+
+    Employee.findById(empid).then(result => {
+        if (result) {
+            res.send({
+                "data" : result
+            });
+        } else {
+            let result = {
+                "error": "No Employee present with the given ID"
+            }
+            res.send(result);
+        }
+        
     }
     ).catch(err => {
         res.send({
