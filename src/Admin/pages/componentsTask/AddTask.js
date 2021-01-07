@@ -1,46 +1,78 @@
 import React, { useState, useContext } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { GlobalContext } from "./context/GlobalState";
-import * as MdIcons from "react-icons/md";
+// import * as MdIcons from "react-icons/md";
 
 export const AddTask = () => {
 	const { addTask } = useContext(GlobalContext);
-	const [Name, setTask] = useState("");
+
+	const [task, setTask] = useState({
+		Id: Date.now(),
+		Name: "",
+		Description: "",
+		Team: "",
+		Deadline: null,
+		Status: "Pending",
+	});
+
 	const history = useHistory();
 
 	const onSubmit = (e) => {
 		e.preventDefault();
-		const newTask = {
-			Id: Math.random(),
-			Name: Name,
-			Status: "Pending",
-		};
-		addTask(newTask);
+		addTask(task);
 		history.push("/task");
 	};
 
-	const onchange = (e) => {
-		setTask(e.target.value);
+	const onchange = (e, type) => {
+		var updatedTask = task;
+		updatedTask[`${type}`] = e.target.value;
+		setTask(updatedTask);
+		console.log(task);
 	};
+
 	return (
 		<div>
 			<form className="mt-4" onSubmit={onSubmit}>
 				<label htmlFor="Name" className=" ml-5">
 					Name :
 				</label>
-				<input id="Name" type="text" onChange={onchange} />
+				<input
+					id="Name"
+					type="text"
+					onChange={(e) => {
+						onchange(e, "Name");
+					}}
+				/>
 				<label htmlFor="Name" className="ml-5">
 					Description :
 				</label>
-				<input id="Description" type="textarea" onChange={onchange} />
+				<input
+					id="Description"
+					type="textarea"
+					onChange={(e) => {
+						onchange(e, "Description");
+					}}
+				/>
 				<label htmlFor="Name" className="ml-5">
 					Team :
 				</label>
-				<input id="Team" type="text" onChange={onchange} />
+				<input
+					id="Team"
+					type="text"
+					onChange={(e) => {
+						onchange(e, "Team");
+					}}
+				/>
 				<label htmlFor="Name" className="ml-5">
 					Deadline :
 				</label>
-				<input id="Deadline" type="date" onChange={onchange} />
+				<input
+					id="Deadline"
+					type="date"
+					onChange={(e) => {
+						onchange(e, "Deadline");
+					}}
+				/>
 				<button className="btn btn-info ml-5">Submit</button>
 				<Link to="/task" className="btn btn-danger ml-2">
 					Cancel

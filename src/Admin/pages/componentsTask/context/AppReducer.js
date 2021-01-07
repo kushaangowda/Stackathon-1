@@ -11,7 +11,7 @@ export default (state, action) => {
 		case "ADD_TASK":
 			return {
 				...state,
-				Tasks: [action.payload, state.Tasks],
+				Tasks: [action.payload, ...state.Tasks],
 			};
 		case "EDIT_TASK":
 			const updateTask = action.payload;
