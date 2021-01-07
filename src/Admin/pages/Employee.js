@@ -25,7 +25,7 @@ function Employee() {
 	}, []);
 
 	const handleDelete = (id) => {
-		var message = "Are you sure you want to delete this employee??";
+		var message = "Are you sure you want to delete this employee??\nDetails of this employee will be erased permanently.\nThis action cannot be undone";
 		var check = window.confirm(message);
 		if (check) {
 			var newEmployees = employees.filter((employee) => {
