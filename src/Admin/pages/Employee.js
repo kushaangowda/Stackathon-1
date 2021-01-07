@@ -25,16 +25,20 @@ function Employee() {
 	}, []);
 
 	const handleDelete = (id) => {
-		var newEmployees = employees.filter((employee) => {
-			return employee._id != id;
-		});
-		console.log("yo", newEmployees);
-		setEmployees(newEmployees);
-		var link = "http://localhost:5000/employee/" + id;
-		axios
-			.delete(link)
-			.then((res) => console.log(res.data))
-			.catch((err) => console.log(err));
+		var message = "Are you sure you want to delete this employee??";
+		var check = window.confirm(message);
+		if (check) {
+			var newEmployees = employees.filter((employee) => {
+				return employee._id != id;
+			});
+			console.log("yo", newEmployees);
+			setEmployees(newEmployees);
+			var link = "http://localhost:5000/employee/" + id;
+			axios
+				.delete(link)
+				.then((res) => console.log(res.data))
+				.catch((err) => console.log(err));
+		}
 	};
 
 	const handleAdd = (employee) => {
