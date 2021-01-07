@@ -8,7 +8,7 @@ router.route('/add').post((req, res) => {
     let Post = req.body.Post;
     let Salary = req.body.Salary;
     let attendance = 0;
-    let teamID = 0;
+    let teamID = req.body.teamID || 0;
     let emp = new Employee({
         email,
         name,
@@ -109,10 +109,10 @@ router.route('/update/:empID').put((req, res) => {
     console.log(empID)
     let email = req.body.email;
     let name = req.body.name;
-
     let Role = req.body.Role;
     let Post = req.body.Post;
     let Salary = req.body.Salary;
+    let TeamID = req.body.teamID || 0;
     let emp = {}
     if (name)
         emp['name'] = name;
@@ -124,6 +124,8 @@ router.route('/update/:empID').put((req, res) => {
         emp['Post'] = Post;
     if (Salary)
         emp['Salary'] = Salary;
+    if (TeamID)
+        emp['teamID'] = TeamID;
 
     Employee.findByIdAndUpdate(empID, emp, (err, result) => {
         if (err) {
