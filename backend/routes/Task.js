@@ -6,23 +6,25 @@ router.route('/add').post((req, res) => {
     let description = req.body.description;
     let deadline = req.body.deadline;
     let teamID = req.body.teamID;
+    let status = 0;
     let task = new Task({
         name,
         description,
         deadline,
-        teamID 
+        teamID,
+        status
     })
     task.save().then(() => {
-            console.log('Task Added');
-            res.send({
-                "message": "Task Added successfully!"
-            })
+        console.log('Task Added');
+        res.send({
+            "message": "Task Added successfully!"
+        })
     }).catch(err => {
         if (err) {
             res.send({
                 "error": err.message
             })
-        } 
+        }
     })
 })
 
@@ -33,11 +35,11 @@ router.route('/').get((req, res) => {
                 "error": err.message
             })
         } else {
-            if(result.length){
+            if (result.length) {
                 res.send(result);
-            }else{
+            } else {
                 res.send({
-                    "message" : "No tasks currently present."
+                    "message": "No tasks currently present."
                 })
             }
         }
@@ -46,12 +48,12 @@ router.route('/').get((req, res) => {
 
 router.route('/:teamID').get((req, res) => {
     let teamID = req.params.teamID;
-    Task.find({teamID}).then(result => {
+    Task.find({ teamID }).then(result => {
         if (result) {
             res.send(result);
         } else {
             res.send({
-                "error": "No Task presesnt with the given ID"
+                "error": "No Task presesnt with the given team ID"
             });
         }
     }).catch(err => {
@@ -61,15 +63,15 @@ router.route('/:teamID').get((req, res) => {
     })
 })
 
-router.route('/:taskID').delete((req,res)=>{
+router.route('/:taskID').delete((req, res) => {
     let taskID = req.params.taskID;
-    Task.findByIdAndDelete({_id:taskID}).then(result => {
+    Task.findByIdAndDelete({ _id: taskID }).then(result => {
         res.send({
-            "message": "Deleted:"+result
+            "message": "Deleted:" + result
         })
     }).catch(err => {
         res.send({
-            "error" : err.message
+            "error": err.message
         })
     })
 })
@@ -79,6 +81,7 @@ router.route('/update/:taskID').put((req, res) => {
     let name = req.body.name;
     let description = req.body.description;
     let deadline = req.body.deadline;
+    let teamID = req.body.teamID;
     let task = {}
     if (name)
         task['name'] = name;
@@ -86,7 +89,8 @@ router.route('/update/:taskID').put((req, res) => {
         task['description'] = description;
     if (deadline)
         task['deadline'] = deadline;
-
+    if (teamID)
+        task['teanID'] = teamID;
     Task.findByIdAndUpdate(taskID, task, (err, result) => {
         if (err) {
             console.log(err)

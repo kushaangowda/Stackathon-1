@@ -6,6 +6,7 @@ const TaskSchema = new Schema({
     teamID: String,
     description: String,
     deadline: Date,
+    status: Number
 })
 
 const Task = mongoose.model('task' , TaskSchema);
