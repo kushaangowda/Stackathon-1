@@ -1,0 +1,24 @@
+.Active {
+	background-color: rgb(56, 170, 56);
+	padding: 1px 11px 2px 11px;
+	border-radius: 3px;
+}
+.Pending {
+	background-color: rgb(224, 173, 62);
+	padding: 1px 4px 2px 4px;
+	border-radius: 3px;
+}
+.Done {
+	background-color: rgb(230, 68, 63);
+	padding: 1px 13px 2px 13px;
+	border-radius: 3px;
+}
+span {
+	margin: 2px;
+}
+.add-new {
+	background-color: rgb(147, 220, 233);
+	height: 2rem;
+	width: 6rem;
+	border-radius: 10px;
+}

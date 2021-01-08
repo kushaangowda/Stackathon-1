@@ -13,7 +13,7 @@ export const EditEmployee = ({ handleEdit, employees }) => {
 
 	const [name, setName] = useState(emp[0].name);
 	const [email, setEmail] = useState(emp[0].email);
-	// const [teamID, setTeamID] = useState(emp[0].teamID);
+	const [teamID, setTeamID] = useState(emp[0].teamID);
 	const [role, setRole] = useState(emp[0].Role);
 	const [post, setPost] = useState(emp[0].Post);
 	const [salary, setSalary] = useState(emp[0].Salary);
@@ -24,9 +24,9 @@ export const EditEmployee = ({ handleEdit, employees }) => {
 	const handleEmailChange = (value) => {
 		setEmail(value);
 	};
-	// const handleTeamIDChange = (value) => {
-	// 	setTeamID(value);
-	// };
+	const handleTeamIDChange = (value) => {
+		setTeamID(value);
+	};
 	const handleRoleChange = (value) => {
 		setRole(value);
 	};
@@ -41,7 +41,7 @@ export const EditEmployee = ({ handleEdit, employees }) => {
 			id: emp[0]._id,
 			email: email,
 			name: name,
-			// teamID: teamID,
+			teamID: teamID,
 			Role: role,
 			Post: post,
 			Salary: salary,
@@ -77,19 +77,17 @@ export const EditEmployee = ({ handleEdit, employees }) => {
 						value={name}
 					/>
 				</div>
-				{/*
-					<div className="form-group">
-						<label for="exampleInputEmail3">TeamID</label>
-						<input
-							type="text"
-							className="form-control"
-							id="exampleInputEmail3"
-							aria-describedby="emailHelp"
-							onChange={(e) => handleTeamIDChange(e.target.value)}
-							value={teamID}
-						/>
-					</div>
-				*/}
+				<div className="form-group">
+					<label for="exampleInputEmail3">TeamID</label>
+					<input
+						type="text"
+						className="form-control"
+						id="exampleInputEmail3"
+						aria-describedby="emailHelp"
+						onChange={(e) => handleTeamIDChange(e.target.value)}
+						value={teamID}
+					/>
+				</div>
 				<div className="form-group">
 					<label for="exampleFormControlSelect1">Role</label>
 					<select className="form-control" id="exampleFormControlSelect1" onChange={(e) => handleRoleChange(e.target.value)} value={role}>

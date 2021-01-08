@@ -5,7 +5,7 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import Employee from "./pages/Employee";
 import Team from "./pages/Team";
-import Task from "./pages/Task";
+import { Task } from "./pages/Task";
 import Attendance from "./pages/Attendance";
 import Payroll from "./pages/payroll";
 import Document from "./pages/Document";
