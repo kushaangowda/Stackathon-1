@@ -6,7 +6,7 @@ import * as MdIcons from "react-icons/md";
 import "../pages.css";
 import * as GrIcons from "react-icons/gr";
 
-export const Tasknav = ({ tasks }) => {
+export const Tasknav = ({ tasks, deleteTask }) => {
 	// const { Tasks, deleteTask } = useContext(GlobalContext);
 
 	return (
@@ -65,7 +65,7 @@ export const Tasknav = ({ tasks }) => {
 										<Link to={`./task/edit/${Tasks._id}`} className="btn btn">
 											<MdIcons.MdModeEdit />
 										</Link>
-										<button>
+										<button onClick={() => deleteTask(Tasks._id)}>
 											{" "}
 											<MdIcons.MdDeleteForever />
 										</button>

@@ -28,13 +28,43 @@ export const Task = () => {
 			.catch((err) => console.log(err));
 	};
 
+	const editTask = (task) => {
+		var newTasks1 = tasks.filter((task1) => {
+			return task1._id != task.taskID;
+		});
+		var newTasks = [task, ...newTasks1];
+		setTasks(newTasks);
+		var link = "http://localhost:5000/task/update/" + task.taskID;
+		axios
+			.put(link, task)
+			.then((res) => console.log(res.data))
+			.catch((err) => console.log(err));
+	};
+
+	const deleteTask = (id) => {
+		var message = "Are you sure you want to delete this task??\nDetails of this task will be erased permanently.\nThis action cannot be undone";
+		var check = window.confirm(message);
+		if (check) {
+			var newTasks = tasks.filter((task) => {
+				return task._id != id;
+			});
+			console.log("yo", newTasks);
+			setTasks(newTasks);
+			var link = "http://localhost:5000/task/" + id;
+			axios
+				.delete(link)
+				.then((res) => console.log(res.data))
+				.catch((err) => console.log(err));
+		}
+	};
+
 	return (
 		<div className="Task">
 			{/*<GlobalProvider>*/}
 			<Router>
-				<Route path="/task" exact component={() => <Tasknav tasks={tasks} />} />
+				<Route path="/task" exact component={() => <Tasknav tasks={tasks} deleteTask={deleteTask} />} />
 				<Route path="/task/add" exact component={() => <AddTask addTask={addTask} />} />
-				<Route path="/task/edit/:Id" exact component={EditTask} />
+				<Route path="/task/edit/:Id" exact component={() => <EditTask tasks={tasks} editTask={editTask} />} />
 			</Router>
 			{/*</GlobalProvider>*/}
 		</div>

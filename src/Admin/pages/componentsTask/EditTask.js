@@ -1,54 +1,62 @@
-import React, { useState, useContext, useEffect } from "react";
-import { Link, useHistory } from "react-router-dom";
-import { GlobalContext } from "./context/GlobalState";
+import React, { useState, useEffect } from "react";
+import { Link, useHistory, useParams } from "react-router-dom";
+// import { GlobalContext } from "./context/GlobalState";
 import "../pages.css";
 // import * as MdIcons from "react-icons/md";
 
-export const EditTask = (props) => {
-	const { editTask, Tasks } = useContext(GlobalContext);
-	const [selectedTask, setselectedTask] = useState({
-		Id: null,
-		Name: "",
-		Description: "",
-		Deadline: null,
+export const EditTask = ({ editTask, tasks }) => {
+	// const [selectedTask, setselectedTask] = useState({
+	// 	Id: null,
+	// 	Name: "",
+	// 	Description: "",
+	// 	Deadline: null,
+	// });
+
+	let params = useParams();
+	const id = params.Id;
+
+	const task = tasks.filter((task1) => {
+		return task1._id == id;
 	});
 
-	const [name, setName] = useState("");
-	const [deadline, setDeadline] = useState(null);
-	const [description, setDescription] = useState("");
+	const [name, setName] = useState(task[0].name);
+	const [deadline, setDeadline] = useState(task[0].deadline.slice(0, 10));
+	const [description, setDescription] = useState(task[0].description);
+
+	console.log(deadline);
 
 	const history = useHistory();
-	const currentTaskId = props.match.params.Id;
 
-	useEffect(() => {
-		const TaskId = currentTaskId;
-		const selectedTask = Tasks.find((Tasks) => Tasks.Id === Number(TaskId));
-		setselectedTask(selectedTask);
-		setName(selectedTask.Name);
-		setDeadline(selectedTask.Deadline);
-		setDescription(selectedTask.Description);
-		// console.log(selectedTask)
-	}, [currentTaskId, Tasks]);
+	// useEffect(() => {
+	// 	const TaskId = currentTaskId;
+	// 	const selectedTask1 = Tasks.find((Tasks) => Tasks.Id === Number(TaskId));
+	// 	setselectedTask(selectedTask1);
+	// 	setName(selectedTask1.name);
+	// 	setDeadline(selectedTask1.deadline);
+	// 	setDescription(selectedTask1.description);
+	// 	// console.log(selectedTask)
+	// }, [currentTaskId, Tasks]);
 
 	const onSubmit = (e) => {
 		e.preventDefault();
 		var updatedTask = {
-			Id: Number(currentTaskId),
-			Name: name,
-			Description: description,
-			Deadline: deadline,
+			taskID: id,
+			name: name,
+			description: description,
+			deadline: deadline,
+			teamID: task[0].teamID,
 		};
 		console.log(updatedTask);
 		editTask(updatedTask);
 		history.push("/task");
 	};
 
-	const onchange = (e, type) => {
-		var changedTask = selectedTask;
-		changedTask[`${type}`] = e.target.value;
-		setselectedTask(changedTask);
-		console.log(selectedTask);
-	};
+	// const onchange = (e, type) => {
+	// 	var changedTask = selectedTask;
+	// 	changedTask[`${type}`] = e.target.value;
+	// 	setselectedTask(changedTask);
+	// 	console.log(selectedTask);
+	// };
 
 	return (
 		<div>

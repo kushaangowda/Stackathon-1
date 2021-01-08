@@ -1,6 +1,6 @@
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 import { Link, useHistory } from "react-router-dom";
-import { GlobalContext } from "./context/GlobalState";
+// import { GlobalContext } from "./context/GlobalState";
 // import * as MdIcons from "react-icons/md";
 
 export const AddTask = ({ addTask }) => {
