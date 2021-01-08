@@ -2,7 +2,8 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const employeeRouter = require('./routes/Employee');
-const requestRouter = require('./routes/Request');
+const leaveRequestRouter = require('./routes/leaveRequest');
+const payrollRequestRouter = require('./routes/payrollRequest');
 const teamRouter = require('./routes/team')
 const attendanceRouter = require('./routes/Attendance')
 const taskRouter = require('./routes/task')
@@ -26,7 +27,8 @@ connection.once('open', () => {
 
 app.use('/team', teamRouter)
 app.use('/employee', employeeRouter);
-app.use('/request', requestRouter);
+app.use('/leaverequest', leaveRequestRouter);
+app.use('/payrollrequest', payrollRequestRouter);
 app.use('/attendance', attendanceRouter);
 app.use('/task', taskRouter);
 

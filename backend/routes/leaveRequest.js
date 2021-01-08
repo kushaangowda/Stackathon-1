@@ -1,16 +1,16 @@
 const router = require('express').Router();
-const Request = require('../models/request');
+const Request = require('../models/leaveRequest');
 
 router.route('/add').post((req,res)=>{
     let empID = req.body.empID;
-    let type = req.body.type;
     let description = req.body.description;
     let duration = req.body.duration;
+    let start = req.body.start;
     let Status = "Pending";
     let request = new Request({
         empID,
-        type,
         description,
+        start,
         duration,
         Status
     })
@@ -34,13 +34,8 @@ router.route('/').get((req,res)=>{
                 "error" : err.message
             });
         }else{
-            if(result.length){
                 res.send(result);
-            }else{
-                res.send({
-                    "message" : "No requests currently present."
-                })
-            }
+            
         }
     })
 })
@@ -48,9 +43,7 @@ router.route('/').get((req,res)=>{
 router.route('/:empID').get((req,res)=>{
     let empID = req.params.empID;
     Request.find({empID}).then(result => {
-        res.send({
-            "message": result
-        })
+        res.send(result)
     }).catch(err => {
         res.send({
             "error" : err.message
@@ -74,16 +67,16 @@ router.route('/:empID').delete((req,res)=>{
 
 router.route('/update/:empID').put((req, res) => {
     let empID = req.params.empID;
-    let type = req.body.type;
     let description = req.body.description;
     let Status = req.body.Status;
+    let start = req.body.start;
     let duration = req.body.duration;
     let request = {}
     
     if (Status)
         request['Status'] = Status;
-    if (type)
-        request['type'] = type;
+    if (start)
+        request['start'] = start;
     if (description)
         request['description'] = description;
     if (duration)
