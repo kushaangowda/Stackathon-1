@@ -3,16 +3,13 @@ import { Link, useHistory } from "react-router-dom";
 import { GlobalContext } from "./context/GlobalState";
 // import * as MdIcons from "react-icons/md";
 
-export const AddTask = () => {
-	const { addTask } = useContext(GlobalContext);
-
+export const AddTask = ({ addTask }) => {
 	const [task, setTask] = useState({
-		Id: Date.now(),
-		Name: "",
-		Description: "",
-		Team: "",
-		Deadline: null,
-		Status: "Pending",
+		name: "",
+		description: "",
+		teamID: "",
+		deadline: null,
+		status: 0,
 	});
 
 	const history = useHistory();
@@ -40,7 +37,7 @@ export const AddTask = () => {
 					id="Name"
 					type="text"
 					onChange={(e) => {
-						onchange(e, "Name");
+						onchange(e, "name");
 					}}
 				/>
 				<label htmlFor="Name" className="ml-5">
@@ -50,7 +47,7 @@ export const AddTask = () => {
 					id="Description"
 					type="textarea"
 					onChange={(e) => {
-						onchange(e, "Description");
+						onchange(e, "description");
 					}}
 				/>
 				<label htmlFor="Name" className="ml-5">
@@ -60,7 +57,7 @@ export const AddTask = () => {
 					id="Team"
 					type="text"
 					onChange={(e) => {
-						onchange(e, "Team");
+						onchange(e, "teamID");
 					}}
 				/>
 				<label htmlFor="Name" className="ml-5">
@@ -70,7 +67,7 @@ export const AddTask = () => {
 					id="Deadline"
 					type="date"
 					onChange={(e) => {
-						onchange(e, "Deadline");
+						onchange(e, "deadline");
 					}}
 				/>
 				<button className="btn btn-info ml-5">Submit</button>

@@ -57,9 +57,9 @@ export const Tasknav = ({ tasks }) => {
 									<td>{Tasks.name}</td>
 									<td>{Tasks.description}</td>
 									<td>{Tasks.teamID} </td>
-									<td>{Tasks.deadline.slice(0, Tasks.deadline.length - 14)}</td>
+									<td>{Tasks.deadline.slice(0, 10)}</td>
 									<td>
-										<span className={Tasks.Status || "pending"}>{Tasks.Status || "pending"}</span>
+										<span className={Tasks.Status || "pending"}>{Tasks.status == 0 ? "pending" : "completed"}</span>
 									</td>
 									<td>
 										<Link to={`./task/edit/${Tasks._id}`} className="btn btn">

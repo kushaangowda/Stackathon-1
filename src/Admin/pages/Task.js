@@ -8,12 +8,7 @@ import { Tasknav } from "./componentsTask/Tasknav";
 import axios from "axios";
 
 export const Task = () => {
-	const [tasks, setTasks] = useState([
-		{ id: 1, email: "a@b.c", name: "a b", teamID: 1, role: "employee", post: "eng", salary: 1000, attendance: 10 },
-		{ id: 2, email: "b@b.c", name: "b b", teamID: 2, role: "employee", post: "mkt", salary: 2000, attendance: 10 },
-		{ id: 3, email: "c@b.c", name: "c b", teamID: 3, role: "employee", post: "soc", salary: 1000, attendance: 100 },
-		{ id: 4, email: "d@b.c", name: "d b", teamID: 2, role: "employee", post: "eng", salary: 3000, attendance: 20 },
-	]);
+	const [tasks, setTasks] = useState([]);
 
 	useEffect(() => {
 		axios
@@ -24,12 +19,21 @@ export const Task = () => {
 			.catch((err) => console.log(err));
 	}, []);
 
+	const addTask = (task) => {
+		var newTasks = [task, ...tasks];
+		setTasks(newTasks);
+		axios
+			.post("http://localhost:5000/task/add", task)
+			.then((res) => console.log(res.data))
+			.catch((err) => console.log(err));
+	};
+
 	return (
 		<div className="Task">
 			{/*<GlobalProvider>*/}
 			<Router>
 				<Route path="/task" exact component={() => <Tasknav tasks={tasks} />} />
-				<Route path="/task/add" exact component={AddTask} />
+				<Route path="/task/add" exact component={() => <AddTask addTask={addTask} />} />
 				<Route path="/task/edit/:Id" exact component={EditTask} />
 			</Router>
 			{/*</GlobalProvider>*/}
