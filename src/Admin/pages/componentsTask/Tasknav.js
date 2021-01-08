@@ -1,13 +1,14 @@
-import React, { useContext } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { GlobalContext } from "./context/GlobalState";
+// import { GlobalContext } from "./context/GlobalState";
 import * as MdIcons from "react-icons/md";
 import "../pages.css";
 import * as GrIcons from "react-icons/gr";
 
-export const Tasknav = () => {
-	const { Tasks, deleteTask } = useContext(GlobalContext);
+export const Tasknav = ({ tasks }) => {
+	// const { Tasks, deleteTask } = useContext(GlobalContext);
+
 	return (
 		<div>
 			<div className="Tasks ml-2 mr-2">
@@ -20,7 +21,7 @@ export const Tasknav = () => {
 					<div className="col-sm-5">
 						<div className="btn-group" data-toggle="buttons">
 							<label className="btn btn-info active">
-								<input type="radio" name="status" value="all" checked="checked" /> All
+								<input type="radio" name="status" value="all" defaultChecked /> All
 							</label>{" "}
 							<label className="btn btn-success">
 								<input type="radio" name="status" value="active" /> Active
@@ -40,7 +41,7 @@ export const Tasknav = () => {
 				<table className="table table-striped table-hover">
 					<thead>
 						<tr>
-							<th>#</th>
+							{/*<th>#</th>*/}
 							<th>Name</th>
 							<th>Description</th>
 							<th>Team</th>
@@ -49,27 +50,29 @@ export const Tasknav = () => {
 							<th>Action</th>
 						</tr>
 
-						{Tasks.map((Tasks) => (
-							<tr data-status={Tasks.Status} key={Tasks.Id}>
-								<td>{Tasks.Id}</td>
-								<td>{Tasks.Name}</td>
-								<td>{Tasks.Description}</td>
-								<td>{Tasks.Team} </td>
-								<td>{Tasks.Deadline}</td>
-								<td>
-									<span className={Tasks.Status}>{Tasks.Status}</span>
-								</td>
-								<td>
-									<Link to={`./task/edit/${Tasks.Id}`} className="btn btn">
-										<MdIcons.MdModeEdit />
-									</Link>
-									<button onClick={() => deleteTask(Tasks.Id)}>
-										{" "}
-										<MdIcons.MdDeleteForever />
-									</button>
-								</td>
-							</tr>
-						))}
+						{tasks.map((Tasks) => {
+							return (
+								<tr data-status={Tasks.Status} key={Tasks._id}>
+									{/*<td>{Tasks.Id}</td>*/}
+									<td>{Tasks.name}</td>
+									<td>{Tasks.description}</td>
+									<td>{Tasks.teamID} </td>
+									<td>{Tasks.deadline.slice(0, Tasks.deadline.length - 14)}</td>
+									<td>
+										<span className={Tasks.Status || "pending"}>{Tasks.Status || "pending"}</span>
+									</td>
+									<td>
+										<Link to={`./task/edit/${Tasks._id}`} className="btn btn">
+											<MdIcons.MdModeEdit />
+										</Link>
+										<button>
+											{" "}
+											<MdIcons.MdDeleteForever />
+										</button>
+									</td>
+								</tr>
+							);
+						})}
 					</thead>
 				</table>
 			</div>

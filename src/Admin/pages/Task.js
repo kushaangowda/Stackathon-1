@@ -1,25 +1,38 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./pages.css";
-// import * as GrIcons from "react-icons/gr";
 import { EditTask } from "./componentsTask/EditTask";
 import { AddTask } from "./componentsTask/AddTask";
 import { Tasknav } from "./componentsTask/Tasknav";
-import { GlobalProvider } from "./componentsTask/context/GlobalState";
+import axios from "axios";
 
 export const Task = () => {
+	const [tasks, setTasks] = useState([
+		{ id: 1, email: "a@b.c", name: "a b", teamID: 1, role: "employee", post: "eng", salary: 1000, attendance: 10 },
+		{ id: 2, email: "b@b.c", name: "b b", teamID: 2, role: "employee", post: "mkt", salary: 2000, attendance: 10 },
+		{ id: 3, email: "c@b.c", name: "c b", teamID: 3, role: "employee", post: "soc", salary: 1000, attendance: 100 },
+		{ id: 4, email: "d@b.c", name: "d b", teamID: 2, role: "employee", post: "eng", salary: 3000, attendance: 20 },
+	]);
+
+	useEffect(() => {
+		axios
+			.get("http://localhost:5000/task/")
+			.then((res) => {
+				setTasks(res.data);
+			})
+			.catch((err) => console.log(err));
+	}, []);
+
 	return (
 		<div className="Task">
-			<GlobalProvider>
-				<Router>
-					<Switch>
-						<Route path="/task" exact component={Tasknav} />
-						<Route path="/task/add" exact component={AddTask} />
-						<Route path="/task/edit/:Id" exact component={EditTask} />
-					</Switch>
-				</Router>
-			</GlobalProvider>
+			{/*<GlobalProvider>*/}
+			<Router>
+				<Route path="/task" exact component={() => <Tasknav tasks={tasks} />} />
+				<Route path="/task/add" exact component={AddTask} />
+				<Route path="/task/edit/:Id" exact component={EditTask} />
+			</Router>
+			{/*</GlobalProvider>*/}
 		</div>
 	);
 };
