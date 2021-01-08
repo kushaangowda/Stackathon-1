@@ -1,6 +1,7 @@
 const router = require('express').Router()
 const { now } = require('mongoose');
 const Attendance = require('../models/attendance');
+const Employee = require('../models/employee');
 
 // 5ff024fac4cba31b2ca6b993
 
@@ -49,7 +50,7 @@ router.route('/:empID').get(
             else {
                 if (!result) {
                     result = {
-                        "error": "No employee present with this ID"
+                        "error": "No attendance registered with this ID"
                     }
                 }
                 res.send(result)
@@ -81,9 +82,19 @@ router.route('/:empID/create').get((req, res) => {
                         })
                     }
                     else {
-                        res.send({
-                            "result": result
+                        Employee.findOneAndUpdate({_id:req.params.empID}, { $inc: { attendance: 1 } }, (err2) => {
+                            if (err2) {
+                                res.send({
+                                    "error": err2.message
+                                })
+                            } else {
+                                res.send({
+                                    "result": result
+                                })
+
+                            }
                         })
+                       
                     }
                 })
             }
@@ -115,8 +126,19 @@ router.route('/:empID/create').get((req, res) => {
                                 })
                             }
                             else {
-                                res.send({
-                                    "result": result
+                                Employee.findOneAndUpdate({_id:req.params.empID}, { $inc: { attendance: 1 } }, (err2) => {
+                                    if (err2) {
+                                        res.send({
+                                            "error": err2.message
+                                        })
+                                    } else {
+                                        console.log(req.params.empID)
+                                        console.log('here');
+                                        res.send({
+                                            "result": result
+                                        })
+
+                                    }
                                 })
                             }
                         }
