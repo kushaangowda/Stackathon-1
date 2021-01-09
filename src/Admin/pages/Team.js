@@ -13,6 +13,8 @@ function Team() {
 
 	const [reload, setReload] = useState(false);
 
+	const [empdict, setEmpdict] = useState({});
+
 	useEffect(() => {
 		axios
 			.get("http://localhost:5000/team/")
@@ -25,6 +27,12 @@ function Team() {
 			.get("http://localhost:5000/employee/")
 			.then((res) => {
 				setEmployees(res.data);
+				var emp1 = {};
+				res.data.forEach((emp) => {
+					emp1[emp._id] = emp.name;
+				});
+				console.log("yahoo", emp1);
+				setEmpdict(emp1);
 			})
 			.catch((err) => console.log(err));
 	}, []);
@@ -68,8 +76,8 @@ function Team() {
 		<div className="Team">
 			<Router>
 				<Navbar />
-				<Route path="/team" exact component={() => <HomeTeam teams={teams} employees={employees} handleDelete={handleDelete} />} />
-				<Route path="/team/add" exact component={() => <AddTeam employees={employees} handleAdd={handleAdd} />} />
+				<Route path="/team" exact component={() => <HomeTeam teams={teams} empdict={empdict} handleDelete={handleDelete} />} />
+				<Route path="/team/add" exact component={() => <AddTeam empdict={empdict} handleAdd={handleAdd} />} />
 				<Route path="/team/edit/:id" exact component={() => <EditTeam teams={teams} />} />
 			</Router>
 		</div>

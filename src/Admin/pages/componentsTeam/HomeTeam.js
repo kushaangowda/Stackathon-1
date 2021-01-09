@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import * as FaIcons from "react-icons/fa";
 import * as RiIcons from "react-icons/ri";
 
-export const HomeTeam = ({ teams, employees, handleDelete }) => {
+export const HomeTeam = ({ teams, empdict, handleDelete }) => {
 	return (
 		<div className="table-responsive">
 			<table className="table table-hover table-bordered">
@@ -23,11 +23,7 @@ export const HomeTeam = ({ teams, employees, handleDelete }) => {
 								<td>{team.name}</td>
 								<td>
 									{team.members.map((member) => {
-										return (
-											employees.filter((emp) => {
-												return emp._id == member;
-											})[0]["name"] + ", "
-										);
+										return empdict[member] + ", ";
 									})}
 								</td>
 								<td>

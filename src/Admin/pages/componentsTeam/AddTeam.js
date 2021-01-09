@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 
-export const AddTeam = ({ handleAdd, employees }) => {
+export const AddTeam = ({ handleAdd, empdict }) => {
 	let history = useHistory();
 
 	const [team, setTeam] = useState({
@@ -46,20 +46,19 @@ export const AddTeam = ({ handleAdd, employees }) => {
 						onChange={(e) => handleFormChange("name", e)}
 					/>
 				</div>
-
-				{employees.map((emp) => {
+				{Object.keys(empdict).map((key) => {
 					return (
-						<div className="form-check" key={emp._id}>
+						<div className="form-check" key={key}>
 							<input
 								className="form-check-input"
 								type="checkbox"
-								value={emp._id}
-								id={emp._id}
+								value={key}
+								id={key}
 								name="members"
 								onChange={(e) => handleFormChange("members", e)}
 							/>
-							<label className="form-check-label" htmlFor={emp._id}>
-								{emp.name}
+							<label className="form-check-label" htmlFor={key}>
+								{empdict[key]}
 							</label>
 						</div>
 					);
