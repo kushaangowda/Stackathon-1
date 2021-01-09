@@ -14,14 +14,14 @@ export default function CustomModal(props) {
                 <Modal.Header closeButton>
                     <Modal.Title>{props.name}</Modal.Title>
                 </Modal.Header>
-                <Modal.Body>Leave Request from {props.name}</Modal.Body>
+                <Modal.Body>{props.body}</Modal.Body>
                 <Modal.Footer>
-                    <Button variant="success" onClick={props.handleClose}>
+                    <Button variant="success" onClick={() => props.accept(props.id)}>
                         Accept
-          </Button>
-                    <Button variant="danger" onClick={props.handleClose}>
+                    </Button>
+                    <Button variant="danger" onClick={() => props.reject(props.id)}>
                         Reject
-          </Button>
+                    </Button>
                 </Modal.Footer>
             </Modal>
         </>
