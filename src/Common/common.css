@@ -114,3 +114,7 @@
 	font-weight: bold;
 	margin: 20px;
 }
+
+.menu-bar {
+	cursor: pointer;
+}
