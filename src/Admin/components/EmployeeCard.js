@@ -27,7 +27,7 @@ export default function EmployeeCard(props) {
     }
 
     return (
-        <tr className="emp-card" key={props.details._id}>
+        <tr className="emp-card">
             <td>{props.details.name}</td>
             <td>{props.details.email}</td>
             <td>{props.details.Post}</td>
