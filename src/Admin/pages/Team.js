@@ -72,13 +72,24 @@ function Team() {
 			.catch((err) => console.log(err));
 	};
 
+	const handleEdit = (team) => {
+		var link = "http://localhost:5000/team/update/" + team.id;
+		axios
+			.put(link, team)
+			.then((res) => {
+				console.log(res.data);
+				setReload(true);
+			})
+			.catch((err) => console.log(err));
+	};
+
 	return (
 		<div className="Team">
 			<Router>
 				<Navbar />
 				<Route path="/team" exact component={() => <HomeTeam teams={teams} empdict={empdict} handleDelete={handleDelete} />} />
 				<Route path="/team/add" exact component={() => <AddTeam empdict={empdict} handleAdd={handleAdd} />} />
-				<Route path="/team/edit/:id" exact component={() => <EditTeam teams={teams} />} />
+				<Route path="/team/edit/:id" exact component={() => <EditTeam teams={teams} empdict={empdict} handleEdit={handleEdit} />} />
 			</Router>
 		</div>
 	);
