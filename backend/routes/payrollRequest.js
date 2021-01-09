@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const Request = require('../models/payrollRequest');
-
-router.route('/add').post((req,res)=>{
+require('dotenv').config();
+router.route('/add').post((req, res) => {
     let empID = req.body.empID;
     let description = req.body.description;
     let Status = "Pending";
@@ -10,52 +10,52 @@ router.route('/add').post((req,res)=>{
         description,
         Status
     })
-    request.save().then(()=>{
-            res.send({
-                "message": "Request added successfully!"
-            })
+    request.save().then(() => {
+        res.send({
+            "message": "Request added successfully!"
+        })
     }).catch(err => {
-        if(err){
+        if (err) {
             res.send({
-                "error" : err.message
+                "error": err.message
             });
         }
     })
 })
 
-router.route('/').get((req,res)=>{
-        Request.find({}).then((result,err) => {
-        if(err){
+router.route('/').get((req, res) => {
+    Request.find({}).then((result, err) => {
+        if (err) {
             res.send({
-                "error" : err.message
+                "error": err.message
             });
-        }else{
-                res.send(result);
+        } else {
+            res.send(result);
         }
     })
 })
 
-router.route('/:empID').get((req,res)=>{
+router.route('/:empID').get((req, res) => {
     let empID = req.params.empID;
-    Request.find({empID}).then(result => {
+    Request.find({ empID }).then(result => {
         res.send(result)
     }).catch(err => {
         res.send({
-            "error" : err.message
+            "error": err.message
         })
     })
 })
 
 
-router.route('/:empID').delete((req,res)=>{
+router.route('/:empID').delete((req, res) => {
     let empID = req.params.empID;
-    Request.findOneAndDelete({empID}).then(result => {
+    Request.findOneAndDelete({ empID }).then(result => {
         res.send({
-            "message": "Deleted:"+result
+            "message": "Deleted:" + result
         })
     }).catch(err => {
         res.send({
-            "error" : err.message
+            "error": err.message
         })
     })
 })
@@ -65,14 +65,14 @@ router.route('/update/:empID').put((req, res) => {
     let description = req.body.description;
     let Status = req.body.Status;
     let request = {}
-    
+
     if (Status)
         request['Status'] = Status;
     if (description)
         request['description'] = description;
-    
-   
-    Request.findOneAndUpdate({empID}, request, (err, result) => {
+
+
+    Request.findOneAndUpdate({ empID }, request, (err, result) => {
         if (err) {
             console.log(err)
             res.send({
@@ -89,6 +89,33 @@ router.route('/update/:empID').put((req, res) => {
     })
 })
 
+router.route('/:id/accept').get((req, res) => {
+    let id = req.params.id;
+    let host = process.env.HOST;
+    Request.findByIdAndUpdate(id, { $set: { Status: "Accepted" } }, (err) => {
+        if (err) {
+            res.send({
+                "error": err.message
+            })
+        }else{
+            res.redirect(host + 'payroll');
+        }
+    })
+})
+
+router.route('/:id/reject').get((req, res) => {
+    let id = req.params.id;
+    let host = process.env.HOST;
+    Request.findByIdAndUpdate(id, { $set: { Status: "Rejected" } }, (err) => {
+        if (err) {
+            res.send({
+                "error": err.message
+            })
+        }else{
+            res.redirect(host + 'payroll');
+        }
+    })
+})
 
 
 module.exports = router;
