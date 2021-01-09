@@ -54,12 +54,22 @@ function Team() {
 		}
 	};
 
+	const handleAdd = (team) => {
+		axios
+			.post("http://localhost:5000/team/add", team)
+			.then((res) => {
+				console.log(res.data);
+				setReload(true);
+			})
+			.catch((err) => console.log(err));
+	};
+
 	return (
 		<div className="Team">
 			<Router>
 				<Navbar />
 				<Route path="/team" exact component={() => <HomeTeam teams={teams} employees={employees} handleDelete={handleDelete} />} />
-				<Route path="/team/add" exact component={() => <AddTeam />} />
+				<Route path="/team/add" exact component={() => <AddTeam employees={employees} handleAdd={handleAdd} />} />
 				<Route path="/team/edit/:id" exact component={() => <EditTeam teams={teams} />} />
 			</Router>
 		</div>
