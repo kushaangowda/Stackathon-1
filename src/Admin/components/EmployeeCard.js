@@ -19,22 +19,22 @@ export default function EmployeeCard(props) {
 
     const attendance = () => {
         if (isError)
-            return <h3>Something Went Wrong</h3>
+            return <h6>Something Went Wrong</h6>
         if (attendanceMarked)
-            return <h1>Attendance for today already marked</h1>
+            return <h6>Attendance for today already marked</h6>
         else
             return <button onClick={markAttendance}>Mark Attendance</button>
     }
 
     return (
-        <div className="emp-card">
-            <h4>Name: {props.details.name}</h4>
-            <h4>Email: {props.details.email}</h4>
-            <h4>Post: {props.details.Post}</h4>
-            <h4>Role: {props.details.Role}</h4>
-            <h4>Salary: {props.details.Salary}</h4>
-            {attendance()}
+        <tr className="emp-card" key={props.details._id}>
+            <td>{props.details.name}</td>
+            <td>{props.details.email}</td>
+            <td>{props.details.Post}</td>
+            <td>{props.details.Role}</td>
+            <td>{props.details.Salary}</td>
+            <td>{attendance()}</td>
 
-        </div>
+        </tr>
     )
 }

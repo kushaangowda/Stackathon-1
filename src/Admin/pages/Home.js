@@ -18,7 +18,7 @@ function Home() {
 				let temp = []
 				temp.push(
 					fetchedEmployees.map((emp) => {
-						return <EmployeeCard key={emp['_id']} details={emp} />
+						return <EmployeeCard details={emp} />
 					})
 				)
 				setEmployes(temp)
@@ -43,11 +43,32 @@ function Home() {
 		}
 	}, [isError, employees])
 	return (
-		<div className="Home" style={{ textAlign: 'center' }}>
-			<h1>Welcome {user.given_name}</h1>
-			<img src={user.picture} style={{ borderRadius: '50%' }} alt="user image" />
-			{empDetails}
+		<div className="Home">
+			<div className="user" style={{ textAlign: 'center' }}>
+				<h1>Welcome {user.given_name}</h1>
+				<img src={user.picture} style={{ borderRadius: '50%' }} alt="user image" />
+
+			</div>
+
+			<table className="table table-hover table-bordered mt-5">
+				<caption>List of Employees</caption>
+				<thead className="thead-dark">
+					<tr>
+						<th className="text-uppercase">name</th>
+						<th className="text-uppercase">email</th>
+						<th className="text-uppercase">post</th>
+						<th className="text-uppercase">role</th>
+						<th className="text-uppercase">salary</th>
+						<th className="text-uppercase">mark attendance</th>
+					</tr>
+				</thead>
+				<tbody>
+					{empDetails}
+
+				</tbody>
+			</table>
 		</div>
+
 	);
 }
 
