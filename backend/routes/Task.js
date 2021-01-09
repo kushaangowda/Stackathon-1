@@ -6,7 +6,7 @@ router.route('/add').post((req, res) => {
     let description = req.body.description;
     let deadline = req.body.deadline;
     let teamID = req.body.teamID;
-    let status = 0;
+    let status = "Pending";
     let task = new Task({
         name,
         description,
