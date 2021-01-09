@@ -13,7 +13,7 @@ export const Tasknav = ({ tasks, deleteTask }) => {
 		<div>
 			<div className="Tasks ml-2 mr-2">
 				<div className="row mt-2">
-					<div className="col-sm-7">
+					<div className="navheading col-sm-7">
 						<h2>
 							Manage <b>Task</b>
 						</h2>
@@ -32,7 +32,7 @@ export const Tasknav = ({ tasks, deleteTask }) => {
 							<label className="btn btn-danger">
 								<input type="radio" name="status" value="expired" /> Done
 							</label>
-							<Link to="/task/add" className="btn btn-secondary">
+							<Link to="/task/add" className="btn btn-secondary m-1">
 								<GrIcons.GrFormAdd /> Add Task
 							</Link>
 						</div>

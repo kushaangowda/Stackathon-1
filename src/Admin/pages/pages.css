@@ -22,3 +22,6 @@ span {
 	width: 6rem;
 	border-radius: 10px;
 }
+.navheading{
+	z-index: 1;
+}

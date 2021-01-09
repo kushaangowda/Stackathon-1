@@ -5,12 +5,6 @@ import "../pages.css";
 // import * as MdIcons from "react-icons/md";
 
 export const EditTask = ({ editTask, tasks }) => {
-	// const [selectedTask, setselectedTask] = useState({
-	// 	Id: null,
-	// 	Name: "",
-	// 	Description: "",
-	// 	Deadline: null,
-	// });
 
 	let params = useParams();
 	const id = params.Id;
@@ -22,20 +16,11 @@ export const EditTask = ({ editTask, tasks }) => {
 	const [name, setName] = useState(task[0].name);
 	const [deadline, setDeadline] = useState(task[0].deadline.slice(0, 10));
 	const [description, setDescription] = useState(task[0].description);
+	const [status, setStatus] = useState(task[0].status);
 
 	console.log(deadline);
 
 	const history = useHistory();
-
-	// useEffect(() => {
-	// 	const TaskId = currentTaskId;
-	// 	const selectedTask1 = Tasks.find((Tasks) => Tasks.Id === Number(TaskId));
-	// 	setselectedTask(selectedTask1);
-	// 	setName(selectedTask1.name);
-	// 	setDeadline(selectedTask1.deadline);
-	// 	setDescription(selectedTask1.description);
-	// 	// console.log(selectedTask)
-	// }, [currentTaskId, Tasks]);
 
 	const onSubmit = (e) => {
 		e.preventDefault();
@@ -45,89 +30,85 @@ export const EditTask = ({ editTask, tasks }) => {
 			description: description,
 			deadline: deadline,
 			teamID: task[0].teamID,
+			status: status,
 		};
 		console.log(updatedTask);
 		editTask(updatedTask);
 		history.push("/task");
 	};
 
-	// const onchange = (e, type) => {
-	// 	var changedTask = selectedTask;
-	// 	changedTask[`${type}`] = e.target.value;
-	// 	setselectedTask(changedTask);
-	// 	console.log(selectedTask);
-	// };
-
 	return (
-		<div>
-			<form className="mt-4" onSubmit={onSubmit}>
-				<label htmlFor="Name" className=" ml-5">
-					Name :
-				</label>
-				<input
-					id="Name"
-					Name="Name"
-					onChange={(e) => {
-						setName(e.target.value);
-					}}
-					value={name}
-					type="text"
-				/>
-				<label htmlFor="Name" className="ml-5">
-					Description :
-				</label>
-				<input
-					id="Description"
-					name="Name"
-					onChange={(e) => {
-						setDescription(e.target.value);
-					}}
-					value={description}
-					type="textarea"
-				/>
-				<label htmlFor="Name" className="ml-5">
-					Deadline :
-				</label>
-				<input
-					id="Deadline"
-					name="Name"
-					onChange={(e) => {
-						setDeadline(e.target.value);
-					}}
-					value={deadline}
-					type="date"
-				/>
-				<button className="btn btn-info ml-5">Edit</button>
-				<Link to="/task" className="btn btn-danger ml-2">
-					Cancel
+
+		<>
+			<div class="col-lg-7 mx-auto">
+				<div class="card mt-5 mx-auto p-4 bg-light">
+					<div class="card-body bg-light">
+						<form onSubmit={onSubmit}>
+							<div class="controls">
+								<div class="row">
+									<div class="col-md-12">
+										<label>Name :</label> <input
+											id="Name"
+											Name="Name"
+											onChange={(e) => {
+												setName(e.target.value);
+											}}
+											value={name}
+											type="text"
+										/>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-md-12">
+										<div class="form-group"> <label >Description :</label> <textarea
+											id="Description"
+											name="Name"
+											onChange={(e) => {
+												setDescription(e.target.value);
+											}}
+											value={description}
+											type="textarea"
+
+											class="form-control"></textarea>
+										</div>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-md-6">
+										<div class="form-group"> <label HtmlFor="Name">Status :</label> <select id="Status" name="Name" onChange={(e) => {
+											setStatus(e.target.value)
+										}}
+											value={status}>
+											<option>Pending</option>
+											<option>Done</option>
+											<option>Active</option>
+										</select>
+										</div>
+									</div>
+									<div class="col-md-6">
+										<label>Deadline : </label>
+										<input
+											id="Deadline"
+											name="Name"
+											onChange={(e) => {
+												setDeadline(e.target.value);
+											}}
+											value={deadline}
+											type="date"
+										/>
+									</div>
+								</div>
+								<button className="btn btn-info ml-5">Edit</button>
+								<Link to="/task" className="btn btn-danger ml-2">
+									Cancel
 				</Link>
-				{/* <span id="Action"><MdIcons.MdModeEdit />&nbsp;<MdIcons.MdDeleteForever /></span> */}
-			</form>
-		</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</>
 	);
 };
-// export default EditTask;
 
-// const TaskCom = (props) => {
-//     const { Tasks ,deleteTask} = props;
-//     const Tasklist = Tasks.map(Task => {
-//         return (
-//             <tr data-status={Task.Status} key={Task.Id}>
-//                 <td>{Task.Id=Math.random()}</td>
-//                 <td>{Task.Name}</td>
-//                 <td>{Task.Description}</td>
-//                 <td>{Task.Team} </td>
-//                 <td>{Task.Deadline}</td>
-//                 <td><span class={Task.Status}>{Task.Status}</span></td>
-//                 <td><button><MdIcons.MdModeEdit /></button>&nbsp;<button onClick={() => { deleteTask(Task.Id)}}> <MdIcons.MdDeleteForever /></button></td>
-//             </tr>
-//         )
-//     })
-//     return (
-//         <>
-//             { Tasklist}
-//         </>
-//     )
-// }
 
-// export default TaskCom
