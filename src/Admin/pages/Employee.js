@@ -15,6 +15,8 @@ function Employee() {
 		{ id: 4, email: "d@b.c", name: "d b", teamID: 2, role: "employee", post: "eng", salary: 3000, attendance: 20 },
 	]);
 
+	const [reload, setReload] = useState(false);
+
 	useEffect(() => {
 		axios
 			.get("http://localhost:5000/employee/")
@@ -23,6 +25,16 @@ function Employee() {
 			})
 			.catch((err) => console.log(err));
 	}, []);
+
+	if (reload) {
+		setReload(false);
+		axios
+			.get("http://localhost:5000/employee/")
+			.then((res) => {
+				setEmployees(res.data);
+			})
+			.catch((err) => console.log(err));
+	}
 
 	const handleDelete = (id) => {
 		var message = "Are you sure you want to delete this employee??\nDetails of this employee will be erased permanently.\nThis action cannot be undone";
@@ -36,7 +48,10 @@ function Employee() {
 			var link = "http://localhost:5000/employee/" + id;
 			axios
 				.delete(link)
-				.then((res) => console.log(res.data))
+				.then((res) => {
+					console.log(res.data);
+					setReload(true);
+				})
 				.catch((err) => console.log(err));
 		}
 	};
@@ -47,7 +62,10 @@ function Employee() {
 		setEmployees(newEmployees);
 		axios
 			.post("http://localhost:5000/employee/add", employee)
-			.then((res) => console.log(res.data))
+			.then((res) => {
+				console.log(res.data);
+				setReload(true);
+			})
 			.catch((err) => console.log(err));
 	};
 
@@ -60,7 +78,10 @@ function Employee() {
 		var link = "http://localhost:5000/employee/update/" + employee.id;
 		axios
 			.put(link, employee)
-			.then((res) => console.log(res.data))
+			.then((res) => {
+				console.log(res.data);
+				setReload(true);
+			})
 			.catch((err) => console.log(err));
 	};
 
