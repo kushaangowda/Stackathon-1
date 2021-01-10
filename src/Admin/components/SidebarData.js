@@ -13,8 +13,8 @@ export const SidebarData = [
 		CName: "nav-text",
 	},
 	{
-		title: "Attendance",
-		path: "/Attendance",
+		title: "Requests",
+		path: "/Requests",
 		icons: <FaIcons.FaRegIdBadge />,
 		CName: "nav-text",
 	},
@@ -40,12 +40,6 @@ export const SidebarData = [
 		title: "Document",
 		path: "/docs",
 		icons: <IoIcons.IoIosDocument />,
-		CName: "nav-text",
-	},
-	{
-		title: "Payroll",
-		path: "/payroll",
-		icons: <RiIcons.RiSecurePaymentFill />,
 		CName: "nav-text",
 	},
 	{
