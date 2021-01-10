@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
+import axios from "axios";
 
 export const EmployeeCommon = () => {
 	const { isAuthenticated, user } = useAuth0();
@@ -8,9 +9,15 @@ export const EmployeeCommon = () => {
 
 	useEffect(() => {
 		if (isAuthenticated) {
-			if (user["sub"] != "google-oauth2|105916184375669631353") {
-				setRender(true);
-			}
+			var link = "http://localhost:5000/auth/check/" + user["sub"];
+			axios
+				.get(link)
+				.then((res) => {
+					if (res.data["scope"] == "not admin") {
+						setRender(true);
+					}
+				})
+				.catch((err) => console.log(err));
 		}
 	}, []);
 

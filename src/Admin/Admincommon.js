@@ -19,9 +19,15 @@ export const Admincommon = () => {
 
 	useEffect(() => {
 		if (isAuthenticated) {
-			if (user["sub"] == "google-oauth2|105916184375669631353") {
-				setRender(true);
-			}
+			var link = "http://localhost:5000/auth/check/" + user["sub"];
+			axios
+				.get(link)
+				.then((res) => {
+					if (res.data["scope"] == "admin") {
+						setRender(true);
+					}
+				})
+				.catch((err) => console.log(err));
 		}
 	}, []);
 
