@@ -1,12 +1,81 @@
-import React from 'react'
+import React, { useState, useEffect } from "react";
+import { HomeDocument } from "./componentsDocument/HomeDocument";
+import { BrowserRouter as Router, Route } from "react-router-dom";
+import { Navbar } from "./componentsDocument/Navbar";
+import { AddDocument } from "./componentsDocument/AddDocument";
+import { EditDocument } from "./componentsDocument/EditDocument";
+import axios from "axios";
 
 function Document() {
-    return (
-        <div className='Document'>
-           <h1>this is document </h1>
-           <p>hdiuehdiuhdcdffdvfvdscsdfvfevsdcsdcdsds</p> 
-        </div>
-    )
+	const [documents, setDocuments] = useState([]);
+
+	const [reload, setReload] = useState(false);
+
+	useEffect(() => {
+		axios
+			.get("http://localhost:5000/document/")
+			.then((res) => {
+				setDocuments(res.data);
+			})
+			.catch((err) => console.log(err));
+	}, []);
+
+	if (reload) {
+		setReload(false);
+		axios
+			.get("http://localhost:5000/document/")
+			.then((res) => {
+				setDocuments(res.data);
+			})
+			.catch((err) => console.log(err));
+	}
+
+	const handleDelete = (id) => {
+		var message = "Are you sure you want to delete this document??\nDetails of this document will be erased permanently.\nThis action cannot be undone";
+		var check = window.confirm(message);
+		if (check) {
+			var link = "http://localhost:5000/document/" + id;
+			axios
+				.delete(link)
+				.then((res) => {
+					console.log(res.data);
+					setReload(true);
+				})
+				.catch((err) => console.log(err));
+		}
+	};
+
+	const handleAdd = (doc) => {
+		axios
+			.post("http://localhost:5000/document/add", doc)
+			.then((res) => {
+				console.log(res.data);
+				setReload(true);
+			})
+			.catch((err) => console.log(err));
+	};
+
+	const handleEdit = (doc) => {
+		var link = "http://localhost:5000/document/update/" + doc.id;
+		axios
+			.put(link, doc)
+			.then((res) => {
+				console.log(res.data);
+				setReload(true);
+			})
+			.catch((err) => console.log(err));
+	};
+
+	return (
+		<div className="employee container-fluid">
+			<Router>
+				<Navbar />
+				<Route path="/docs" exact component={() => <HomeDocument documents={documents} handleDelete={handleDelete} />} />
+				<Route path="/docs/add" exact component={() => <AddDocument handleAdd={handleAdd} />} />
+				<Route path="/docs/edit/:id" exact component={() => <EditDocument handleEdit={handleEdit} documents={documents} />} />
+			</Router>
+		</div>
+	);
 }
 
-export default Document
+export default Document;
