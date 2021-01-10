@@ -24,9 +24,6 @@ export const EditEmployee = ({ handleEdit, employees }) => {
 	const handleEmailChange = (value) => {
 		setEmail(value);
 	};
-	const handleTeamIDChange = (value) => {
-		setTeamID(value);
-	};
 	const handleRoleChange = (value) => {
 		setRole(value);
 	};
@@ -75,17 +72,6 @@ export const EditEmployee = ({ handleEdit, employees }) => {
 						aria-describedby="emailHelp"
 						onChange={(e) => handleNameChange(e.target.value)}
 						value={name}
-					/>
-				</div>
-				<div className="form-group">
-					<label for="exampleInputEmail3">TeamID</label>
-					<input
-						type="text"
-						className="form-control"
-						id="exampleInputEmail3"
-						aria-describedby="emailHelp"
-						onChange={(e) => handleTeamIDChange(e.target.value)}
-						value={teamID}
 					/>
 				</div>
 				<div className="form-group">
