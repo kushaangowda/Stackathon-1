@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import * as FaIcons from "react-icons/fa";
 import * as RiIcons from "react-icons/ri";
 
-export const HomeEmployee = ({ employees, handleDelete }) => {
+export const HomeEmployee = ({ employees, handleDelete, teamdict }) => {
 	return (
 		<div className="table-responsive">
 			<h2 className="pageTitle">Manage Employees</h2>
@@ -13,7 +13,7 @@ export const HomeEmployee = ({ employees, handleDelete }) => {
 					<tr>
 						<th className="text-uppercase">email</th>
 						<th className="text-uppercase">name</th>
-						<th className="text-uppercase">teamID</th>
+						<th className="text-uppercase">team</th>
 						<th className="text-uppercase">role</th>
 						<th className="text-uppercase">post</th>
 						<th className="text-uppercase">salary</th>
@@ -28,7 +28,7 @@ export const HomeEmployee = ({ employees, handleDelete }) => {
 							<tr key={employee[`_id`]}>
 								<td>{employee.email}</td>
 								<td>{employee.name}</td>
-								<td>{employee.teamID || "N/A"}</td>
+								<td>{teamdict[employee.teamID] || "N/A"}</td>
 								<td>{employee.Role}</td>
 								<td>{employee.Post}</td>
 								<td>{employee.Salary}</td>
