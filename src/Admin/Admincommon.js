@@ -25,7 +25,7 @@ export const Admincommon = () => {
 							<Route path="/Employee" exact component={Employee} />
 							<Route path="/Task" exact component={Task} />
 							<Route path="/Team" exact component={Team} />
-							<Route path="/Attendance" exact component={Attendance} />
+							<Route path="/Requests" exact component={Attendance} />
 							<Route path="/Docs" exact component={Document} />
 							<Route path="/Payroll" exact component={Payroll} />
 						</Switch>
