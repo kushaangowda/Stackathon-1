@@ -43,12 +43,6 @@ export const SidebarData = [
 		CName: "nav-text",
 	},
 	{
-		title: "Payroll",
-		path: "/payroll",
-		icons: <RiIcons.RiSecurePaymentFill />,
-		CName: "nav-text",
-	},
-	{
 		title: "Log Out",
 		path: "https://dev-f-rf7g-f.us.auth0.com/v2/logout?returnTo=http%3A%2F%2Flocalhost%3A3000",
 		icons: <AiIcons.AiOutlineLogout />,
