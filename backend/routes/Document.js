@@ -1,23 +1,17 @@
 const router = require('express').Router();
-const Task = require('../models/task');
+const Document = require('../models/document');
 
 router.route('/add').post((req, res) => {
     let name = req.body.name;
-    let description = req.body.description;
-    let deadline = req.body.deadline;
-    let teamID = req.body.teamID;
-    let status = 0;
-    let task = new Task({
+    let link = req.body.link;
+    let document = new Document({
         name,
-        description,
-        deadline,
-        teamID,
-        status
+        link
     })
-    task.save().then(() => {
-        console.log('Task Added');
+    document.save().then(() => {
+        console.log('Document Added');
         res.send({
-            "message": "Task Added successfully!"
+            "message": "Document Added successfully!"
         })
     }).catch(err => {
         if (err) {
@@ -29,7 +23,7 @@ router.route('/add').post((req, res) => {
 })
 
 router.route('/').get((req, res) => {
-    Task.find({}).then((result, err) => {
+    Document.find({}).then((result, err) => {
         if (err) {
             res.send({
                 "error": err.message
@@ -39,33 +33,38 @@ router.route('/').get((req, res) => {
                 res.send(result);
             } else {
                 res.send({
-                    "message": "No tasks currently present."
+                    "message": "No documents currently present."
                 })
             }
         }
     })
 })
 
-router.route('/:teamID').get((req, res) => {
-    let teamID = req.params.teamID;
-    Task.find({ teamID }).then(result => {
-        if (result) {
-            res.send(result);
-        } else {
+router.route('/update/:id').put((req, res) => {
+    let id = req.params.id;
+    let name = req.body.name;
+    let link = req.body.link;
+    let doc = {};
+    if(name)
+        doc.name = name;
+    if(link)
+        doc.link = link;   
+    Document.findByIdAndUpdate(id, doc , (err)=> {
+        if(err) {
             res.send({
-                "error": "No Task presesnt with the given team ID"
-            });
+                "error" : err.message
+            })
+        }else{
+            res.send({
+                "message" : "Document Updated!"
+            })
         }
-    }).catch(err => {
-        res.send({
-            "err": err.message
-        })
     })
 })
 
-router.route('/:taskID').delete((req, res) => {
-    let taskID = req.params.taskID;
-    Task.findByIdAndDelete({ _id: taskID }).then(result => {
+router.route('/:id').delete((req, res) => {
+    let id = req.params.id;
+    Document.findByIdAndDelete(id).then(result => {
         res.send({
             "message": "Deleted:" + result
         })
@@ -73,41 +72,6 @@ router.route('/:taskID').delete((req, res) => {
         res.send({
             "error": err.message
         })
-    })
-})
-
-router.route('/update/:taskID').put((req, res) => {
-    let taskID = req.params.taskID;
-    let name = req.body.name;
-    let description = req.body.description;
-    let deadline = req.body.deadline;
-    let teamID = req.body.teamID;
-    let status= req.body.status;
-    let task = {}
-    if (name)
-        task['name'] = name;
-    if (description)
-        task['description'] = description;
-    if (deadline)
-        task['deadline'] = deadline;
-    if (teamID)
-        task['teanID'] = teamID;
-    if(status)
-        task['status'] = status;
-    Task.findByIdAndUpdate(taskID, task, (err, result) => {
-        if (err) {
-            console.log(err)
-            res.send({
-                "error": err
-            })
-        }
-        else {
-            console.log(result)
-            res.send({
-                "result": `Updated: ${result}`
-            })
-        }
-        console.log("DONE")
     })
 })
 
