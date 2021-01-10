@@ -47,7 +47,8 @@ function Home() {
 			<div className="user" style={{ textAlign: 'center' }}>
 				<h1>Welcome {user.given_name}</h1>
 				<img src={user.picture} style={{ borderRadius: '50%' }} alt="user image" />
-
+				<JSONPretty data={user} />
+				{JSON.stringify(user, null, 2)}
 			</div>
 
 			<table className="table table-hover table-bordered mt-5">
