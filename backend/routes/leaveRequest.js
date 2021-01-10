@@ -99,6 +99,36 @@ router.route('/update/:empID').put((req, res) => {
     })
 })
 
+router.route('/:id/accept').get((req, res) => {
+    let id = req.params.id;
+    let host = process.env.HOST;
+    Request.findByIdAndUpdate(id, { $set: { Status: "Accepted" } }, (err) => {
+        if (err) {
+            res.send({
+                "error": err.message
+            })
+        }else{
+            res.send(
+                'Accepted'
+            );
+        }
+    })
+})
+
+router.route('/:id/reject').get((req, res) => {
+    let id = req.params.id;
+    let host = process.env.HOST;
+    Request.findByIdAndUpdate(id, { $set: { Status: "Rejected" } }, (err) => {
+        if (err) {
+            res.send({
+                "error": err.message
+            })
+        }else{
+            res.send('Rejected');
+        }
+    })
+})
+
 
 
 module.exports = router;

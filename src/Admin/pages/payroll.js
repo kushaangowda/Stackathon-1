@@ -10,12 +10,14 @@ function Payroll() {
     const [currdata, setcurdata] = useState();
     const host = 'http://localhost:5000/';
 
-    const Accept = async(_id) => {
+    const Accept = async(_id,id) => {
         axios.get(host+ 'payrollrequest/'+_id+'/accept');
+        ChangeData(id);
     }
 
-    const Reject = async(_id) => {
+    const Reject = async(_id,id) => {
         axios.get(host+ 'payrollrequest/'+_id+'/reject');
+        ChangeData(id);
     }
 
     const ChangeData = async (id) => {
@@ -38,8 +40,8 @@ function Payroll() {
 
                                 return (<tr>
                                     <td>{description}</td>
-                                    <td><button onClick={()=>Accept(_id)} type="button" class="btn btn-success" >Accept</button></td>
-                                    <td><button onClick={()=>Reject(_id)} type="button" class="btn btn-danger" >Reject</button></td>
+                                    <td><button onClick={()=>Accept(_id,id)} type="button" class="btn btn-success"  >Accept</button></td>
+                                    <td><button onClick={()=>Reject(_id,id)} type="button" class="btn btn-danger"  >Reject</button></td>
                                 </tr>);
                             } else if (Status == "Accepted") {
                                 return (<tr>
