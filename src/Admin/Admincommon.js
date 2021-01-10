@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 // import './App.css';
 import Sidebar from "./components/Sidebar";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
@@ -10,12 +10,23 @@ import Attendance from "./pages/Attendance";
 import Payroll from "./pages/payroll";
 import Document from "./pages/Document";
 import { useAuth0 } from "@auth0/auth0-react";
+import axios from "axios";
 
 export const Admincommon = () => {
-	const { isAuthenticated } = useAuth0();
+	const { isAuthenticated, user } = useAuth0();
+
+	const [render, setRender] = useState(false);
+
+	useEffect(() => {
+		if (isAuthenticated) {
+			if (user["sub"] == "google-oauth2|105916184375669631353") {
+				setRender(true);
+			}
+		}
+	}, []);
 
 	return (
-		isAuthenticated && (
+		render && (
 			<>
 				<Router>
 					<div className="Admincommon">
