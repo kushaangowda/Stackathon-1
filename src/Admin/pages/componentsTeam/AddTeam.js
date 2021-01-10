@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useHistory } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
 
 export const AddTeam = ({ handleAdd, empdict }) => {
 	let history = useHistory();
@@ -67,6 +67,9 @@ export const AddTeam = ({ handleAdd, empdict }) => {
 				<button type="submit" className="btn btn-primary">
 					Add Team
 				</button>
+				<Link to="/team" className="btn btn-primary ml-2">
+					Cancel
+				</Link>
 			</form>
 		</div>
 	);
