@@ -4,10 +4,6 @@ import * as FaIcons from "react-icons/fa";
 import * as RiIcons from "react-icons/ri";
 
 export const HomeDocument = ({ documents, handleDelete }) => {
-	const newPage = (link) => {
-		window.open(link);
-	};
-
 	return (
 		<div className="table-responsive">
 			<h2 className="pageTitle">Manage Documents</h2>
@@ -26,7 +22,11 @@ export const HomeDocument = ({ documents, handleDelete }) => {
 						return (
 							<tr key={document1[`_id`]}>
 								<td>{document1.name}</td>
-								<td>{document1.link}</td>
+								<td>
+									<a href={document1.link} target="_blank">
+										{document1.link}
+									</a>
+								</td>
 								<td>
 									<Link to={"/docs/edit/" + document1._id} className="btn btn-warning">
 										Edit <FaIcons.FaEdit />
