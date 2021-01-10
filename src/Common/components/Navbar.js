@@ -1,10 +1,22 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import logo from "../../assets/logo.png";
 import { useAuth0 } from "@auth0/auth0-react";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
 export const Navbar = () => {
 	const { loginWithRedirect } = useAuth0();
+
+	const [documents, setDocuments] = useState([]);
+
+	useEffect(() => {
+		axios
+			.get("http://localhost:5000/document/")
+			.then((res) => {
+				setDocuments(res.data);
+			})
+			.catch((err) => console.log(err));
+	}, []);
 
 	return (
 		<nav className="navbar navbar-expand-lg navbar-light bg-light">
@@ -27,22 +39,28 @@ export const Navbar = () => {
 					<Link className="nav-item nav-link" to="/">
 						Home
 					</Link>
-					<a
-						target="_blank"
-						className="nav-item nav-link"
-						rel="noreferrer nofollow"
-						href="https://ilearn.marist.edu/access/lessonbuilder/item/172134/group/e0d1b466-ea21-433b-8926-c41f19455217/Course%20Materials/SamplePDF.pdf"
-					>
-						FAQ
-					</a>
-					<a
-						target="_blank"
-						className="nav-item nav-link"
-						rel="noreferrer nofollow"
-						href="https://ilearn.marist.edu/access/lessonbuilder/item/172134/group/e0d1b466-ea21-433b-8926-c41f19455217/Course%20Materials/SamplePDF.pdf"
-					>
-						Policies
-					</a>
+					<div className="nav-item dropdown">
+						<a
+							className="nav-link dropdown-toggle"
+							href="/"
+							id="navbarDropdownMenuLink"
+							role="button"
+							data-toggle="dropdown"
+							aria-haspopup="true"
+							aria-expanded="false"
+						>
+							Documents
+						</a>
+						<div className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+							{documents.map((doc) => {
+								return (
+									<a className="dropdown-item" href={doc.link} target="_blank">
+										{doc.name}
+									</a>
+								);
+							})}
+						</div>
+					</div>
 					<Link className="nav-item nav-link" to="/developers">
 						Developers
 					</Link>

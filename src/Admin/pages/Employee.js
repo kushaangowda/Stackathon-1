@@ -71,7 +71,6 @@ function Employee() {
 		<div className="employee container-fluid">
 			<Router>
 				<Navbar />
-				<h2 className="pageTitle">Manage Employees</h2>
 				<Route path="/employee" exact component={() => <HomeEmployee employees={employees} handleDelete={handleDelete} />} />
 				<Route path="/employee/add" exact component={() => <AddEmployee handleAdd={handleAdd} />} />
 				<Route path="/employee/edit/:id" exact component={() => <EditEmployee handleEdit={handleEdit} employees={employees} />} />

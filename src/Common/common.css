@@ -28,6 +28,17 @@
 	font-size: 20px;
 }
 
+.dropdown-item {
+	font-family: "Roboto", sans-serif;
+	font-family: "Roboto Condensed", sans-serif;
+	font-size: 20px;
+	color: rgba(0, 0, 0, 0.5) !important;
+}
+
+.dropdown-item:hover {
+	color: rgba(0, 0, 0, 0.7) !important;
+}
+
 .collapse {
 	justify-content: flex-end;
 }

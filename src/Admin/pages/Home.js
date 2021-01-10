@@ -18,7 +18,7 @@ function Home() {
 				let temp = []
 				temp.push(
 					fetchedEmployees.map((emp) => {
-						return <EmployeeCard details={emp} />
+						return <EmployeeCard key={emp._id} details={emp} />
 					})
 				)
 				setEmployes(temp)

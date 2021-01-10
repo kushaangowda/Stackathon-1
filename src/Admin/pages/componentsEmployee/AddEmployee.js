@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useHistory } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
 
 export const AddEmployee = ({ handleAdd }) => {
 	let history = useHistory();
@@ -88,6 +88,9 @@ export const AddEmployee = ({ handleAdd }) => {
 				<button type="submit" className="btn btn-primary">
 					Add Employee
 				</button>
+				<Link to="/employee" className="btn btn-primary ml-2">
+					Cancel
+				</Link>
 			</form>
 		</div>
 	);
