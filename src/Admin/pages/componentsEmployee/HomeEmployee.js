@@ -6,6 +6,7 @@ import * as RiIcons from "react-icons/ri";
 export const HomeEmployee = ({ employees, handleDelete }) => {
 	return (
 		<div className="table-responsive">
+			<h2 className="pageTitle">Manage Employees</h2>
 			<table className="table table-hover table-bordered">
 				<caption>List of Employees</caption>
 				<thead className="thead-dark">
