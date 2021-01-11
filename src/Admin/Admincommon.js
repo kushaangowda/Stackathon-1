@@ -23,7 +23,7 @@ export const Admincommon = () => {
 			axios
 				.get(link)
 				.then((res) => {
-					if (res.data["scope"] == "admin") {
+					if (String(res.data["scope"]) === "admin") {
 						setRender(true);
 					}
 				})

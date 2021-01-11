@@ -5,10 +5,10 @@ import { Link } from "react-router-dom";
 import { SidebarData } from "./SidebarData";
 import "./Sidebar.css";
 import { IconContext } from "react-icons";
-import { useAuth0 } from "@auth0/auth0-react";
+// import { useAuth0 } from "@auth0/auth0-react";
 
 function Sidebar() {
-	const { logout } = useAuth0();
+	// const { logout } = useAuth0();
 	const [sidebar, setSidebar] = useState(false);
 	const showSidebar = () => setSidebar(!sidebar);
 
@@ -16,9 +16,9 @@ function Sidebar() {
 		<>
 			<IconContext.Provider value={{ color: "#fff" }}>
 				<div className="nav-bar">
-					<a className="menu-bar">
+					<button className="menu-bar sidebarButton">
 						<FaIcons.FaBars onClick={showSidebar} />
-					</a>
+					</button>
 				</div>
 				<nav className={sidebar ? "nav-menu active" : "nav-menu"}>
 					<ul className="nav-menu-items" onClick={showSidebar}>

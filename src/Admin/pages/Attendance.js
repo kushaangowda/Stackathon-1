@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import CustomModal from "../components/CustomModal";
-import { RiAirplayLine } from "react-icons/ri";
+// import CustomModal from "../components/CustomModal";
+// import { RiAirplayLine } from "react-icons/ri";
 
 function Home() {
 	const [employees, setEmployes] = useState([]);
@@ -32,7 +32,7 @@ function Home() {
 
 	const ChangePayrollData = async (id) => {
 		axios.get(host + "payrollrequest/" + id).then((res) => {
-			if (res["data"].length == 0) {
+			if (Number(res["data"].length) === 0) {
 				setcurdata(
 					<tr>
 						<td>No Pending Requests</td>
@@ -44,7 +44,7 @@ function Home() {
 				let temp = [];
 				temp.push(
 					res["data"].map(({ description, Status, _id }) => {
-						if (Status == "Pending") {
+						if (String(Status) === "Pending") {
 							return (
 								<tr>
 									<td>{description}</td>
@@ -60,7 +60,7 @@ function Home() {
 									</td>
 								</tr>
 							);
-						} else if (Status == "Accepted") {
+						} else if (String(Status) === "Accepted") {
 							return (
 								<tr>
 									<td>{description}</td>
@@ -86,7 +86,7 @@ function Home() {
 
 	const ChangeLeaveData = async (id) => {
 		axios.get(host + "leaverequest/" + id).then((res) => {
-			if (res["data"].length == 0) {
+			if (Number(res["data"].length) === 0) {
 				setcurdata(
 					<tr>
 						<td>No Pending Requests</td>
@@ -100,7 +100,7 @@ function Home() {
 				let temp = [];
 				temp.push(
 					res["data"].map(({ duration, start, description, Status, _id }) => {
-						if (Status == "Pending") {
+						if (String(Status) === "Pending") {
 							return (
 								<tr>
 									<td>{start.slice(0, 10)}</td>
@@ -118,7 +118,7 @@ function Home() {
 									</td>
 								</tr>
 							);
-						} else if (Status == "Accepted") {
+						} else if (String(Status) === "Accepted") {
 							return (
 								<tr>
 									<td>{start.slice(0, 10)}</td>

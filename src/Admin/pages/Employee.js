@@ -8,8 +8,6 @@ import axios from "axios";
 import "./employee.css";
 
 function Employee() {
-	const [teams, setTeams] = useState([]);
-
 	const [teamdict, setTeamdict] = useState({});
 
 	const [employees, setEmployees] = useState([]);
@@ -20,7 +18,6 @@ function Employee() {
 		axios
 			.get("http://localhost:5000/team/")
 			.then((res) => {
-				setTeams(res.data);
 				var team1 = {};
 				res.data.forEach((team) => {
 					team1[team._id] = team.name;

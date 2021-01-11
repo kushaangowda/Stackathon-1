@@ -2,8 +2,8 @@ import React from "react";
 import * as AiIcons from "react-icons/ai";
 import * as BiIcons from "react-icons/bi";
 import * as FaIcons from "react-icons/fa";
-import * as IoIcons from "react-icons/io";
-import * as RiIcons from "react-icons/ri";
+// import * as IoIcons from "react-icons/io";
+// import * as RiIcons from "react-icons/ri";
 
 export const SidebarData = [
 	{
@@ -15,13 +15,13 @@ export const SidebarData = [
 	{
 		title: "Leave",
 		path: "/Leave",
-		icons: <FaIcons.FaRegIdBadge />,
+		icons: <BiIcons.BiCalendar />,
 		CName: "nav-text",
 	},
 	{
 		title: "Payroll",
 		path: "/Payroll",
-		icons: <IoIcons.IoIosPeople />,
+		icons: <FaIcons.FaMoneyCheckAlt />,
 		CName: "nav-text",
 	},
 	{

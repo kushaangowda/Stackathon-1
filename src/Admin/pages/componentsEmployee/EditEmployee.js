@@ -8,12 +8,12 @@ export const EditEmployee = ({ handleEdit, employees }) => {
 	const id = params.id;
 
 	const emp = employees.filter((employee) => {
-		return employee._id == id;
+		return String(employee._id) === String(id);
 	});
 
 	const [name, setName] = useState(emp[0].name);
 	const [email, setEmail] = useState(emp[0].email);
-	const [teamID, setTeamID] = useState(emp[0].teamID);
+	const [teamID] = useState(emp[0].teamID);
 	const [role, setRole] = useState(emp[0].Role);
 	const [post, setPost] = useState(emp[0].Post);
 	const [salary, setSalary] = useState(emp[0].Salary);

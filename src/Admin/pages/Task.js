@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { BrowserRouter as Router, Route } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./pages.css";
 import { EditTask } from "./componentsTask/EditTask";
@@ -30,7 +30,7 @@ export const Task = () => {
 
 	const editTask = (task) => {
 		var newTasks1 = tasks.filter((task1) => {
-			return task1._id != task.taskID;
+			return String(task1._id) !== String(task.taskID);
 		});
 		var newTasks = [task, ...newTasks1];
 		setTasks(newTasks);
@@ -46,7 +46,7 @@ export const Task = () => {
 		var check = window.confirm(message);
 		if (check) {
 			var newTasks = tasks.filter((task) => {
-				return task._id != id;
+				return String(task._id) !== String(id);
 			});
 			console.log("yo", newTasks);
 			setTasks(newTasks);

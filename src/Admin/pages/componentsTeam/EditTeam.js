@@ -8,7 +8,7 @@ export const EditTeam = ({ empdict, handleEdit, teams }) => {
 	const id = params.id;
 
 	const team = teams.filter((team1) => {
-		return team1._id == id;
+		return String(team1._id) === String(id);
 	});
 
 	const [name, setName] = useState(team[0].name);
@@ -25,7 +25,7 @@ export const EditTeam = ({ empdict, handleEdit, teams }) => {
 		else {
 			newMembers = [];
 			newMembers = members.filter((member) => {
-				return member != e.target.value;
+				return String(member) !== String(e.target.value);
 			});
 		}
 		setMembers(newMembers);
