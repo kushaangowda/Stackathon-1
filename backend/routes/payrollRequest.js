@@ -98,7 +98,9 @@ router.route('/:id/accept').get((req, res) => {
                 "error": err.message
             })
         }else{
-            res.redirect(host + 'payroll');
+            res.send(
+                'Accepted'
+            );
         }
     })
 })
@@ -112,7 +114,7 @@ router.route('/:id/reject').get((req, res) => {
                 "error": err.message
             })
         }else{
-            res.redirect(host + 'payroll');
+            res.send('Rejected');
         }
     })
 })
