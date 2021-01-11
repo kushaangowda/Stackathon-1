@@ -1,6 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import axios from "axios";
+import Sidebar from "./components/Sidebar";
+import { Home } from "./pages/Home";
+import { Leave } from "./pages/Leave";
+import { Payroll } from "./pages/Payroll";
+import { Tasks } from "./pages/Tasks";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 export const EmployeeCommon = () => {
 	const { isAuthenticated, user } = useAuth0();
@@ -23,10 +29,19 @@ export const EmployeeCommon = () => {
 
 	return (
 		render && (
-			<div>
-				<p>This is Employee Section</p>
-				<a href="https://dev-f-rf7g-f.us.auth0.com/v2/logout?returnTo=http%3A%2F%2Flocalhost%3A3000">Logout</a>
-			</div>
+			<>
+				<Router>
+					<div className="Admincommon">
+						<Sidebar />
+						<Switch>
+							<Route path="/" exact component={Home} />
+							<Route path="/Leave" exact component={Leave} />
+							<Route path="/Payroll" exact component={Payroll} />
+							<Route path="/Tasks" exact component={Tasks} />
+						</Switch>
+					</div>
+				</Router>
+			</>
 		)
 	);
 };
