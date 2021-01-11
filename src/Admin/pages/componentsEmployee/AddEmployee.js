@@ -7,7 +7,6 @@ export const AddEmployee = ({ handleAdd }) => {
 	const [employee, setEmployee] = useState({
 		email: "",
 		name: "",
-		teamID: "",
 		Role: "",
 		Post: "",
 		Salary: 0,
@@ -46,16 +45,6 @@ export const AddEmployee = ({ handleAdd }) => {
 						id="exampleInputEmail2"
 						aria-describedby="emailHelp"
 						onChange={(e) => handleFormChange("name", e.target.value)}
-					/>
-				</div>
-				<div className="form-group">
-					<label htmlFor="exampleInputEmail3">TeamID</label>
-					<input
-						type="text"
-						className="form-control"
-						id="exampleInputEmail3"
-						aria-describedby="emailHelp"
-						onChange={(e) => handleFormChange("teamID", e.target.value)}
 					/>
 				</div>
 				<div className="form-group">

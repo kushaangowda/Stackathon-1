@@ -8,7 +8,7 @@ export const EditDocument = ({ handleEdit, documents }) => {
 	const id = params.id;
 
 	const doc = documents.filter((doc1) => {
-		return doc1._id == id;
+		return String(doc1._id) === String(id);
 	});
 
 	const [name, setName] = useState(doc[0].name);

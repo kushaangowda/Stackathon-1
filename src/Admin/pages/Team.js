@@ -9,8 +9,6 @@ import { Navbar } from "./componentsTeam/Navbar";
 function Team() {
 	const [teams, setTeams] = useState([]);
 
-	const [employees, setEmployees] = useState([]);
-
 	const [reload, setReload] = useState(false);
 
 	const [empdict, setEmpdict] = useState({});
@@ -26,7 +24,6 @@ function Team() {
 		axios
 			.get("http://localhost:5000/employee/")
 			.then((res) => {
-				setEmployees(res.data);
 				var emp1 = {};
 				res.data.forEach((emp) => {
 					emp1[emp._id] = emp.name;

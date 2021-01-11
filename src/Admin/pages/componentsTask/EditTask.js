@@ -1,16 +1,15 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Link, useHistory, useParams } from "react-router-dom";
 // import { GlobalContext } from "./context/GlobalState";
 import "../pages.css";
 // import * as MdIcons from "react-icons/md";
 
 export const EditTask = ({ editTask, tasks }) => {
-
 	let params = useParams();
 	const id = params.Id;
 
 	const task = tasks.filter((task1) => {
-		return task1._id == id;
+		return String(task1._id) === String(id);
 	});
 
 	const [name, setName] = useState(task[0].name);
@@ -38,7 +37,6 @@ export const EditTask = ({ editTask, tasks }) => {
 	};
 
 	return (
-
 		<>
 			<div class="col-lg-7 mx-auto">
 				<div class="card mt-5 mx-auto p-4 bg-light">
@@ -47,7 +45,8 @@ export const EditTask = ({ editTask, tasks }) => {
 							<div class="controls">
 								<div class="row">
 									<div class="col-md-12">
-										<label>Name :</label> <input
+										<label>Name :</label>{" "}
+										<input
 											id="Name"
 											Name="Name"
 											onChange={(e) => {
@@ -60,29 +59,39 @@ export const EditTask = ({ editTask, tasks }) => {
 								</div>
 								<div class="row">
 									<div class="col-md-12">
-										<div class="form-group"> <label >Description :</label> <textarea
-											id="Description"
-											name="Name"
-											onChange={(e) => {
-												setDescription(e.target.value);
-											}}
-											value={description}
-											type="textarea"
-
-											class="form-control"></textarea>
+										<div class="form-group">
+											{" "}
+											<label>Description :</label>{" "}
+											<textarea
+												id="Description"
+												name="Name"
+												onChange={(e) => {
+													setDescription(e.target.value);
+												}}
+												value={description}
+												type="textarea"
+												class="form-control"
+											></textarea>
 										</div>
 									</div>
 								</div>
 								<div class="row">
 									<div class="col-md-6">
-										<div class="form-group"> <label HtmlFor="Name">Status :</label> <select id="Status" name="Name" onChange={(e) => {
-											setStatus(e.target.value)
-										}}
-											value={status}>
-											<option>Pending</option>
-											<option>Done</option>
-											<option>Active</option>
-										</select>
+										<div class="form-group">
+											{" "}
+											<label HtmlFor="Name">Status :</label>{" "}
+											<select
+												id="Status"
+												name="Name"
+												onChange={(e) => {
+													setStatus(e.target.value);
+												}}
+												value={status}
+											>
+												<option>Pending</option>
+												<option>Done</option>
+												<option>Active</option>
+											</select>
 										</div>
 									</div>
 									<div class="col-md-6">
@@ -101,7 +110,7 @@ export const EditTask = ({ editTask, tasks }) => {
 								<button className="btn btn-info ml-5">Edit</button>
 								<Link to="/task" className="btn btn-danger ml-2">
 									Cancel
-				</Link>
+								</Link>
 							</div>
 						</form>
 					</div>
@@ -110,5 +119,3 @@ export const EditTask = ({ editTask, tasks }) => {
 		</>
 	);
 };
-
-

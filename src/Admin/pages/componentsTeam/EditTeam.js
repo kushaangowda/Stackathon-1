@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useParams, useHistory } from "react-router-dom";
+import { useParams, useHistory, Link } from "react-router-dom";
 
 export const EditTeam = ({ empdict, handleEdit, teams }) => {
 	let history = useHistory();
@@ -8,7 +8,7 @@ export const EditTeam = ({ empdict, handleEdit, teams }) => {
 	const id = params.id;
 
 	const team = teams.filter((team1) => {
-		return team1._id == id;
+		return String(team1._id) === String(id);
 	});
 
 	const [name, setName] = useState(team[0].name);
@@ -25,7 +25,7 @@ export const EditTeam = ({ empdict, handleEdit, teams }) => {
 		else {
 			newMembers = [];
 			newMembers = members.filter((member) => {
-				return member != e.target.value;
+				return String(member) !== String(e.target.value);
 			});
 		}
 		setMembers(newMembers);
@@ -89,6 +89,9 @@ export const EditTeam = ({ empdict, handleEdit, teams }) => {
 				<button type="submit" className="btn btn-primary">
 					Update Team
 				</button>
+				<Link to="/team" className="btn btn-primary ml-2">
+					Cancel
+				</Link>
 			</form>
 		</div>
 	);

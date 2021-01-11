@@ -3,6 +3,7 @@ import { CommonScreen } from "./Common/CommonScreen";
 import { LoadingScreen } from "./Common/LoadingScreen";
 import { Admincommon } from "./Admin/Admincommon";
 import { useAuth0 } from "@auth0/auth0-react";
+import { EmployeeCommon } from "./Employee/EmployeeCommon";
 
 function App() {
 	const { isLoading } = useAuth0();
@@ -18,6 +19,7 @@ function App() {
 		<div className="App">
 			<CommonScreen />
 			<Admincommon />
+			<EmployeeCommon />
 		</div>
 	);
 }

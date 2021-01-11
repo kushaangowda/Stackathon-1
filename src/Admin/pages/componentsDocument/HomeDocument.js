@@ -23,7 +23,7 @@ export const HomeDocument = ({ documents, handleDelete }) => {
 							<tr key={document1[`_id`]}>
 								<td>{document1.name}</td>
 								<td>
-									<a href={document1.link} target="_blank">
+									<a href={document1.link} rel="noreferrer" target="_blank">
 										{document1.link}
 									</a>
 								</td>

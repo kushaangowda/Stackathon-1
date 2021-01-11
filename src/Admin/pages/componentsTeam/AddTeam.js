@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useHistory } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
 
 export const AddTeam = ({ handleAdd, empdict }) => {
 	let history = useHistory();
@@ -11,7 +11,7 @@ export const AddTeam = ({ handleAdd, empdict }) => {
 
 	const handleFormChange = (type, e) => {
 		var newTeam = team;
-		if (type != "members") {
+		if (String(type) !== "members") {
 			newTeam[`${type}`] = e.target.value;
 		} else {
 			var newMembers = team["members"];
@@ -19,7 +19,7 @@ export const AddTeam = ({ handleAdd, empdict }) => {
 			if (e.target.checked) newMembers.push(e.target.value);
 			else {
 				newMembers = team["members"].filter((member) => {
-					return member != e.target.value;
+					return String(member) !== String(e.target.value);
 				});
 			}
 			newTeam["members"] = newMembers;
@@ -67,6 +67,9 @@ export const AddTeam = ({ handleAdd, empdict }) => {
 				<button type="submit" className="btn btn-primary">
 					Add Team
 				</button>
+				<Link to="/team" className="btn btn-primary ml-2">
+					Cancel
+				</Link>
 			</form>
 		</div>
 	);

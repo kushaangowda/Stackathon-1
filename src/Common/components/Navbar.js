@@ -54,7 +54,7 @@ export const Navbar = () => {
 						<div className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
 							{documents.map((doc) => {
 								return (
-									<a className="dropdown-item" href={doc.link} target="_blank">
+									<a className="dropdown-item" rel="noreferrer" href={doc.link} target="_blank">
 										{doc.name}
 									</a>
 								);

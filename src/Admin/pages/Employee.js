@@ -8,11 +8,25 @@ import axios from "axios";
 import "./employee.css";
 
 function Employee() {
+	const [teamdict, setTeamdict] = useState({});
+
 	const [employees, setEmployees] = useState([]);
 
 	const [reload, setReload] = useState(false);
 
 	useEffect(() => {
+		axios
+			.get("http://localhost:5000/team/")
+			.then((res) => {
+				var team1 = {};
+				res.data.forEach((team) => {
+					team1[team._id] = team.name;
+				});
+				console.log("yahoo", team1);
+				setTeamdict(team1);
+			})
+			.catch((err) => console.log(err));
+
 		axios
 			.get("http://localhost:5000/employee/")
 			.then((res) => {
@@ -71,7 +85,7 @@ function Employee() {
 		<div className="employee container-fluid">
 			<Router>
 				<Navbar />
-				<Route path="/employee" exact component={() => <HomeEmployee employees={employees} handleDelete={handleDelete} />} />
+				<Route path="/employee" exact component={() => <HomeEmployee employees={employees} teamdict={teamdict} handleDelete={handleDelete} />} />
 				<Route path="/employee/add" exact component={() => <AddEmployee handleAdd={handleAdd} />} />
 				<Route path="/employee/edit/:id" exact component={() => <EditEmployee handleEdit={handleEdit} employees={employees} />} />
 			</Router>
