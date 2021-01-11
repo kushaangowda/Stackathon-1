@@ -29,7 +29,7 @@ export const Admincommon = () => {
 				})
 				.catch((err) => console.log(err));
 		}
-	}, []);
+	});
 
 	return (
 		render && (

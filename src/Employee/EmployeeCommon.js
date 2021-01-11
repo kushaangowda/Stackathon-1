@@ -25,7 +25,7 @@ export const EmployeeCommon = () => {
 				})
 				.catch((err) => console.log(err));
 		}
-	}, []);
+	});
 
 	return (
 		render && (

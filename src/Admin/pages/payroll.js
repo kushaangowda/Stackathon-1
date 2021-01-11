@@ -38,12 +38,12 @@ function Payroll() {
 								<tr>
 									<td>{description}</td>
 									<td>
-										<button onClick={() => Accept(_id, id)} type="button" class="btn btn-success">
+										<button onClick={() => Accept(_id, id)} type="button" className="btn btn-success">
 											Accept
 										</button>
 									</td>
 									<td>
-										<button onClick={() => Reject(_id, id)} type="button" class="btn btn-danger">
+										<button onClick={() => Reject(_id, id)} type="button" className="btn btn-danger">
 											Reject
 										</button>
 									</td>
@@ -73,46 +73,48 @@ function Payroll() {
 		});
 	};
 
-	const fetchEmployees = async () => {
-		axios
-			.get(host + "employee")
-			.then((emp) => {
-				console.log(emp["data"]);
-				const fetchedEmployees = emp["data"];
-				let temp = [];
-				temp.push(
-					fetchedEmployees.map(({ _id, name, email, Salary }) => {
-						return (
-							<tr key={_id}>
-								<td>{name}</td>
-								<td>{email}</td>
-								<td>{Salary}</td>
-								<td>
-									<button
-										onClick={() => ChangeData(_id)}
-										type="button"
-										class="btn btn-primary"
-										data-toggle="modal"
-										data-target="#exampleModal"
-									>
-										Check
-									</button>{" "}
-								</td>
-							</tr>
-						);
-					})
-				);
-				setEmployes(temp);
-			})
-			.catch((err) => {
-				console.log(err);
-				setIsError(true);
-			});
-	};
-
 	useEffect(() => {
+		const fetchEmployees = async () => {
+			axios
+				.get(host + "employee")
+				.then((emp) => {
+					console.log(emp["data"]);
+					const fetchedEmployees = emp["data"];
+					let temp = [];
+					temp.push(
+						fetchedEmployees.map(({ _id, name, email, Salary }) => {
+							return (
+								<tr key={_id}>
+									<td>{name}</td>
+									<td>{email}</td>
+									<td>{Salary}</td>
+									<td>
+										<button
+											onClick={() => ChangeData(_id)}
+											type="button"
+											className="btn btn-primary"
+											data-toggle="modal"
+											data-target="#exampleModal"
+										>
+											Check
+										</button>{" "}
+									</td>
+								</tr>
+							);
+						})
+					);
+					setEmployes(temp);
+				})
+				.catch((err) => {
+					console.log(err);
+					setIsError(true);
+				});
+		};
 		fetchEmployees();
-	}, []);
+		console.log("FETCHING...")
+		// eslint-disable-next-line
+	}, [])
+
 
 	useEffect(() => {
 		if (isError) {
@@ -123,18 +125,18 @@ function Payroll() {
 	}, [isError, employees]);
 	return (
 		<>
-			<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-				<div class="modal-dialog" role="document">
-					<div class="modal-content">
-						<div class="modal-header">
-							<h5 class="modal-title" id="exampleModalLabel">
+			<div className="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+				<div className="modal-dialog" role="document">
+					<div className="modal-content">
+						<div className="modal-header">
+							<h5 className="modal-title" id="exampleModalLabel">
 								Requests
 							</h5>
-							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<button type="button" className="close" data-dismiss="modal" aria-label="Close">
 								<span aria-hidden="true">&times;</span>
 							</button>
 						</div>
-						<div class="modal-body">
+						<div className="modal-body">
 							<table className="table table-hover table-bordered mt-5">
 								<thead className="thead-dark">
 									<tr>
@@ -146,8 +148,8 @@ function Payroll() {
 								<tbody>{currdata}</tbody>
 							</table>
 						</div>
-						<div class="modal-footer">
-							<button type="button" class="btn btn-secondary" data-dismiss="modal">
+						<div className="modal-footer">
+							<button type="button" className="btn btn-secondary" data-dismiss="modal">
 								Close
 							</button>
 						</div>
