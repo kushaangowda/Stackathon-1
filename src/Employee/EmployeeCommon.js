@@ -14,17 +14,17 @@ export const EmployeeCommon = () => {
 	const [render, setRender] = useState(false);
 
 	useEffect(() => {
-		if (isAuthenticated) {
-			var link = "http://localhost:5000/auth/check/" + user["sub"];
-			axios
-				.get(link)
-				.then((res) => {
-					if (String(res.data["scope"]) === "not admin") {
-						setRender(true);
-					}
-				})
-				.catch((err) => console.log(err));
-		}
+		setRender(true);
+		// if (isAuthenticated) {
+		// 	var link = "http://localhost:5000/auth/check/" + user["sub"];
+		// 	axios
+		// 		.get(link)
+		// 		.then((res) => {
+		// 			if (String(res.data["scope"]) === "not admin") {
+		// 			}
+		// 		})
+		// 		.catch((err) => console.log(err));
+		// }
 	});
 
 	return (
