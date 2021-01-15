@@ -2,6 +2,10 @@ const router = require('express').Router();
 const Auth = require('../models/auth');
 
 
+// "google-oauth2|113818401233931612247"
+// "auth0|5ffab4f0901fa7006e4a3b27"
+// "google-oauth2|105916184375669631353"
+
 router.route('/').get((req, res) => {
     Auth.find({}, (err, result) => {
         if (err) {
@@ -27,19 +31,35 @@ router.route('/check/:id').get((req, res) => {
         }
         else {
             const admins = result[0]['admin']
-
-            let present = false;
+            const employees = result[0]['employee']
+            let isAdmin = false;
+            let isEmployee = false;
             admins.forEach((admin) => {
                 if (admin === id) {
-                    present = true;
-                    return res.send({
-                        "scope": 'admin'
-                    })
+                    isAdmin = true;
                 }
             })
-            if (!present) {
-                return res.send({
-                    "scope": 'not admin'
+            if (!isAdmin) {
+                employees.forEach((employee) => {
+                    if (employee === id) {
+                        isEmployee = true;
+                    }
+                })
+            }
+
+            if (isAdmin) {
+                res.send({
+                    "scope": 'admin'
+                })
+            }
+            else if (isEmployee) {
+                res.send({
+                    "scope": 'employee'
+                })
+            }
+            else {
+                res.send({
+                    "scope": 'unknown'
                 })
             }
         }
@@ -47,7 +67,6 @@ router.route('/check/:id').get((req, res) => {
 })
 
 router.route('/addAdmin').post((req, res) => {
-
 
     let auth_id = req.body.auth_id;
     console.log(auth_id)
@@ -61,7 +80,9 @@ router.route('/addAdmin').post((req, res) => {
                 })
             }
             else {
-                res.send(result)
+                res.send({
+                    "message": "New Admin Added"
+                })
             }
         }
 
@@ -69,147 +90,53 @@ router.route('/addAdmin').post((req, res) => {
 
 })
 
-router.route('/add').post((req, res) => {
-    let email = req.body.email;
-    let name = req.body.name;
-    let Role = req.body.Role;
-    let Post = req.body.Post;
-    let Salary = req.body.Salary;
-    let attendance = 0;
-    let teamID = req.body.teamID || 0;
-    let emp = new Employee({
-        email,
-        name,
-        Role,
-        Post,
-        Salary,
-        attendance,
-        teamID
-    })
-    emp.save().then((result) => {
-        res.send({
-            "result": result,
-            "message": "Employee Added!!"
-        })
-    }).catch(err => {
-        res.send({
-            "error": err.message
-        });
-    })
+router.route('/addEmployee').post((req, res) => {
 
-
-})
-
-router.route('/').get((req, res) => {
-    Employee.find({}).then(result => {
-        if (result.length) {
-            res.send(result);
-        } else {
-            res.send({
-                "message": "No Employees found"
-            })
-        }
-    })
-})
-
-router.route('/email/:email').get((req, res) => {
-    let email = req.params.email;
-
-    Employee.findOne({ email }).then(result => {
-        if (result) {
-            res.send({
-                "message": result
-            });
-        } else {
-            let result = {
-                "error": "No Employee present with the given email"
+    let auth_id = req.body.auth_id;
+    console.log(auth_id)
+    Auth.findOneAndUpdate(
+        {},
+        { $push: { employee: auth_id } },
+        (err, result) => {
+            if (err) {
+                res.send({
+                    "error": err.message
+                })
             }
-            res.send(result);
-        }
-
-    }
-    ).catch(err => {
-        res.send({
-            "err": err.message
-        })
-    })
-})
-
-
-router.route('/id/:empid').get((req, res) => {
-    let empid = req.params.empid;
-
-    Employee.findById(empid).then(result => {
-        if (result) {
-            res.send({
-                "data": result
-            });
-        } else {
-            let result = {
-                "error": "No Employee present with the given ID"
+            else {
+                res.send({
+                    "message": "New Employee Added"
+                })
             }
-            res.send(result);
         }
 
-    }
-    ).catch(err => {
-        res.send({
-            "err": err.message
-        })
-    })
+    )
+
 })
 
-router.route('/:empID').delete((req, res) => {
-    let empID = req.params.empID;
-    Employee.findByIdAndDelete({ _id: empID }).then(result => {
-        res.send({
-            "message": "Deleted:" + result
-        })
-    }).catch(err => {
-        res.send({
-            "error": err.message
-        })
-    })
-})
-
-router.route('/update/:empID').put((req, res) => {
-    let empID = req.params.empID;
-    console.log(empID)
-    let email = req.body.email;
-    let name = req.body.name;
-    let Role = req.body.Role;
-    let Post = req.body.Post;
-    let Salary = req.body.Salary;
-    let TeamID = req.body.teamID || 0;
-    let emp = {}
-    if (name)
-        emp['name'] = name;
-    if (email)
-        emp['email'] = email;
-    if (Role)
-        emp['Role'] = Role;
-    if (Post)
-        emp['Post'] = Post;
-    if (Salary)
-        emp['Salary'] = Salary;
-    if (TeamID)
-        emp['teamID'] = TeamID;
-
-    Employee.findByIdAndUpdate(empID, emp, (err, result) => {
-        if (err) {
-            console.log(err)
-            res.send({
-                "error": err
+router.route('/clear').get((req, res) => {
+    Auth.find({}, (err, result) => {
+        result.forEach(item => {
+            Auth.findByIdAndDelete(item["_id"], (err, result) => {
+                console.log(result)
             })
-        }
-        else {
-            console.log(result)
-            res.send({
-                "result": `Updated: ${result}`
-            })
-        }
-        console.log("DONE")
+        })
+
     })
+    res.send("DONE")
+
+
+    let auth = new Auth({
+        admin: "google-oauth2|113818401233931612247"
+    })
+
+    auth.save().then((res) => {
+        console.log(res);
+    })
+
+
+
+
 })
 
 module.exports = router;
