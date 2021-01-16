@@ -20,6 +20,10 @@ export const Tasks = () => {
 		axios
 			.get("http://localhost:5000/employee/email/" + user["email"])
 			.then(res1 => {
+				if (res1.data.message != null) {
+					seterror('Invalid Email ID. Please contact administration');
+					return;
+				}
 				let team = res1.data.message.teamID;
 				axios
 					.get("http://localhost:5000/task/" + team)

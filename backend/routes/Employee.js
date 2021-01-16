@@ -48,17 +48,11 @@ router.route('/email/:email').get((req, res) => {
     let email = req.params.email;
 
     Employee.findOne({ email }).then(result => {
-        if (result) {
-            res.send({
-                "message": result
-            });
-        } else {
-            let result = {
-                "error": "No Employee present with the given email"
-            }
-            res.send(result);
-        }
-       
+        res.send({
+            "message": result
+        });
+
+
     }
     ).catch(err => {
         res.send({
@@ -74,7 +68,7 @@ router.route('/id/:empid').get((req, res) => {
     Employee.findById(empid).then(result => {
         if (result) {
             res.send({
-                "data" : result
+                "data": result
             });
         } else {
             let result = {
@@ -82,7 +76,7 @@ router.route('/id/:empid').get((req, res) => {
             }
             res.send(result);
         }
-        
+
     }
     ).catch(err => {
         res.send({
