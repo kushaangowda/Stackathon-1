@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
-import axios from "axios";
+// import axios from "axios";
 import Sidebar from "./components/Sidebar";
 import { Home } from "./pages/Home";
 import { Leave } from "./pages/Leave";
@@ -25,7 +25,7 @@ export const EmployeeCommon = () => {
 		// 		})
 		// 		.catch((err) => console.log(err));
 		// }
-	});
+	}, [render]);
 
 	return (
 		render && (
