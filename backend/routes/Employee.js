@@ -48,10 +48,16 @@ router.route('/email/:email').get((req, res) => {
     let email = req.params.email;
 
     Employee.findOne({ email }).then(result => {
-        res.send({
-            "message": result
-        });
-
+        if (result) {
+            res.send({
+                "message": result
+            });
+        } else {
+            let result = {
+                "error": "No Employee present with the given email"
+            }
+            res.send(result);
+        }
 
     }
     ).catch(err => {
