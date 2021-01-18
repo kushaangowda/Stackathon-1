@@ -58,7 +58,7 @@ router.route('/email/:email').get((req, res) => {
             }
             res.send(result);
         }
-       
+
     }
     ).catch(err => {
         res.send({
@@ -74,7 +74,7 @@ router.route('/id/:empid').get((req, res) => {
     Employee.findById(empid).then(result => {
         if (result) {
             res.send({
-                "data" : result
+                "data": result
             });
         } else {
             let result = {
@@ -82,7 +82,7 @@ router.route('/id/:empid').get((req, res) => {
             }
             res.send(result);
         }
-        
+
     }
     ).catch(err => {
         res.send({

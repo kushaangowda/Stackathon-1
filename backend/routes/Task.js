@@ -6,7 +6,7 @@ router.route('/add').post((req, res) => {
     let description = req.body.description;
     let deadline = req.body.deadline;
     let teamID = req.body.teamID;
-    let status = "Pending";
+    let status = "pending";
     let task = new Task({
         name,
         description,
@@ -82,7 +82,7 @@ router.route('/update/:taskID').put((req, res) => {
     let description = req.body.description;
     let deadline = req.body.deadline;
     let teamID = req.body.teamID;
-    let status= req.body.status;
+    let status = req.body.status;
     let task = {}
     if (name)
         task['name'] = name;
@@ -92,7 +92,7 @@ router.route('/update/:taskID').put((req, res) => {
         task['deadline'] = deadline;
     if (teamID)
         task['teanID'] = teamID;
-    if(status)
+    if (status)
         task['status'] = status;
     Task.findByIdAndUpdate(taskID, task, (err, result) => {
         if (err) {
@@ -108,6 +108,18 @@ router.route('/update/:taskID').put((req, res) => {
             })
         }
         console.log("DONE")
+    })
+})
+
+router.route('/setstatus/:id/:status').get((req, res) => {
+    let id = req.params.id;
+    let status = req.params.status;
+    Task.findByIdAndUpdate(id, { $set: { status } }).then((err) => {
+        if (err) {
+            res.send({
+                "error": err.message
+            })
+        }
     })
 })
 

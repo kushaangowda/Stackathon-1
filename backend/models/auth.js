@@ -3,6 +3,7 @@ const Schema = mongoose.Schema;
 
 const AuthSchema = new Schema({
     admin: [String],
+    employee: [String],
 
 })
 

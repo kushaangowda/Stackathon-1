@@ -47,9 +47,9 @@ router.route('/:empID').get((req, res) => {
 })
 
 
-router.route('/:empID').delete((req, res) => {
-    let empID = req.params.empID;
-    Request.findOneAndDelete({ empID }).then(result => {
+router.route('/:id').delete((req, res) => {
+    let id = req.params.id;
+    Request.findByIdAndDelete(id).then(result => {
         res.send({
             "message": "Deleted:" + result
         })
@@ -60,11 +60,12 @@ router.route('/:empID').delete((req, res) => {
     })
 })
 
-router.route('/update/:empID').put((req, res) => {
-    let empID = req.params.empID;
+router.route('/update/:id').put((req, res) => {
+    let id = req.params.id;
     let description = req.body.description;
     let Status = req.body.Status;
     let request = {}
+
 
     if (Status)
         request['Status'] = Status;
@@ -72,7 +73,7 @@ router.route('/update/:empID').put((req, res) => {
         request['description'] = description;
 
 
-    Request.findOneAndUpdate({ empID }, request, (err, result) => {
+    Request.findByIdAndUpdate(id, request, (err, result) => {
         if (err) {
             console.log(err)
             res.send({
@@ -97,8 +98,10 @@ router.route('/:id/accept').get((req, res) => {
             res.send({
                 "error": err.message
             })
-        }else{
-            res.redirect(host + 'payroll');
+        } else {
+            res.send(
+                'Accepted'
+            );
         }
     })
 })
@@ -111,8 +114,8 @@ router.route('/:id/reject').get((req, res) => {
             res.send({
                 "error": err.message
             })
-        }else{
-            res.redirect(host + 'payroll');
+        } else {
+            res.send('Rejected');
         }
     })
 })
