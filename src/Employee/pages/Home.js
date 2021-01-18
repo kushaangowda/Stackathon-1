@@ -51,22 +51,53 @@ export const Home = () => {
 	}, []);
 
 	return (
-		<div className="Home">
+		<div className="Home container">
 			<div className="user" style={{ textAlign: "center" }}>
 				<h1>Welcome {user.given_name}</h1>
-				<img src={user.picture} style={{ borderRadius: "50%" }} alt="profile pic" />
-				<p>Email: {employee.email}</p>
-				<p>Role: {employee.Role}</p>
-				<p>Post: {employee.Post}</p>
-				<p>Salary: Rs.{employee.Salary}</p>
-				<p>Attendance: {employee.attendance}</p>
-				<p>Your Team: {team.name}</p>
-				<p>
-					Members:{" "}
-					{team["members"].map((eid) => {
-						return empdict[eid] + ", ";
-					})}
-				</p>
+				<img src={user.picture} style={{ borderRadius: "50%", marginBottom: "10px" }} alt="profile pic" />
+				<table className="table table-hover table-bordered">
+					<caption>General Stuff</caption>
+					<thead className="thead-dark">
+						<tr>
+							<th className="text-uppercase">Key</th>
+							<th className="text-uppercase">Value</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>Email</td>
+							<td>{employee.email}</td>
+						</tr>
+						<tr>
+							<td>Role</td>
+							<td>{employee.Role}</td>
+						</tr>
+						<tr>
+							<td>Post</td>
+							<td>{employee.Post}</td>
+						</tr>
+						<tr>
+							<td>Salary</td>
+							<td>Rs. {employee.Salary}</td>
+						</tr>
+						<tr>
+							<td>Attendance</td>
+							<td>{employee.attendance}</td>
+						</tr>
+						<tr>
+							<td>Your Team</td>
+							<td>{team.name}</td>
+						</tr>
+						<tr>
+							<td>Members</td>
+							<td>
+								{team["members"].map((eid) => {
+									return empdict[eid] + ", ";
+								})}
+							</td>
+						</tr>
+					</tbody>
+				</table>
 
 				{/* <JSONPretty data={user} /> */}
 			</div>
