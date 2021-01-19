@@ -14,8 +14,8 @@ export const Home = () => {
 		attendance: 0,
 	});
 	const [team, setTeam] = useState({
-		name: "",
-		members: [],
+		name: "N/A",
+		members: ["N/A"],
 	});
 	const [empdict, setEmpdict] = useState({});
 	const [reload, setReload] = useState(false);
@@ -41,7 +41,7 @@ export const Home = () => {
 					.get(link)
 					.then((res) => {
 						console.log("attendance", res.data.attendance[res.data.attendance.length - 1]);
-						setLastDate(res.data.attendance[res.data.attendance.length - 1]);
+						if (res.data.attendance.length > 0) setLastDate(res.data.attendance[res.data.attendance.length - 1]);
 					})
 					.catch((err) => console.log(err));
 			})

@@ -38,43 +38,54 @@ export const Tasknav = ({ tasks, deleteTask }) => {
 						</div>
 					</div>
 				</div>
-				<table className="table table-striped table-hover">
-					<thead>
-						<tr>
-							{/*<th>#</th>*/}
-							<th>Name</th>
-							<th>Description</th>
-							<th>Team</th>
-							<th>Deadline</th>
-							<th>Status</th>
-							<th>Action</th>
-						</tr>
-
-						{tasks.map((Tasks) => {
-							return (
-								<tr data-status={Tasks.Status} key={Tasks._id}>
-									{/*<td>{Tasks.Id}</td>*/}
-									<td>{Tasks.name}</td>
-									<td>{Tasks.description}</td>
-									<td>{Tasks.teamID} </td>
-									<td>{Tasks.deadline.slice(0, 10)}</td>
-									<td>
-										<span className={Tasks.Status || "pending"}>{String(Tasks.status) === "0" ? "pending" : "completed"}</span>
-									</td>
-									<td>
-										<Link to={`./task/edit/${Tasks._id}`} className="btn btn">
-											<MdIcons.MdModeEdit />
-										</Link>
-										<button onClick={() => deleteTask(Tasks._id)}>
-											{" "}
-											<MdIcons.MdDeleteForever />
-										</button>
-									</td>
-								</tr>
-							);
-						})}
-					</thead>
-				</table>
+				<div className="table-responsive">
+					<table className="table table-bordered table-hover">
+						<caption>List of Tasks</caption>
+						<thead className="thead-dark">
+							<tr>
+								{/*<th>#</th>*/}
+								<th className="text-uppercase">Name</th>
+								<th className="text-uppercase">Description</th>
+								<th className="text-uppercase">Team</th>
+								<th className="text-uppercase">Deadline</th>
+								<th className="text-uppercase">Status</th>
+								<th className="text-uppercase">Action</th>
+							</tr>
+						</thead>
+						<tbody>
+							{tasks.map((Tasks) => {
+								return (
+									<tr data-status={Tasks.Status} key={Tasks._id}>
+										{/*<td>{Tasks.Id}</td>*/}
+										<td>{Tasks.name}</td>
+										<td>{Tasks.description}</td>
+										<td>{Tasks.teamID} </td>
+										<td>{Tasks.deadline.slice(0, 10)}</td>
+										<td>
+											<span
+												className={
+													"btn btn-" +
+													(String(Tasks.status) == "Pending" ? "warning" : String(Tasks.status) == "Active" ? "success" : "danger")
+												}
+											>
+												{String(Tasks.status)}
+											</span>
+										</td>
+										<td>
+											<Link to={`./task/edit/${Tasks._id}`} className="btn btn">
+												<MdIcons.MdModeEdit />
+											</Link>
+											<button onClick={() => deleteTask(Tasks._id)}>
+												{" "}
+												<MdIcons.MdDeleteForever />
+											</button>
+										</td>
+									</tr>
+								);
+							})}
+						</tbody>
+					</table>
+				</div>
 			</div>
 		</div>
 	);
