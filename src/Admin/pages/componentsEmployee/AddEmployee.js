@@ -7,7 +7,7 @@ export const AddEmployee = ({ handleAdd }) => {
 	const [employee, setEmployee] = useState({
 		email: "",
 		name: "",
-		Role: "",
+		Role: "admin",
 		Post: "",
 		Salary: 0,
 	});

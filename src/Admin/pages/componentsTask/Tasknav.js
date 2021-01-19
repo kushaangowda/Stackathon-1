@@ -11,9 +11,9 @@ import axios from "axios";
 export const Tasknav = ({ deleteTask }) => {
 	const [filter, setFilter] = useState('all');
 	const [currtasks, setcurrtasks] = useState([]);
-	const [loading, setloading] = useState(false);
+
 	const display = () => {
-		setloading(true);
+
 		axios
 			.get("http://localhost:5000/task/")
 			.then((res) => {
@@ -27,14 +27,22 @@ export const Tasknav = ({ deleteTask }) => {
 					temp.map(Tasks => {
 						return (
 							<tr data-status={Tasks.Status} key={Tasks._id}>
+
 								<td>{Tasks.name}</td>
 								<td>{Tasks.description}</td>
 								<td>{Tasks.teamID} </td>
 								<td>{Tasks.deadline.slice(0, 10)}</td>
 								<td>
-									{Tasks.status}
+									<span
+										className={
+											"btn btn-" +
+											(String(Tasks.status) == "Pending" ? "warning" : String(Tasks.status) == "Active" ? "success" : "danger")
+										}
+									>
+										{String(Tasks.status)}
+									</span>
 								</td>
-								<td onClick={() => console.log('sent', Tasks._id, Tasks.name)}>
+								<td>
 									<Link to={`./task/edit/${Tasks._id}`} className="btn btn">
 										<MdIcons.MdModeEdit />
 									</Link>
@@ -49,7 +57,7 @@ export const Tasknav = ({ deleteTask }) => {
 					)
 				)
 				setcurrtasks(final);
-				setloading(false);
+
 			})
 			.catch((err) => console.log(err));
 	}
@@ -90,21 +98,25 @@ export const Tasknav = ({ deleteTask }) => {
 						</div>
 					</div>
 				</div>
-				<table className="table table-striped table-hover">
-					<thead>
-						<tr>
-							{/*<th>#</th>*/}
-							<th>Name</th>
-							<th>Description</th>
-							<th>Team</th>
-							<th>Deadline</th>
-							<th>Status</th>
-							<th>Action</th>
-						</tr>
-
-						{!loading ? currtasks : <h1>loading</h1>}
-					</thead>
-				</table>
+				<div className="table-responsive">
+					<table className="table table-bordered table-hover">
+						<caption>List of Tasks</caption>
+						<thead className="thead-dark">
+							<tr>
+								{/*<th>#</th>*/}
+								<th className="text-uppercase">Name</th>
+								<th className="text-uppercase">Description</th>
+								<th className="text-uppercase">Team</th>
+								<th className="text-uppercase">Deadline</th>
+								<th className="text-uppercase">Status</th>
+								<th className="text-uppercase">Action</th>
+							</tr>
+						</thead>
+						<tbody>
+							{currtasks}
+						</tbody>
+					</table>
+				</div>
 			</div>
 		</div>
 	);

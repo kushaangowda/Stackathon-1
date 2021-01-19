@@ -147,7 +147,6 @@ function Home() {
 	};
 
 	useEffect(() => {
-
 		const fetchEmployees = async () => {
 			axios
 				.get(host + "employee")
@@ -199,8 +198,7 @@ function Home() {
 		};
 		fetchEmployees();
 		// eslint-disable-next-line
-	}, [])
-
+	}, []);
 
 	useEffect(() => {
 		if (isError) {
@@ -211,7 +209,7 @@ function Home() {
 	}, [isError, employees]);
 	return (
 		<div>
-			<span style={{ fontSize: 40, fontFamily: "Roboto", marginLeft: 100 }}>Leave and Payroll Requests</span>
+			<h2 className="pageTitle">Leave and Payroll Requests</h2>
 			<table className="table table-hover table-bordered mt-5">
 				<caption>List of Employees</caption>
 				<thead className="thead-dark">
@@ -226,7 +224,14 @@ function Home() {
 				</thead>
 				<tbody>{empDetails}</tbody>
 			</table>
-			<div className="modal fade bd-example-modal-xl" id="exampleModal1" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div
+				className="modal fade bd-example-modal-xl"
+				id="exampleModal1"
+				tabIndex="-1"
+				role="dialog"
+				aria-labelledby="exampleModalLabel"
+				aria-hidden="true"
+			>
 				<div className="modal-dialog modal-xl " role="document">
 					<div className="modal-content">
 						<div className="modal-header">
@@ -257,7 +262,14 @@ function Home() {
 					</div>
 				</div>
 			</div>
-			<div className="modal fade bd-example-modal-xl" id="exampleModal2" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div
+				className="modal fade bd-example-modal-xl"
+				id="exampleModal2"
+				tabIndex="-1"
+				role="dialog"
+				aria-labelledby="exampleModalLabel"
+				aria-hidden="true"
+			>
 				<div className="modal-dialog modal-xl " role="document">
 					<div className="modal-content">
 						<div className="modal-header">
