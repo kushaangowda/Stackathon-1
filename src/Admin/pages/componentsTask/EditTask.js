@@ -89,7 +89,7 @@ export const EditTask = ({ editTask, tasks }) => {
 												value={status}
 											>
 												<option>Pending</option>
-												<option>Done</option>
+												<option>Completed</option>
 												<option>Active</option>
 											</select>
 										</div>

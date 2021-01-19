@@ -24,13 +24,13 @@ export const Tasknav = ({ tasks, deleteTask }) => {
 								<input type="radio" name="status" value="all" defaultChecked /> All
 							</label>{" "}
 							<label className="btn btn-success">
-								<input type="radio" name="status" value="active" /> Active
+								<input type="radio" name="status" value="Active" /> Active
 							</label>
 							<label className="btn btn-warning">
-								<input type="radio" name="status" value="inactive" /> Pending
+								<input type="radio" name="status" value="Pending" /> Pending
 							</label>
 							<label className="btn btn-danger">
-								<input type="radio" name="status" value="expired" /> Done
+								<input type="radio" name="status" value="Completed" /> Completed
 							</label>
 							<Link to="/task/add" className="btn btn-secondary m-1">
 								<GrIcons.GrFormAdd /> Add Task
