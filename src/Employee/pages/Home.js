@@ -33,7 +33,7 @@ export const Home = () => {
 					.get(link)
 					.then((res) => {
 						console.log("team", res.data);
-						setTeam(res.data);
+						if (String(res.data.error) !== 'Cast to ObjectId failed for value "0" at path "_id" for model "team"') setTeam(res.data);
 					})
 					.catch((err) => console.log(err));
 				link = "http://localhost:5000/attendance/" + emp.data.message["_id"];

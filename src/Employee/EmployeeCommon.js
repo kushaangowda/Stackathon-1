@@ -13,6 +13,8 @@ export const EmployeeCommon = () => {
 
 	const [render, setRender] = useState(false);
 
+	if (isAuthenticated) console.log(user["sub"]);
+
 	useEffect(() => {
 		if (isAuthenticated) {
 			var link = "http://localhost:5000/auth/check/" + user["sub"];

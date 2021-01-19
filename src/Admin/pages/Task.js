@@ -14,7 +14,7 @@ export const Task = () => {
 		axios
 			.get("http://localhost:5000/task/")
 			.then((res) => {
-				setTasks(res.data);
+				if (String(res.data.message) !== "No tasks currently present.") setTasks(res.data);
 			})
 			.catch((err) => console.log(err));
 	}, []);
