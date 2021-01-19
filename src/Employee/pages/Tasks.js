@@ -19,61 +19,45 @@ export const Tasks = () => {
 	const displaydata = () => {
 		axios
 			.get("http://localhost:5000/employee/email/" + user["email"])
-			.then(res1 => {
+			.then(async (res1) => {
 				if (res1.data.error) {
 					seterror('Invalid Email ID. Please contact administration');
 					return;
 				}
 				let team = res1.data.message.teamID;
+				console.log('team', team);
+				let teamres = await axios.get("http://localhost:5000/team/" + team);
+				let teamname = teamres.data.name;
 				axios
-					.get("http://localhost:5000/task/" + team)
+					.get("http://localhost:5000/task/" + teamname)
 					.then((res) => {
-						console.log(res);
+						console.log('here', res, res1);
 						setTasks(res.data);
 						let temp = [];
 						let final = [];
-						if (filter == 'all') {
-							final.push(
-								res.data.map((Tasks) => {
-									return (
-										<tr data-status={Tasks.Status} key={Tasks._id}>
-											{/*<td>{Tasks.Id}</td>*/}
-											<td>{Tasks.name}</td>
-											<td>{Tasks.description}</td>
-											<td>{Tasks.deadline.slice(0, 10)}</td>
-											<td>
-												<span className={Tasks.Status || "pending"}>{Tasks.status}</span>
-											</td>
-											<td>
-												<button class="btn btn-primary" data-toggle="modal" onClick={() => { setcurrTask(Tasks._id); ChangeData(Tasks._id) }} data-target="#exampleModal" >Set Status</button>
-											</td>
-										</tr>
-									);
-								})
-							)
-						} else {
-							temp = res.data.filter(item => {
-								return item.status == filter;
+						console.log('here', res);
+						temp = res.data.filter(item => {
+							return (item.status == filter || filter == 'all');
+						})
+						final.push(
+							temp.map((Tasks) => {
+								return (
+									<tr data-status={Tasks.Status} key={Tasks._id}>
+										{/*<td>{Tasks.Id}</td>*/}
+										<td>{Tasks.name}</td>
+										<td>{Tasks.description}</td>
+										<td>{Tasks.deadline.slice(0, 10)}</td>
+										<td>
+											<span className={Tasks.Status || "pending"}>{Tasks.status}</span>
+										</td>
+										<td>
+											<button class="btn btn-primary" data-toggle="modal" onClick={() => { setcurrTask(Tasks._id); ChangeData(Tasks._id) }} data-target="#exampleModal" >Set Status</button>
+										</td>
+									</tr>
+								);
 							})
-							final.push(
-								temp.map((Tasks) => {
-									return (
-										<tr data-status={Tasks.Status} key={Tasks._id}>
-											{/*<td>{Tasks.Id}</td>*/}
-											<td>{Tasks.name}</td>
-											<td>{Tasks.description}</td>
-											<td>{Tasks.deadline.slice(0, 10)}</td>
-											<td>
-												<span className={Tasks.Status || "pending"}>{Tasks.status}</span>
-											</td>
-											<td>
-												<button class="btn btn-primary" data-toggle="modal" onClick={() => { setcurrTask(Tasks._id); ChangeData(Tasks._id) }} data-target="#exampleModal" >Set Status</button>
-											</td>
-										</tr>
-									);
-								})
-							)
-						}
+						)
+
 						setDisplay(final);
 						console.log(final);
 					})
@@ -101,9 +85,9 @@ export const Tasks = () => {
 	const ChangeData = (taskid) => {
 		let temp = <> <span>Set Status:</span>
 			<select name="status" id="status">
-				<option value="pending">Pending</option>
-				<option value="completed">Completed</option>
-				<option value="active">Active</option>
+				<option value="Pending">Pending</option>
+				<option value="Completed">Completed</option>
+				<option value="Active">Active</option>
 			</select>
 			<button data-dismiss="modal" style={{ display: "block", margin: 20 }} class="btn btn-success" onClick={(e) => ChangeStatus(taskid, e.target.previousSibling.value)} >Save</button>
 		</>
@@ -148,13 +132,13 @@ export const Tasks = () => {
 									<input type="radio" name="status" value="all" defaultChecked /> All
 							</label>{" "}
 								<label className="btn btn-success">
-									<input type="radio" name="status" value="active" /> Active
+									<input type="radio" name="status" value="Active" /> Active
 							</label>
 								<label className="btn btn-warning">
-									<input type="radio" name="status" value="pending" /> Pending
+									<input type="radio" name="status" value="Pending" /> Pending
 							</label>
 								<label className="btn btn-danger">
-									<input type="radio" name="status" value="completed" /> Completed
+									<input type="radio" name="status" value="Completed" /> Completed
 							</label>
 
 							</div>
