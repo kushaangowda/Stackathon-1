@@ -36,6 +36,14 @@ export const Home = () => {
 						setTeam(res.data);
 					})
 					.catch((err) => console.log(err));
+				link = "http://localhost:5000/attendance/" + emp.data.message["_id"];
+				axios
+					.get(link)
+					.then((res) => {
+						console.log("attendance", res.data.attendance[res.data.attendance.length - 1]);
+						setLastDate(res.data.attendance[res.data.attendance.length - 1]);
+					})
+					.catch((err) => console.log(err));
 			})
 			.catch((err) => console.log(err));
 
@@ -49,15 +57,6 @@ export const Home = () => {
 				});
 				setEmpdict(dict);
 				console.log("emp_dict", dict);
-			})
-			.catch((err) => console.log(err));
-
-		link = "http://localhost:5000/attendance/" + employee._id;
-		axios
-			.get(link)
-			.then((res) => {
-				console.log("attendance", res.data.attendance[res.data.attendance.length - 1]);
-				setLastDate(res.data.attendance[res.data.attendance.length - 1]);
 			})
 			.catch((err) => console.log(err));
 	}, []);
