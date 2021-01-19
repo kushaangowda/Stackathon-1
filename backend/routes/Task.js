@@ -53,7 +53,7 @@ router.route('/:teamID').get((req, res) => {
             res.send(result);
         } else {
             res.send({
-                "error": "No Task presesnt with the given team ID"
+                "error": "No Task present with the given team ID"
             });
         }
     }).catch(err => {
