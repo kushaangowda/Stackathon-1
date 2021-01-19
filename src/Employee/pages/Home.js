@@ -6,6 +6,7 @@ import axios from "axios";
 export const Home = () => {
 	const { user } = useAuth0();
 	const [employee, setEmployee] = useState({
+		_id: "",
 		email: "",
 		Role: "",
 		Post: "",
@@ -17,6 +18,7 @@ export const Home = () => {
 		members: [],
 	});
 	const [empdict, setEmpdict] = useState({});
+	const [reload, setReload] = useState(false);
 
 	useEffect(() => {
 		var link = "http://localhost:5000/employee/email/" + user["email"];
@@ -50,10 +52,44 @@ export const Home = () => {
 			.catch((err) => console.log(err));
 	}, []);
 
+	if (reload) {
+		setReload(false);
+		var link = "http://localhost:5000/employee/email/" + user["email"];
+		axios
+			.get(link)
+			.then((emp) => {
+				setEmployee(emp.data.message);
+				console.log("emp", emp.data.message);
+				link = "http://localhost:5000/team/" + emp.data.message["teamID"];
+				axios
+					.get(link)
+					.then((res) => {
+						console.log("team", res.data);
+						setTeam(res.data);
+					})
+					.catch((err) => console.log(err));
+			})
+			.catch((err) => console.log(err));
+	}
+
+	const markAttendance = () => {
+		console.log(employee._id);
+		var link = "http://localhost:5000/attendance/" + employee._id + "/create";
+		axios
+			.get(link)
+			.then((res) => {
+				console.log(res);
+				setReload(true);
+			})
+			.catch((err) => console.log(err));
+	};
+
 	return (
 		<div className="Home container">
 			<div className="user" style={{ textAlign: "center" }}>
-				<h1>Welcome {user.given_name}</h1>
+				<h1>
+					<strong>Welcome {user.given_name}</strong>
+				</h1>
 				<img src={user.picture} style={{ borderRadius: "50%", marginBottom: "10px" }} alt="profile pic" />
 				<table className="table table-hover table-bordered">
 					<caption>General Stuff</caption>
@@ -64,6 +100,14 @@ export const Home = () => {
 						</tr>
 					</thead>
 					<tbody>
+						<tr>
+							<td>Mark Attendance</td>
+							<td>
+								<button className="btn btn-primary" onClick={markAttendance}>
+									Mark Attendance
+								</button>
+							</td>
+						</tr>
 						<tr>
 							<td>Email</td>
 							<td>{employee.email}</td>
