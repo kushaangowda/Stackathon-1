@@ -1,14 +1,66 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 // import { GlobalContext } from "./context/GlobalState";
 import * as MdIcons from "react-icons/md";
 import "../pages.css";
 import * as GrIcons from "react-icons/gr";
+import { Tasks } from "../../../Employee/pages/Tasks";
+import axios from "axios";
 
-export const Tasknav = ({ tasks, deleteTask }) => {
-	// const { Tasks, deleteTask } = useContext(GlobalContext);
+export const Tasknav = ({ deleteTask }) => {
+	const [filter, setFilter] = useState('all');
+	const [currtasks, setcurrtasks] = useState([]);
+	const [loading, setloading] = useState(false);
+	const display = () => {
+		setloading(true);
+		axios
+			.get("http://localhost:5000/task/")
+			.then((res) => {
+				let tasks = res.data;
+				let final = [];
+				let temp = [];
+				temp = tasks.filter(item => {
+					return (item.status == filter || filter == 'all');
+				});
+				final.push(
+					temp.map(Tasks => {
+						return (
+							<tr data-status={Tasks.Status} key={Tasks._id}>
+								<td>{Tasks.name}</td>
+								<td>{Tasks.description}</td>
+								<td>{Tasks.teamID} </td>
+								<td>{Tasks.deadline.slice(0, 10)}</td>
+								<td>
+									{Tasks.status}
+								</td>
+								<td onClick={() => console.log('sent', Tasks._id, Tasks.name)}>
+									<Link to={`./task/edit/${Tasks._id}`} className="btn btn">
+										<MdIcons.MdModeEdit />
+									</Link>
+									<button onClick={() => deleteTask(Tasks._id)}>
+										{" "}
+										<MdIcons.MdDeleteForever />
+									</button>
+								</td>
+							</tr>
+						)
+					}
+					)
+				)
+				setcurrtasks(final);
+				setloading(false);
+			})
+			.catch((err) => console.log(err));
+	}
 
+	useEffect(() => {
+		display();
+	}, []);
+
+	useEffect(() => {
+		display();
+	}, [filter]);
 	return (
 		<div>
 			<div className="Tasks ml-2 mr-2">
@@ -19,7 +71,7 @@ export const Tasknav = ({ tasks, deleteTask }) => {
 						</h2>
 					</div>
 					<div className="col-sm-5">
-						<div className="btn-group" data-toggle="buttons">
+						<div onChange={(e) => setFilter(e.target.value)} className="btn-group" data-toggle="buttons">
 							<label className="btn btn-info active">
 								<input type="radio" name="status" value="all" defaultChecked /> All
 							</label>{" "}
@@ -50,29 +102,7 @@ export const Tasknav = ({ tasks, deleteTask }) => {
 							<th>Action</th>
 						</tr>
 
-						{tasks.map((Tasks) => {
-							return (
-								<tr data-status={Tasks.Status} key={Tasks._id}>
-									{/*<td>{Tasks.Id}</td>*/}
-									<td>{Tasks.name}</td>
-									<td>{Tasks.description}</td>
-									<td>{Tasks.teamID} </td>
-									<td>{Tasks.deadline.slice(0, 10)}</td>
-									<td>
-										<span className={Tasks.Status || "pending"}>{String(Tasks.status) === "0" ? "pending" : "completed"}</span>
-									</td>
-									<td>
-										<Link to={`./task/edit/${Tasks._id}`} className="btn btn">
-											<MdIcons.MdModeEdit />
-										</Link>
-										<button onClick={() => deleteTask(Tasks._id)}>
-											{" "}
-											<MdIcons.MdDeleteForever />
-										</button>
-									</td>
-								</tr>
-							);
-						})}
+						{!loading ? currtasks : <h1>loading</h1>}
 					</thead>
 				</table>
 			</div>

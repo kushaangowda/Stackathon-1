@@ -11,7 +11,7 @@ export const EditTask = ({ editTask, tasks }) => {
 	const task = tasks.filter((task1) => {
 		return String(task1._id) === String(id);
 	});
-
+	console.log('received', task);
 	const [name, setName] = useState(task[0].name);
 	const [deadline, setDeadline] = useState(task[0].deadline.slice(0, 10));
 	const [description, setDescription] = useState(task[0].description);
@@ -37,6 +37,7 @@ export const EditTask = ({ editTask, tasks }) => {
 	};
 
 	return (
+
 		<>
 			<div class="col-lg-7 mx-auto">
 				<div class="card mt-5 mx-auto p-4 bg-light">
@@ -64,7 +65,7 @@ export const EditTask = ({ editTask, tasks }) => {
 											<label>Description :</label>{" "}
 											<textarea
 												id="Description"
-												name="Name"
+												Name="Name"
 												onChange={(e) => {
 													setDescription(e.target.value);
 												}}
@@ -82,7 +83,7 @@ export const EditTask = ({ editTask, tasks }) => {
 											<label HtmlFor="Name">Status :</label>{" "}
 											<select
 												id="Status"
-												name="Name"
+												Name="Name"
 												onChange={(e) => {
 													setStatus(e.target.value);
 												}}
@@ -98,7 +99,7 @@ export const EditTask = ({ editTask, tasks }) => {
 										<label>Deadline : </label>
 										<input
 											id="Deadline"
-											name="Name"
+											Name="Name"
 											onChange={(e) => {
 												setDeadline(e.target.value);
 											}}
