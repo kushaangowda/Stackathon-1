@@ -4,6 +4,7 @@ import * as BiIcons from "react-icons/bi";
 import * as FaIcons from "react-icons/fa";
 import * as IoIcons from "react-icons/io";
 import * as RiIcons from "react-icons/ri";
+import { VscUnverified } from "react-icons/vsc";
 
 export const SidebarData = [
 	{
@@ -34,6 +35,12 @@ export const SidebarData = [
 		title: "Employee",
 		path: "/employee",
 		icons: <IoIcons.IoIosPeople />,
+		CName: "nav-text",
+	},
+	{
+		title: "Verify Employee",
+		path: "/verify",
+		icons: <VscUnverified />,
 		CName: "nav-text",
 	},
 	{
