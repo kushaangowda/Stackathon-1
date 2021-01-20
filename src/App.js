@@ -4,6 +4,7 @@ import { LoadingScreen } from "./Common/LoadingScreen";
 import { Admincommon } from "./Admin/Admincommon";
 import { useAuth0 } from "@auth0/auth0-react";
 import { EmployeeCommon } from "./Employee/EmployeeCommon";
+import { UnknownCommon } from "./Unknown/UnknownCommon";
 
 function App() {
 	const { isLoading } = useAuth0();
@@ -20,6 +21,7 @@ function App() {
 			<CommonScreen />
 			<Admincommon />
 			<EmployeeCommon />
+			<UnknownCommon />
 		</div>
 	);
 }
