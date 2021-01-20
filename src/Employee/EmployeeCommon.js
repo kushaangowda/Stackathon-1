@@ -9,9 +9,18 @@ import { Tasks } from "./pages/Tasks";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 export const EmployeeCommon = () => {
+	// const history = useHistory();
+
 	const { isAuthenticated, user } = useAuth0();
 
 	const [render, setRender] = useState(false);
+
+	const [unknown, setUnknown] = useState(false);
+
+	if (unknown) {
+		setUnknown(false);
+		window.location.href = "https://dev-f-rf7g-f.us.auth0.com/v2/logout?returnTo=http%3A%2F%2Flocalhost%3A3000";
+	}
 
 	if (isAuthenticated) console.log(user["sub"]);
 
@@ -21,9 +30,8 @@ export const EmployeeCommon = () => {
 			axios
 				.get(link)
 				.then((res) => {
-					if (String(res.data["scope"]) === "employee") {
-						setRender("true");
-					}
+					if (String(res.data["scope"]) === "employee") setRender("true");
+					else if (String(res.data["scope"]) === "unknown") setUnknown(true);
 				})
 				.catch((err) => console.log(err));
 		}
