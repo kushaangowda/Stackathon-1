@@ -7,7 +7,7 @@ export const Verify = () => {
 		{ name: "kushaan", email: "kush@gmail.com", picture: "https://picsum.photos/200", sub: "abc123def456", nickname: "kush" },
 	]);
 
-	const verify = (emp) => {
+	const verify = (emp, employee) => {
 		console.log(emp);
 		const id = {
 			auth_id: emp["sub"],
@@ -17,6 +17,13 @@ export const Verify = () => {
 			.then((res) => {
 				console.log(res);
 				setReload(true);
+				axios
+					.post("http://localhost:5000/employee/add", employee)
+					.then((res) => {
+						console.log(res.data);
+						setReload(true);
+					})
+					.catch((err) => console.log(err));
 			})
 			.catch((err) => console.log(err));
 	};
@@ -46,7 +53,7 @@ export const Verify = () => {
 
 	return (
 		<div className="container-fluid">
-			<h2 className="pageTitle">Verify page</h2>
+			<h2 className="pageTitle">Verify Employee</h2>
 			<div className="row">
 				{emps.map((emp) => {
 					return <Card emp={emp} key={emp.sub} verify={verify} />;
