@@ -28,6 +28,17 @@ export const Verify = () => {
 			.catch((err) => console.log(err));
 	};
 
+	const reject = (sub) => {
+		var link = "http://localhost:5000/wannabeEmployee/remove/" + sub;
+		axios
+			.get(link)
+			.then((res) => {
+				console.log(res);
+				setReload(true);
+			})
+			.catch((err) => console.log(err));
+	};
+
 	const [reload, setReload] = useState(false);
 
 	if (reload) {
@@ -56,7 +67,7 @@ export const Verify = () => {
 			<h2 className="pageTitle">Verify Employee</h2>
 			<div className="row">
 				{emps.map((emp) => {
-					return <Card emp={emp} key={emp.sub} verify={verify} />;
+					return <Card emp={emp} key={emp.sub} verify={verify} reject={reject} />;
 				})}
 			</div>
 		</div>

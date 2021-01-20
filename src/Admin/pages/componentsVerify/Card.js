@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-export const Card = ({ emp, verify }) => {
+export const Card = ({ emp, verify, reject }) => {
 	const [employee, setEmployee] = useState({
 		email: emp["email"],
 		name: emp["name"],
@@ -60,7 +60,10 @@ export const Card = ({ emp, verify }) => {
 					</form>
 				</div>
 				<div className="card-footer">
-					<button className="btn btn-primary" onClick={() => verify(emp, employee)}>
+					<button className="btn btn-danger mr-4" onClick={() => reject(emp["sub"])}>
+						Rejected
+					</button>
+					<button className="btn btn-primary ml-4" onClick={() => verify(emp, employee)}>
 						Verified
 					</button>
 				</div>
