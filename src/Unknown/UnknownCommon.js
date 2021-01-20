@@ -2,27 +2,21 @@ import React, { useState, useEffect } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import axios from "axios";
 import Sidebar from "./components/Sidebar";
-import { Home } from "./pages/Home";
-import { Leave } from "./pages/Leave";
-import { Payroll } from "./pages/Payroll";
-import { Tasks } from "./pages/Tasks";
+import { Home } from "./Home";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
-export const EmployeeCommon = () => {
+export const UnknownCommon = () => {
 	// const history = useHistory();
 
 	const { isAuthenticated, user } = useAuth0();
 
 	const [render, setRender] = useState(false);
 
-	// const [unknown, setUnknown] = useState(false);
-
-	// if (unknown) {
-	// 	setUnknown(false);
-	// 	window.location.href = "https://dev-f-rf7g-f.us.auth0.com/v2/logout?returnTo=http%3A%2F%2Flocalhost%3A3000";
-	// }
-
 	if (isAuthenticated) console.log(user["sub"]);
+
+	const addEmployeeRequest = (emp) => {
+		console.log(emp);
+	};
 
 	useEffect(() => {
 		if (isAuthenticated) {
@@ -30,8 +24,7 @@ export const EmployeeCommon = () => {
 			axios
 				.get(link)
 				.then((res) => {
-					if (String(res.data["scope"]) === "employee") setRender("true");
-					// else if (String(res.data["scope"]) === "unknown") setUnknown(true);
+					if (String(res.data["scope"]) === "unknown") setRender(true);
 				})
 				.catch((err) => console.log(err));
 		}
@@ -44,10 +37,7 @@ export const EmployeeCommon = () => {
 					<div className="Admincommon">
 						<Sidebar />
 						<Switch>
-							<Route path="/" exact component={Home} />
-							<Route path="/Leave" exact component={Leave} />
-							<Route path="/Payroll" exact component={Payroll} />
-							<Route path="/Tasks" exact component={Tasks} />
+							<Route path="/" exact component={() => <Home addEmployeeRequest={addEmployeeRequest} />} />
 						</Switch>
 					</div>
 				</Router>
