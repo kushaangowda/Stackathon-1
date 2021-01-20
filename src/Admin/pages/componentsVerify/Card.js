@@ -10,7 +10,7 @@ export const Card = ({ emp, verify }) => {
 					<p className="card-text">{emp["email"]}</p>
 				</div>
 				<div className="card-footer">
-					<button className="btn btn-primary" onClick={() => verify(emp["sub"])}>
+					<button className="btn btn-primary" onClick={() => verify(emp)}>
 						Verified
 					</button>
 				</div>

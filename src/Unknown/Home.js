@@ -10,6 +10,7 @@ export const Home = ({ addEmployeeRequest }) => {
 		sub: user["sub"],
 		picture: user["picture"],
 		email: user["email"],
+		nickname: user["nickname"],
 	});
 
 	return (

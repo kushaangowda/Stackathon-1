@@ -1,19 +1,51 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Card } from "./componentsVerify/Card";
+import axios from "axios";
 
 export const Verify = () => {
 	const [emps, setEmps] = useState([
-		{ name: "kushaan", email: "kush@gmail.com", picture: "https://picsum.photos/200", sub: "abc123def456" },
-		{ name: "test1", email: "test1@gmail.com", picture: "https://picsum.photos/200", sub: "abc1212def456" },
-		{ name: "test2", email: "test2@gmail.com", picture: "https://picsum.photos/200", sub: "abc12312def456" },
+		{ name: "kushaan", email: "kush@gmail.com", picture: "https://picsum.photos/200", sub: "abc123def456", nickname: "kush" },
 	]);
 
-	const verify = (id) => {
-		console.log(id);
+	const verify = (emp) => {
+		console.log(emp);
+		const id = {
+			auth_id: emp["sub"],
+		};
+		axios
+			.post("http://localhost:5000/auth/addEmployee", id)
+			.then((res) => {
+				console.log(res);
+				setReload(true);
+			})
+			.catch((err) => console.log(err));
 	};
 
+	const [reload, setReload] = useState(false);
+
+	if (reload) {
+		setReload(false);
+		axios
+			.get("http://localhost:5000/wannabeEmployee/")
+			.then((res) => {
+				console.log(res.data);
+				setEmps(res.data);
+			})
+			.catch((err) => console.log(err));
+	}
+
+	useEffect(() => {
+		axios
+			.get("http://localhost:5000/wannabeEmployee/")
+			.then((res) => {
+				console.log(res.data);
+				setEmps(res.data);
+			})
+			.catch((err) => console.log(err));
+	}, []);
+
 	return (
-		<div>
+		<div className="container-fluid">
 			<h2 className="pageTitle">Verify page</h2>
 			<div className="row">
 				{emps.map((emp) => {
