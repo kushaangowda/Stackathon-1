@@ -13,6 +13,7 @@ const wannabeEmployeeRouter = require("./routes/wannabeEmployee");
 require("dotenv").config();
 
 const app = express();
+app.use(cors());
 const port = process.env.PORT || 5000;
 
 app.use(function (req, res, next) {

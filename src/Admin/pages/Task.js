@@ -42,7 +42,7 @@ export const Task = () => {
 		var link = "http://localhost:5000/task/update/" + task.taskID;
 		axios
 			.put(link, task)
-			.then((res) => console.log(res.data))
+			.then((res) => { console.log(res.data); display() })
 			.catch((err) => console.log(err));
 	};
 

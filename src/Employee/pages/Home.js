@@ -20,7 +20,7 @@ export const Home = () => {
 	const [empdict, setEmpdict] = useState({});
 	const [reload, setReload] = useState(false);
 	const [lastDate, setLastDate] = useState("");
-	const [markAttendanceClickable, setMarkAttendanceClickable] = useState(true)
+	const [markAttendanceClickable, setMarkAttendanceClickable] = useState(true);
 
 	useEffect(() => {
 		var link = "http://localhost:5000/employee/email/" + user["email"];

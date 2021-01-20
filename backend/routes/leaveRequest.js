@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const Request = require('../models/leaveRequest');
 
-router.route('/add').post((req,res)=>{
+router.route('/add').post((req, res) => {
     let empID = req.body.empID;
     let description = req.body.description;
     let duration = req.body.duration;
@@ -14,65 +14,65 @@ router.route('/add').post((req,res)=>{
         duration,
         Status
     })
-    request.save().then(()=>{
-            res.send({
-                "message": "Request added successfully!"
-            })
+    request.save().then(() => {
+        res.send({
+            "message": "Request added successfully!"
+        })
     }).catch(err => {
-        if(err){
+        if (err) {
             res.send({
-                "error" : err.message
+                "error": err.message
             });
         }
     })
 })
 
-router.route('/').get((req,res)=>{
-        Request.find({}).then((result,err) => {
-        if(err){
+router.route('/').get((req, res) => {
+    Request.find({}).then((result, err) => {
+        if (err) {
             res.send({
-                "error" : err.message
+                "error": err.message
             });
-        }else{
-                res.send(result);
-            
+        } else {
+            res.send(result);
+
         }
     })
 })
 
-router.route('/:empID').get((req,res)=>{
+router.route('/:empID').get((req, res) => {
     let empID = req.params.empID;
-    Request.find({empID}).then(result => {
+    Request.find({ empID }).then(result => {
         res.send(result)
     }).catch(err => {
         res.send({
-            "error" : err.message
+            "error": err.message
         })
     })
 })
 
 
-router.route('/:empID').delete((req,res)=>{
-    let empID = req.params.empID;
-    Request.findOneAndDelete({empID}).then(result => {
+router.route('/:id').delete((req, res) => {
+    let id = req.params.id;
+    Request.findByIdAndDelete(id).then(result => {
         res.send({
-            "message": "Deleted:"+result
+            "message": "Deleted:" + result
         })
     }).catch(err => {
         res.send({
-            "error" : err.message
+            "error": err.message
         })
     })
 })
 
-router.route('/update/:empID').put((req, res) => {
-    let empID = req.params.empID;
+router.route('/update/:id').put((req, res) => {
+    let id = req.params.id;
     let description = req.body.description;
     let Status = req.body.Status;
     let start = req.body.start;
     let duration = req.body.duration;
     let request = {}
-    
+
     if (Status)
         request['Status'] = Status;
     if (start)
@@ -81,8 +81,8 @@ router.route('/update/:empID').put((req, res) => {
         request['description'] = description;
     if (duration)
         request['duration'] = duration;
-   
-    Request.findOneAndUpdate({empID}, request, (err, result) => {
+
+    Request.findByIdAndUpdate(id, request, (err, result) => {
         if (err) {
             console.log(err)
             res.send({
@@ -107,7 +107,7 @@ router.route('/:id/accept').get((req, res) => {
             res.send({
                 "error": err.message
             })
-        }else{
+        } else {
             res.send(
                 'Accepted'
             );
@@ -123,7 +123,7 @@ router.route('/:id/reject').get((req, res) => {
             res.send({
                 "error": err.message
             })
-        }else{
+        } else {
             res.send('Rejected');
         }
     })

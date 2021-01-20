@@ -28,9 +28,9 @@ export const Payroll = () => {
 				setempid(res.data.message._id);
 
 				axios
-					.get(`http://localhost:5000/payrollrequest/${empID}`)
-					.then((res) => {
-						setRequests(res.data);
+					.get(`http://localhost:5000/payrollrequest/${res.data.message._id}`)
+					.then((res1) => {
+						setRequests(res1.data);
 					})
 					.catch((err) => console.log(err));
 			})
