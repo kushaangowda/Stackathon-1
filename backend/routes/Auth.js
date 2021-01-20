@@ -90,6 +90,32 @@ router.route('/addAdmin').post((req, res) => {
 
 })
 
+router.route('/delAdmin').post((req, res) => {
+
+    let auth_id = req.body.auth_id;
+    console.log(auth_id)
+    Auth.findOneAndUpdate(
+        {},
+        { $pull: { admin: auth_id } },
+        (err, result) => {
+            if (err) {
+                res.send({
+                    "error": err.message
+                })
+            }
+            else {
+                res.send({
+                    "message": `admin with ${auth_id} removed `
+                })
+            }
+        }
+
+    )
+
+})
+
+
+
 router.route('/addEmployee').post((req, res) => {
 
     let auth_id = req.body.auth_id;
@@ -119,6 +145,30 @@ router.route('/addEmployee').post((req, res) => {
             else
                 console.log(result)
         }
+    )
+
+})
+
+router.route('/delEmployee').post((req, res) => {
+
+    let auth_id = req.body.auth_id;
+    console.log(auth_id)
+    Auth.findOneAndUpdate(
+        {},
+        { $pull: { employee: auth_id } },
+        (err, result) => {
+            if (err) {
+                res.send({
+                    "error": err.message
+                })
+            }
+            else {
+                res.send({
+                    "message": `Employee with ${auth_id} removed `
+                })
+            }
+        }
+
     )
 
 })
