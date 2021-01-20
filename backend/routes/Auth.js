@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const Auth = require('../models/auth');
-
+const WannabeEmployee = require('../models/wannabeEmployee')
 
 // "google-oauth2|113818401233931612247"
 // "auth0|5ffab4f0901fa7006e4a3b27"
@@ -90,6 +90,32 @@ router.route('/addAdmin').post((req, res) => {
 
 })
 
+router.route('/delAdmin').post((req, res) => {
+
+    let auth_id = req.body.auth_id;
+    console.log(auth_id)
+    Auth.findOneAndUpdate(
+        {},
+        { $pull: { admin: auth_id } },
+        (err, result) => {
+            if (err) {
+                res.send({
+                    "error": err.message
+                })
+            }
+            else {
+                res.send({
+                    "message": `admin with ${auth_id} removed `
+                })
+            }
+        }
+
+    )
+
+})
+
+
+
 router.route('/addEmployee').post((req, res) => {
 
     let auth_id = req.body.auth_id;
@@ -106,6 +132,39 @@ router.route('/addEmployee').post((req, res) => {
             else {
                 res.send({
                     "message": "New Employee Added"
+                })
+            }
+        }
+
+    )
+    WannabeEmployee.findOneAndDelete(
+        { sub: auth_id },
+        (err, result) => {
+            if (err)
+                console.log(err);
+            else
+                console.log(result)
+        }
+    )
+
+})
+
+router.route('/delEmployee').post((req, res) => {
+
+    let auth_id = req.body.auth_id;
+    console.log(auth_id)
+    Auth.findOneAndUpdate(
+        {},
+        { $pull: { employee: auth_id } },
+        (err, result) => {
+            if (err) {
+                res.send({
+                    "error": err.message
+                })
+            }
+            else {
+                res.send({
+                    "message": `Employee with ${auth_id} removed `
                 })
             }
         }

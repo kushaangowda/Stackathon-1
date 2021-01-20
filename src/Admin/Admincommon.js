@@ -11,6 +11,7 @@ import Payroll from "./pages/payroll";
 import Document from "./pages/Document";
 import { useAuth0 } from "@auth0/auth0-react";
 import axios from "axios";
+import { Verify } from "./pages/Verify";
 
 export const Admincommon = () => {
 	const { isAuthenticated, user } = useAuth0();
@@ -43,6 +44,7 @@ export const Admincommon = () => {
 							<Route path="/Task" exact component={Task} />
 							<Route path="/Team" exact component={Team} />
 							<Route path="/Requests" exact component={Attendance} />
+							<Route path="/Verify" exact component={Verify} />
 							<Route path="/Docs" exact component={Document} />
 
 						</Switch>

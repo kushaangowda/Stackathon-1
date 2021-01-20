@@ -15,7 +15,10 @@ export const UnknownCommon = () => {
 	if (isAuthenticated) console.log(user["sub"]);
 
 	const addEmployeeRequest = (emp) => {
-		console.log(emp);
+		axios
+			.post("http://localhost:5000/wannabeEmployee/new", emp)
+			.then((res) => console.log(res))
+			.catch((err) => console.log(err));
 	};
 
 	useEffect(() => {
