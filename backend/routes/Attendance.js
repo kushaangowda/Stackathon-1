@@ -128,4 +128,24 @@ router.route("/:empID/create").get((req, res) => {
 	});
 });
 
+router.route('/check/:empid').get((req, res) => {
+	Attendance.findOne({ empID: req.params.empid }, (err, results) => {
+		if (err) {
+			res.send(-1);
+		}
+		let today = new Date().toString();
+		let thisAttendance = result["attendance"];
+		let present = false;
+		thisAttendance.forEach(day => {
+			if (day.slice(0, 15) == today.slice(0, 15)) {
+				present = true;
+				res.send(1);
+			}
+		})
+		if (!present) {
+			res.send(0);
+		}
+	})
+})
+
 module.exports = router;
