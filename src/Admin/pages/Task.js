@@ -10,13 +10,18 @@ import axios from "axios";
 export const Task = () => {
 	const [tasks, setTasks] = useState([]);
 
-	useEffect(() => {
+	const display = () => {
 		axios
 			.get("http://localhost:5000/task/")
 			.then((res) => {
 				if (String(res.data.message) !== "No tasks currently present.") setTasks(res.data);
 			})
 			.catch((err) => console.log(err));
+	}
+
+
+	useEffect(() => {
+		display();
 	}, []);
 
 	const addTask = (task) => {
@@ -53,7 +58,10 @@ export const Task = () => {
 			var link = "http://localhost:5000/task/" + id;
 			axios
 				.delete(link)
-				.then((res) => console.log(res.data))
+				.then((res) => {
+					console.log(res.data);
+
+				})
 				.catch((err) => console.log(err));
 		}
 	};
@@ -63,7 +71,7 @@ export const Task = () => {
 			{/*<GlobalProvider>*/}
 			<Router>
 				<Route path="/task" exact component={() => <Tasknav tasks={tasks} deleteTask={deleteTask} />} />
-				<Route path="/task/add" exact component={() => <AddTask addTask={addTask} />} />
+				<Route path="/task/add" exact component={() => <AddTask addTask={addTask} tasks={tasks} />} />
 				<Route path="/task/edit/:Id" exact component={() => <EditTask tasks={tasks} editTask={editTask} />} />
 			</Router>
 			{/*</GlobalProvider>*/}

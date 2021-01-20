@@ -21,6 +21,7 @@ function Payroll() {
 
 	const ChangeData = async (id) => {
 		axios.get(host + "payrollrequest/" + id).then((res) => {
+			console.log('res', res);
 			if (Number(res["data"].length) === 0) {
 				setcurdata(
 					<tr>
