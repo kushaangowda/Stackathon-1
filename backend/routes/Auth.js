@@ -46,7 +46,7 @@ router.route('/check/:id').get((req, res) => {
                     }
                 })
             }
-            console.log(isAdmin, isEmployee);
+
             if (isAdmin) {
                 res.send({
                     "scope": 'admin'

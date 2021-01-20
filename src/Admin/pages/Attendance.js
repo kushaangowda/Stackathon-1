@@ -32,6 +32,7 @@ function Home() {
 
 	const ChangePayrollData = async (id) => {
 		axios.get(host + "payrollrequest/" + id).then((res) => {
+			console.log('res', id, res);
 			if (Number(res["data"].length) === 0) {
 				setcurdata(
 					<tr>
@@ -86,6 +87,7 @@ function Home() {
 
 	const ChangeLeaveData = async (id) => {
 		axios.get(host + "leaverequest/" + id).then((res) => {
+			console.log(res);
 			if (Number(res["data"].length) === 0) {
 				setcurdata(
 					<tr>

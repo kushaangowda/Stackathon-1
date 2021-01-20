@@ -3,7 +3,7 @@ import { useHistory, Link } from "react-router-dom";
 
 export const Add = ({ handleAdd, id }) => {
     let history = useHistory();
-
+    console.log(id);
     const [payrollRequest, setPayrollRequest] = useState({
         empID: id,
         description: "",

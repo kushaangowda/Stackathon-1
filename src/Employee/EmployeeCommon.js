@@ -15,7 +15,7 @@ export const EmployeeCommon = () => {
 
 	const [render, setRender] = useState(false);
 
-	const [unknown, setUnknown] = useState(false);
+	// const [unknown, setUnknown] = useState(false);
 
 	if (unknown) {
 		setUnknown(false);
@@ -32,7 +32,7 @@ export const EmployeeCommon = () => {
 				.get(link)
 				.then((res) => {
 					if (String(res.data["scope"]) === "employee") setRender("true");
-					else if (String(res.data["scope"]) === "unknown") setUnknown(true);
+					// else if (String(res.data["scope"]) === "unknown") setUnknown(true);
 				})
 				.catch((err) => console.log(err));
 		}
