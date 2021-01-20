@@ -20,6 +20,7 @@ export const Home = () => {
 	const [empdict, setEmpdict] = useState({});
 	const [reload, setReload] = useState(false);
 	const [lastDate, setLastDate] = useState("");
+	const [markAttendanceClickable, setMarkAttendanceClickable] = useState(true)
 
 	useEffect(() => {
 		var link = "http://localhost:5000/employee/email/" + user["email"];
@@ -27,12 +28,10 @@ export const Home = () => {
 			.get(link)
 			.then((emp) => {
 				setEmployee(emp.data.message);
-				console.log("emp", emp.data.message);
 				link = "http://localhost:5000/team/" + emp.data.message["teamID"];
 				axios
 					.get(link)
 					.then((res) => {
-						console.log("team", res.data);
 						if (String(res.data.error) !== 'Cast to ObjectId failed for value "0" at path "_id" for model "team"') setTeam(res.data);
 					})
 					.catch((err) => console.log(err));
@@ -40,7 +39,6 @@ export const Home = () => {
 				axios
 					.get(link)
 					.then((res) => {
-						console.log("attendance", res.data.attendance[res.data.attendance.length - 1]);
 						if (res.data.attendance.length > 0) setLastDate(res.data.attendance[res.data.attendance.length - 1]);
 					})
 					.catch((err) => console.log(err));
@@ -50,13 +48,11 @@ export const Home = () => {
 		axios
 			.get("http://localhost:5000/employee/")
 			.then((res) => {
-				console.log(res.data);
 				var dict = {};
 				res.data.forEach((emp) => {
 					dict[emp._id] = emp.name;
 				});
 				setEmpdict(dict);
-				console.log("emp_dict", dict);
 			})
 			.catch((err) => console.log(err));
 	}, []);
@@ -68,12 +64,10 @@ export const Home = () => {
 			.get(link)
 			.then((emp) => {
 				setEmployee(emp.data.message);
-				console.log("emp", emp.data.message);
 				link = "http://localhost:5000/team/" + emp.data.message["teamID"];
 				axios
 					.get(link)
 					.then((res) => {
-						console.log("team", res.data);
 						setTeam(res.data);
 					})
 					.catch((err) => console.log(err));
@@ -83,7 +77,6 @@ export const Home = () => {
 		axios
 			.get(link)
 			.then((res) => {
-				console.log("attendance", res.data.attendance[res.data.attendance.length - 1]);
 				setLastDate(res.data.attendance[res.data.attendance.length - 1]);
 			})
 			.catch((err) => console.log(err));
@@ -95,7 +88,8 @@ export const Home = () => {
 		axios
 			.get(link)
 			.then((res) => {
-				console.log(res);
+				if (res.data.message === "This Employee is already present")
+					setMarkAttendanceClickable(false)
 				setReload(true);
 			})
 			.catch((err) => console.log(err));
@@ -107,7 +101,7 @@ export const Home = () => {
 				<h1>
 					<strong>Welcome {user.given_name}</strong>
 				</h1>
-				<img src={user.picture} style={{ borderRadius: "50%", marginBottom: "10px" }} alt="profile pic" />
+				<img src={user.picture} style={{ borderRadius: "50%", marginBottom: "10px" }} alt="profile pic" referrerpolicy="no-referrer" />
 				<table className="table table-hover table-bordered">
 					<caption>General Stuff</caption>
 					<thead className="thead-dark">
@@ -119,11 +113,18 @@ export const Home = () => {
 					<tbody>
 						<tr>
 							<td>Mark Attendance</td>
-							<td>
-								<button className="btn btn-primary" onClick={markAttendance}>
-									Mark Attendance
+							{markAttendanceClickable ?
+								<td>
+									<button className="btn btn-primary" onClick={markAttendance}>
+										Mark Attendance
 								</button>
-							</td>
+								</td> :
+								<td>
+									<button className="btn btn-primary disabled">
+										Mark Attendance
+								</button>
+								</td>}
+
 						</tr>
 						<tr>
 							<td>Last Attendance Registered on</td>
@@ -149,18 +150,24 @@ export const Home = () => {
 							<td>Attendance</td>
 							<td>{employee.attendance}</td>
 						</tr>
-						<tr>
-							<td>Your Team</td>
-							<td>{team.name}</td>
-						</tr>
-						<tr>
-							<td>Members</td>
-							<td>
-								{team["members"].map((eid) => {
-									return empdict[eid] + ", ";
-								})}
-							</td>
-						</tr>
+
+						{team["name"] === undefined ||
+							<tr>
+								<td>Your Team</td>
+								<td>{team.name}</td>
+							</tr>}
+
+
+						{team["members"] === undefined ||
+							<tr>
+								<td>Members</td>
+								<td>
+									{team["members"].map((eid) => {
+										return empdict[eid] + ", ";
+									})}
+								</td>
+							</tr>}
+
 					</tbody>
 				</table>
 
