@@ -17,12 +17,13 @@ export const EmployeeCommon = () => {
 
 	// const [unknown, setUnknown] = useState(false);
 
-	// if (unknown) {
-	// 	setUnknown(false);
-	// 	window.location.href = "https://dev-f-rf7g-f.us.auth0.com/v2/logout?returnTo=http%3A%2F%2Flocalhost%3A3000";
-	// }
+	if (unknown) {
+		setUnknown(false);
+		// Temporarily Preventing redirect
+		// window.location.href = "https://dev-f-rf7g-f.us.auth0.com/v2/logout?returnTo=http%3A%2F%2Flocalhost%3A3000";
+	}
 
-	if (isAuthenticated) console.log(user["sub"]);
+	if (isAuthenticated) console.log(user);
 
 	useEffect(() => {
 		if (isAuthenticated) {

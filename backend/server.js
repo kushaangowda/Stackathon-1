@@ -9,6 +9,7 @@ const attendanceRouter = require("./routes/Attendance");
 const taskRouter = require("./routes/task");
 const documentRouter = require("./routes/Document");
 const authRouter = require("./routes/Auth");
+const wannabeEmployeeRouter = require("./routes/wannabeEmployee");
 require("dotenv").config();
 
 const app = express();
@@ -38,6 +39,7 @@ app.use("/attendance", attendanceRouter);
 app.use("/task", taskRouter);
 app.use("/document", documentRouter);
 app.use("/auth", authRouter);
+app.use("/wannabeEmployee", wannabeEmployeeRouter)
 
 app.listen(port, () => {
 	console.log("Server is running at port : ", port);
