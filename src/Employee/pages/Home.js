@@ -39,7 +39,16 @@ export const Home = () => {
 				axios
 					.get(link)
 					.then((res) => {
-						if (res.data.attendance.length > 0) setLastDate(res.data.attendance[res.data.attendance.length - 1]);
+						if (res.data.attendance.length > 0) {
+							setLastDate(res.data.attendance[res.data.attendance.length - 1]);
+							if (!lastDate)
+								setReload(true)
+							const now = new Date;
+
+							if (lastDate.slice(0, 15) === now.toString().slice(0, 15)) {
+								setMarkAttendanceClickable(false)
+							}
+						}
 					})
 					.catch((err) => console.log(err));
 			})
@@ -78,6 +87,11 @@ export const Home = () => {
 			.get(link)
 			.then((res) => {
 				setLastDate(res.data.attendance[res.data.attendance.length - 1]);
+				const now = new Date;
+
+				if (lastDate.slice(0, 15) === now.toString().slice(0, 15)) {
+					setMarkAttendanceClickable(false)
+				}
 			})
 			.catch((err) => console.log(err));
 	}
