@@ -1,5 +1,10 @@
 const router = require('express').Router();
+const { default: axios } = require('axios');
+const Attendance = require('../models/attendance');
 const Employee = require('../models/employee');
+const LeaveRequest = require('../models/leaveRequest')
+const PayrollRequest = require('../models/payrollRequest')
+const Team = require('../models/team')
 
 router.route('/add').post((req, res) => {
     let email = req.body.email;
@@ -75,6 +80,7 @@ router.route('/id/:empid').get((req, res) => {
 
     Employee.findById(empid).then(result => {
         if (result) {
+
             res.send({
                 "data": result
             });
@@ -94,8 +100,52 @@ router.route('/id/:empid').get((req, res) => {
 })
 
 router.route('/:empID').delete((req, res) => {
-    let empID = req.params.empID;
+    let empID = req.params.empID.toString();
+    let auth_ID = "";
+    Employee.findById(empID).then(result => {
+        auth_ID = result["sub"]
+    })
     Employee.findByIdAndDelete({ _id: empID }).then(result => {
+
+        Attendance.findByIdAndDelete(empID).then(_ => {
+            console.log("Attendance cleared for :" + empID)
+
+            axios.post("http://localhost:5000/auth/delEmployee", {
+                "auth_id": auth_ID
+            }).then(res => {
+                // console.log(res.data.message)
+                console.log("Auth cleared for: " + empID)
+
+                LeaveRequest.findOneAndDelete({
+                    "empID": empID
+                }).then(result => {
+                    // console.log(result.data.message);
+                    console.log("Leave Requests cleared for: " + empID)
+
+                    PayrollRequest.findOneAndDelete({
+                        "empID": empID
+                    }).then(result => {
+                        // console.log(result.data.message);
+                        console.log("Payroll Requests cleared for: " + empID)
+
+                        axios.get("http://localhost:5000/team/removeFromAll/" + empID).then(r => {
+                            console.log(r.data.message)
+                        }).catch(err => {
+                            console.log(err)
+                        })
+
+                    }).catch(err => {
+                        console.log(err)
+                    })
+                }).catch(err => {
+                    console.log(err)
+                })
+            }).catch(err => {
+                console.log(err)
+            })
+        }).catch(err => {
+            console.log(err)
+        })
         res.send({
             "message": "Deleted:" + result
         })
