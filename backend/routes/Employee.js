@@ -7,6 +7,7 @@ router.route('/add').post((req, res) => {
     let Role = req.body.Role;
     let Post = req.body.Post;
     let Salary = req.body.Salary;
+    let sub = req.body.sub;
     let attendance = 0;
     let teamID = req.body.teamID || 0;
     let emp = new Employee({
@@ -16,6 +17,7 @@ router.route('/add').post((req, res) => {
         Post,
         Salary,
         attendance,
+        sub,
         teamID
     })
     emp.save().then((result) => {

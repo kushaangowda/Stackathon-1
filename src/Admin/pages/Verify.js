@@ -7,6 +7,8 @@ export const Verify = () => {
 		{ name: "kushaan", email: "kush@gmail.com", picture: "https://picsum.photos/200", sub: "abc123def456", nickname: "kush" },
 	]);
 
+	const [reload, setReload] = useState(false);
+
 	const verify = (emp, employee) => {
 		console.log(emp);
 		const id = {
@@ -39,7 +41,6 @@ export const Verify = () => {
 			.catch((err) => console.log(err));
 	};
 
-	const [reload, setReload] = useState(false);
 
 	if (reload) {
 		setReload(false);

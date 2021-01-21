@@ -146,23 +146,23 @@ export const Home = () => {
 						</tr>
 						<tr>
 							<td>Email</td>
-							<td>{employee.email}</td>
+							<td>{employee === undefined ? "-" : employee === undefined ? "-" : employee.email}</td>
 						</tr>
 						<tr>
 							<td>Role</td>
-							<td>{employee.Role}</td>
+							<td>{employee === undefined ? "-" : employee.Role}</td>
 						</tr>
 						<tr>
 							<td>Post</td>
-							<td>{employee.Post}</td>
+							<td>{employee === undefined ? "-" : employee.Post}</td>
 						</tr>
 						<tr>
 							<td>Salary</td>
-							<td>Rs. {employee.Salary}</td>
+							<td>Rs. {employee === undefined ? "-" : employee.Salary}</td>
 						</tr>
 						<tr>
 							<td>Attendance</td>
-							<td>{employee.attendance}</td>
+							<td>{employee === undefined ? "-" : employee.attendance}</td>
 						</tr>
 
 						{team["name"] === undefined ||
