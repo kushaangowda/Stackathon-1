@@ -5,6 +5,7 @@ export const Card = ({ emp, verify, reject }) => {
 		email: emp["email"],
 		name: emp["name"],
 		Role: "employee",
+		sub: `${emp.sub}`,
 		Post: "",
 		Salary: 0,
 		attendance: 0,

@@ -129,7 +129,7 @@ router.route('/:empID').delete((req, res) => {
                         console.log("Payroll Requests cleared for: " + empID)
 
                         axios.get("http://localhost:5000/team/removeFromAll/" + empID).then(r => {
-                            console.log(r.data.message)
+                            console.log(r.data)
                         }).catch(err => {
                             console.log(err)
                         })
