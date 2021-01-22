@@ -1,7 +1,7 @@
 const router = require('express').Router()
 const Team = require('../models/team');
 const Employee = require('../models/employee');
-
+const axios = require('axios').default;
 
 // Get Route for teams
 router.route('/').get((req, res) => {
@@ -21,6 +21,19 @@ router.route('/').get((req, res) => {
             }
             res.send(result)
         }
+    })
+})
+
+router.route('/removeFromAll/:empID').get((req, res) => {
+    let empid = req.params.empID;
+    Team.find({}).then(result => {
+        // console.log(result)
+        result.forEach(team => {
+            axios.get(`http://localhost:5000/team/removemember/${team._id}/${empid}`).then(r => {
+                console.log(r.data.message)
+            })
+        })
+        res.send(`${empid} removed from all teams`)
     })
 })
 
@@ -117,8 +130,8 @@ router.route('/update/:teamID').put((req, res) => {
             }
             else {
                 console.log(result)
-                members.forEach(async (item)=>{
-                    await Employee.updateOne({_id: item},{$set: {teamID}});
+                members.forEach(async (item) => {
+                    await Employee.updateOne({ _id: item }, { $set: { teamID } });
                 })
                 res.send({
                     "result": `Updated: ${result}`
@@ -130,28 +143,47 @@ router.route('/update/:teamID').put((req, res) => {
 
 })
 
-router.route('/addmember/:teamID/:empID').get((req,res)=>{
+router.route('/addmember/:teamID/:empID').get((req, res) => {
     let teamid = req.params.teamID;
     let empid = req.params.empID;
-    Team.findOneAndUpdate({_id: teamid}, {$push: {members : empid}} , (err,result)=>{
-        if(err){
+    Team.findOneAndUpdate({ _id: teamid }, { $push: { members: empid } }, (err, result) => {
+        if (err) {
             res.send({
                 "error": err.message
             })
-        }else{
-            Employee.findByIdAndUpdate(empid , {$set: {teamID : teamid}} ,(err2,result)=>{
-                if(err2){
+        } else {
+            Employee.findByIdAndUpdate(empid, { $set: { teamID: teamid } }, (err2, result) => {
+                if (err2) {
                     res.send({
-                        "error":err2.message
+                        "error": err2.message
                     })
-                }else{
+                } else {
                     res.send({
-                        "message" : "Added " + empid + " to " + teamid
+                        "message": "Added " + empid + " to " + teamid
                     })
                 }
-            } )
+            })
         }
 
     })
 })
+
+router.route('/removemember/:teamID/:empID').get((req, res) => {
+    let teamid = req.params.teamID;
+    let empid = req.params.empID;
+    Team.findOneAndUpdate({ _id: teamid }, { $pull: { members: empid } }, (err, result) => {
+        if (err) {
+            res.send({
+                "error": err.message
+            })
+        } else {
+            res.send({
+                "message": `${empid} removed from ${teamid}`
+            })
+        }
+
+    })
+})
+
+
 module.exports = router
