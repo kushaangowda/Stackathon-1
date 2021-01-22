@@ -6,10 +6,10 @@ const leaveRequestRouter = require("./routes/leaveRequest");
 const payrollRequestRouter = require("./routes/payrollRequest");
 const teamRouter = require("./routes/team");
 const attendanceRouter = require("./routes/Attendance");
-const taskRouter = require("./routes/task");
+const taskRouter = require("./routes/Task");
 const documentRouter = require("./routes/Document");
 const authRouter = require("./routes/Auth");
-const wannabeEmployeeRouter = require("./routes/wannabeEmployee");
+const wannabeEmployeeRouter = require("./routes/WannabeEmployee");
 require("dotenv").config();
 
 const app = express();
