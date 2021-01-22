@@ -7,7 +7,7 @@ function Payroll() {
 	const [isError, setIsError] = useState(false);
 	const [empDetails, setEmpDetails] = useState();
 	const [currdata, setcurdata] = useState();
-	const host = "http://localhost:5000/";
+	const host = "http://api-stackathon.herokuapp.com/";
 
 	const Accept = async (_id, id) => {
 		axios.get(host + "payrollrequest/" + _id + "/accept");

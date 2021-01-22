@@ -110,7 +110,7 @@ router.route('/:empID').delete((req, res) => {
         Attendance.findByIdAndDelete(empID).then(_ => {
             console.log("Attendance cleared for :" + empID)
 
-            axios.post("http://localhost:5000/auth/delEmployee", {
+            axios.post("http://api-stackathon.herokuapp.com/auth/delEmployee", {
                 "auth_id": auth_ID
             }).then(res => {
                 // console.log(res.data.message)
@@ -128,7 +128,7 @@ router.route('/:empID').delete((req, res) => {
                         // console.log(result.data.message);
                         console.log("Payroll Requests cleared for: " + empID)
 
-                        axios.get("http://localhost:5000/team/removeFromAll/" + empID).then(r => {
+                        axios.get("http://api-stackathon.herokuapp.com/team/removeFromAll/" + empID).then(r => {
                             console.log(r.data)
                         }).catch(err => {
                             console.log(err)

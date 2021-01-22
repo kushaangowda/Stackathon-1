@@ -19,15 +19,15 @@ export const EmployeeCommon = () => {
 
 	// Temporarily Preventing redirect
 	// if (unknown) {
-		// setUnknown(false);
-		// window.location.href = "https://dev-f-rf7g-f.us.auth0.com/v2/logout?returnTo=http%3A%2F%2Flocalhost%3A3000";
+	// setUnknown(false);
+	// window.location.href = "https://dev-f-rf7g-f.us.auth0.com/v2/logout?returnTo=http%3A%2F%2Flocalhost%3A3000";
 	//}
 
 	if (isAuthenticated) console.log(user);
 
 	useEffect(() => {
 		if (isAuthenticated) {
-			var link = "http://localhost:5000/auth/check/" + user["sub"];
+			var link = "http://api-stackathon.herokuapp.com/auth/check/" + user["sub"];
 			axios
 				.get(link)
 				.then((res) => {

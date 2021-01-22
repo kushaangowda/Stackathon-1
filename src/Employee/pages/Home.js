@@ -23,19 +23,19 @@ export const Home = () => {
 	const [markAttendanceClickable, setMarkAttendanceClickable] = useState(true);
 
 	useEffect(() => {
-		var link = "http://localhost:5000/employee/email/" + user["email"];
+		var link = "http://api-stackathon.herokuapp.com/employee/email/" + user["email"];
 		axios
 			.get(link)
 			.then((emp) => {
 				setEmployee(emp.data.message);
-				link = "http://localhost:5000/team/" + emp.data.message["teamID"];
+				link = "http://api-stackathon.herokuapp.com/team/" + emp.data.message["teamID"];
 				axios
 					.get(link)
 					.then((res) => {
 						if (String(res.data.error) !== 'Cast to ObjectId failed for value "0" at path "_id" for model "team"') setTeam(res.data);
 					})
 					.catch((err) => console.log(err));
-				link = "http://localhost:5000/attendance/" + emp.data.message["_id"];
+				link = "http://api-stackathon.herokuapp.com/attendance/" + emp.data.message["_id"];
 				axios
 					.get(link)
 					.then((res) => {
@@ -55,7 +55,7 @@ export const Home = () => {
 			.catch((err) => console.log(err));
 
 		axios
-			.get("http://localhost:5000/employee/")
+			.get("http://api-stackathon.herokuapp.com/employee/")
 			.then((res) => {
 				var dict = {};
 				res.data.forEach((emp) => {
@@ -68,12 +68,12 @@ export const Home = () => {
 
 	if (reload) {
 		setReload(false);
-		var link = "http://localhost:5000/employee/email/" + user["email"];
+		var link = "http://api-stackathon.herokuapp.com/employee/email/" + user["email"];
 		axios
 			.get(link)
 			.then((emp) => {
 				setEmployee(emp.data.message);
-				link = "http://localhost:5000/team/" + emp.data.message["teamID"];
+				link = "http://api-stackathon.herokuapp.com/team/" + emp.data.message["teamID"];
 				axios
 					.get(link)
 					.then((res) => {
@@ -82,7 +82,7 @@ export const Home = () => {
 					.catch((err) => console.log(err));
 			})
 			.catch((err) => console.log(err));
-		link = "http://localhost:5000/attendance/" + employee._id;
+		link = "http://api-stackathon.herokuapp.com/attendance/" + employee._id;
 		axios
 			.get(link)
 			.then((res) => {
@@ -98,7 +98,7 @@ export const Home = () => {
 
 	const markAttendance = () => {
 		console.log(employee._id);
-		var link = "http://localhost:5000/attendance/" + employee._id + "/create";
+		var link = "http://api-stackathon.herokuapp.com/attendance/" + employee._id + "/create";
 		axios
 			.get(link)
 			.then((res) => {

@@ -20,7 +20,7 @@ export const Admincommon = () => {
 
 	useEffect(() => {
 		if (isAuthenticated) {
-			var link = "http://localhost:5000/auth/check/" + user["sub"];
+			var link = "http://api-stackathon.herokuapp.com/auth/check/" + user["sub"];
 			axios
 				.get(link)
 				.then((res) => {

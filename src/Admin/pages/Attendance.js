@@ -8,7 +8,7 @@ function Home() {
 	const [isError, setIsError] = useState(false);
 	const [empDetails, setEmpDetails] = useState();
 	const [currdata, setcurdata] = useState();
-	const host = "http://localhost:5000/";
+	const host = "http://api-stackathon.herokuapp.com/";
 
 	const payrollAccept = async (_id, id) => {
 		axios.get(host + "payrollrequest/" + _id + "/accept");

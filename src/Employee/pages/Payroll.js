@@ -19,7 +19,7 @@ export const Payroll = () => {
 
 	useEffect(() => {
 		axios
-			.get("http://localhost:5000/employee/email/" + user["email"])
+			.get("http://api-stackathon.herokuapp.com/employee/email/" + user["email"])
 			.then((res) => {
 				if (res.data.error) {
 					seterror('Invalid Email ID. Please contact administration');
@@ -28,7 +28,7 @@ export const Payroll = () => {
 				setempid(res.data.message._id);
 
 				axios
-					.get(`http://localhost:5000/payrollrequest/${res.data.message._id}`)
+					.get(`http://api-stackathon.herokuapp.com/payrollrequest/${res.data.message._id}`)
 					.then((res1) => {
 						setRequests(res1.data);
 					})
@@ -40,7 +40,7 @@ export const Payroll = () => {
 	if (reload) {
 		setReload(false);
 		axios
-			.get(`http://localhost:5000/payrollrequest/${empID}`)
+			.get(`http://api-stackathon.herokuapp.com/payrollrequest/${empID}`)
 			.then((res) => {
 				setRequests(res.data);
 			})
@@ -52,7 +52,7 @@ export const Payroll = () => {
 		var message = "Are you sure you want to delete this document??\nDetails of this document will be erased permanently.\nThis action cannot be undone";
 		var check = window.confirm(message);
 		if (check) {
-			var link = "http://localhost:5000/payrollrequest/" + id;
+			var link = "http://api-stackathon.herokuapp.com/payrollrequest/" + id;
 			axios
 				.delete(link)
 				.then((res) => {
@@ -65,7 +65,7 @@ export const Payroll = () => {
 
 	const handleAdd = (newRequest) => {
 		axios
-			.post("http://localhost:5000/payrollrequest/add", newRequest)
+			.post("http://api-stackathon.herokuapp.com/payrollrequest/add", newRequest)
 			.then((res) => {
 				console.log(res.data);
 				setReload(true);
@@ -75,7 +75,7 @@ export const Payroll = () => {
 
 	const handleEdit = (request) => {
 		// console.log("request id" + request.id)
-		var link = "http://localhost:5000/payrollrequest/update/" + request.id;
+		var link = "http://api-stackathon.herokuapp.com/payrollrequest/update/" + request.id;
 		axios
 			.put(link, request)
 			.then((res) => {

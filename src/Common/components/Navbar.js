@@ -11,7 +11,7 @@ export const Navbar = () => {
 
 	useEffect(() => {
 		axios
-			.get("http://localhost:5000/document/")
+			.get("http://api-stackathon.herokuapp.com/document/")
 			.then((res) => {
 				setDocuments(res.data);
 			})

@@ -19,7 +19,7 @@ export const Leave = () => {
 
 	useEffect(() => {
 		axios
-			.get("http://localhost:5000/employee/email/" + user["email"])
+			.get("http://api-stackathon.herokuapp.com/employee/email/" + user["email"])
 			.then((res) => {
 				if (res.data.error) {
 					seterror('Invalid Email ID. Please contact administration');
@@ -28,7 +28,7 @@ export const Leave = () => {
 				setempid(res.data.message._id);
 
 				axios
-					.get(`http://localhost:5000/leaverequest/${res.data.message._id}`)
+					.get(`http://api-stackathon.herokuapp.com/leaverequest/${res.data.message._id}`)
 					.then((res1) => {
 						setRequests(res1.data);
 					})
@@ -40,7 +40,7 @@ export const Leave = () => {
 	if (reload) {
 		setReload(false);
 		axios
-			.get(`http://localhost:5000/leaverequest/${empID}`)
+			.get(`http://api-stackathon.herokuapp.com/leaverequest/${empID}`)
 			.then((res) => {
 				setRequests(res.data);
 			})
@@ -52,7 +52,7 @@ export const Leave = () => {
 		var message = "Are you sure you want to delete this document??\nDetails of this document will be erased permanently.\nThis action cannot be undone";
 		var check = window.confirm(message);
 		if (check) {
-			var link = "http://localhost:5000/leaverequest/" + id;
+			var link = "http://api-stackathon.herokuapp.com/leaverequest/" + id;
 			axios
 				.delete(link)
 				.then((res) => {
@@ -65,7 +65,7 @@ export const Leave = () => {
 
 	const handleAdd = (newRequest) => {
 		axios
-			.post("http://localhost:5000/leaverequest/add", newRequest)
+			.post("http://api-stackathon.herokuapp.com/leaverequest/add", newRequest)
 			.then((res) => {
 				console.log(res.data);
 				setReload(true);
@@ -74,7 +74,7 @@ export const Leave = () => {
 	};
 
 	const handleEdit = (request, id) => {
-		var link = "http://localhost:5000/leaverequest/update/" + id;
+		var link = "http://api-stackathon.herokuapp.com/leaverequest/update/" + id;
 		axios
 			.put(link, request)
 			.then((res) => {

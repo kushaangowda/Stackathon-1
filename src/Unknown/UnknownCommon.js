@@ -16,14 +16,14 @@ export const UnknownCommon = () => {
 
 	const addEmployeeRequest = (emp) => {
 		axios
-			.post("http://localhost:5000/wannabeEmployee/new", emp)
+			.post("http://api-stackathon.herokuapp.com/wannabeEmployee/new", emp)
 			.then((res) => console.log(res))
 			.catch((err) => console.log(err));
 	};
 
 	useEffect(() => {
 		if (isAuthenticated) {
-			var link = "http://localhost:5000/auth/check/" + user["sub"];
+			var link = "http://api-stackathon.herokuapp.com/auth/check/" + user["sub"];
 			axios
 				.get(link)
 				.then((res) => {

@@ -6,7 +6,7 @@ export default function EmployeeCard(props) {
     const [attendanceMarked, setAttendanceMarked] = useState(false);
     const [isError, setIsError] = useState(false);
     const markAttendance = () => {
-        axios.get(`http://localhost:5000/attendance/${props.details._id}/create`)
+        axios.get(`http://api-stackathon.herokuapp.com/attendance/${props.details._id}/create`)
             .then((res) => {
                 setAttendanceMarked(true)
             })
