@@ -31,44 +31,44 @@ export const AddTask = ({ addTask }) => {
 
 	return (
 		<>
-			<div class="col-lg-6 mx-auto">
-				<div class="card mt-5 mx-auto p-4 bg-light">
-					<div class="card-body bg-light">
+			<div className="col-lg-6 mx-auto">
+				<div className="card mt-5 mx-auto p-4 bg-light">
+					<div className="card-body bg-light">
 						<form onSubmit={onSubmit}>
-							<div class="controls">
-								<div class="row">
-									<div class="col-md-12">
+							<div className="controls">
+								<div className="row">
+									<div className="col-md-12">
 										<label>Name :</label> <input id="Name"
 											type="text"
 											onChange={(e) => {
 												onchange(e, "name");
-											}} class="form-control" />
+											}} className="form-control" />
 									</div>
 								</div>
-								<div class="row">
-									<div class="col-md-12">
+								<div className="row">
+									<div className="col-md-12">
 										<label HtmlFor="form_name">Team :</label> <input
 											id="Team"
 											type="text"
 											onChange={(e) => {
 												onchange(e, "teamID");
 											}}
-											class="form-control" />
+											className="form-control" />
 									</div>
 								</div>
-								<div class="row">
-									<div class="col-md-12">
-										<div class="form-group"> <label >Description :</label> <textarea id="Description"
+								<div className="row">
+									<div className="col-md-12">
+										<div className="form-group"> <label >Description :</label> <textarea id="Description"
 											type="textarea"
 											onChange={(e) => {
 												onchange(e, "description");
 											}}
-											class="form-control"></textarea>
+											className="form-control"></textarea>
 										</div>
 									</div>
 								</div>
-								<div class="row">
-									<div class="col-md-6">
+								<div className="row">
+									<div className="col-md-6">
 										<label>Deadline : </label>
 										<input
 											id="Deadline"

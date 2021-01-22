@@ -27,10 +27,10 @@ export const Card = ({ emp, verify, reject }) => {
 					<form>
 						<div className="form-group">
 							<div className="row">
-								<div class="col-sm-2">
+								<div className="col-sm-2">
 									<label htmlFor="exampleInputPassword1">Salary</label>
 								</div>
-								<div class="col-sm-10">
+								<div className="col-sm-10">
 									<input
 										type="number"
 										className="form-control"
@@ -43,10 +43,10 @@ export const Card = ({ emp, verify, reject }) => {
 						</div>
 						<div className="form-group">
 							<div className="row">
-								<div class="col-sm-2">
+								<div className="col-sm-2">
 									<label htmlFor="exampleInputPassword2">Post</label>
 								</div>
-								<div class="col-sm-10">
+								<div className="col-sm-10">
 									<input
 										type="text"
 										className="form-control"

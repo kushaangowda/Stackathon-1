@@ -5,7 +5,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import * as MdIcons from "react-icons/md";
 import "../pages.css";
 import * as GrIcons from "react-icons/gr";
-import { Tasks } from "../../../Employee/pages/Tasks";
+// import { Tasks } from "../../../Employee/pages/Tasks";
 import axios from "axios";
 
 export const Tasknav = ({ deleteTask }) => {
@@ -21,7 +21,7 @@ export const Tasknav = ({ deleteTask }) => {
 				let final = [];
 				let temp = [];
 				temp = tasks.filter(item => {
-					return (item.status == filter || filter == 'all');
+					return (item.status === filter || filter === 'all');
 				});
 				final.push(
 					temp.map(Tasks => {
@@ -36,7 +36,7 @@ export const Tasknav = ({ deleteTask }) => {
 									<span
 										className={
 											"btn btn-" +
-											(String(Tasks.status) == "Pending" ? "warning" : String(Tasks.status) == "Active" ? "success" : "danger")
+											(String(Tasks.status) === "Pending" ? "warning" : String(Tasks.status) === "Active" ? "success" : "danger")
 										}
 									>
 										{String(Tasks.status)}
