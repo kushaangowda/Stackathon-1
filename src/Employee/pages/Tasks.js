@@ -50,7 +50,7 @@ export const Tasks = () => {
 									</td>
 									<td>
 										<button
-											class="btn btn-primary"
+											className="btn btn-primary"
 											data-toggle="modal"
 											onClick={() => {
 												setcurrTask(Tasks._id);
@@ -100,7 +100,7 @@ export const Tasks = () => {
 				<button
 					data-dismiss="modal"
 					style={{ display: "block", margin: 20 }}
-					class="btn btn-success"
+					className="btn btn-success"
 					onClick={(e) => ChangeStatus(taskid, e.target.previousSibling.value)}
 				>
 					Save

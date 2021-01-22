@@ -39,13 +39,13 @@ export const EditTask = ({ editTask, tasks }) => {
 	return (
 
 		<>
-			<div class="col-lg-7 mx-auto">
-				<div class="card mt-5 mx-auto p-4 bg-light">
-					<div class="card-body bg-light">
+			<div className="col-lg-7 mx-auto">
+				<div className="card mt-5 mx-auto p-4 bg-light">
+					<div className="card-body bg-light">
 						<form onSubmit={onSubmit}>
-							<div class="controls">
-								<div class="row">
-									<div class="col-md-12">
+							<div className="controls">
+								<div className="row">
+									<div className="col-md-12">
 										<label>Name :</label>{" "}
 										<input
 											id="Name"
@@ -58,9 +58,9 @@ export const EditTask = ({ editTask, tasks }) => {
 										/>
 									</div>
 								</div>
-								<div class="row">
-									<div class="col-md-12">
-										<div class="form-group">
+								<div className="row">
+									<div className="col-md-12">
+										<div className="form-group">
 											{" "}
 											<label>Description :</label>{" "}
 											<textarea
@@ -71,14 +71,14 @@ export const EditTask = ({ editTask, tasks }) => {
 												}}
 												value={description}
 												type="textarea"
-												class="form-control"
+												className="form-control"
 											></textarea>
 										</div>
 									</div>
 								</div>
-								<div class="row">
-									<div class="col-md-6">
-										<div class="form-group">
+								<div className="row">
+									<div className="col-md-6">
+										<div className="form-group">
 											{" "}
 											<label HtmlFor="Name">Status :</label>{" "}
 											<select
@@ -95,7 +95,7 @@ export const EditTask = ({ editTask, tasks }) => {
 											</select>
 										</div>
 									</div>
-									<div class="col-md-6">
+									<div className="col-md-6">
 										<label>Deadline : </label>
 										<input
 											id="Deadline"

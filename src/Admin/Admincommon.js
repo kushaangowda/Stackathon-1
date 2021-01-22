@@ -7,7 +7,7 @@ import Employee from "./pages/Employee";
 import Team from "./pages/Team";
 import { Task } from "./pages/Task";
 import Attendance from "./pages/Attendance";
-import Payroll from "./pages/payroll";
+// import Payroll from "./pages/payroll";
 import Document from "./pages/Document";
 import { useAuth0 } from "@auth0/auth0-react";
 import axios from "axios";
