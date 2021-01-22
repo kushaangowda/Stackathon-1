@@ -92,7 +92,7 @@ export const Tasknav = ({ deleteTask }) => {
 							<label className="btn btn-danger">
 								<input type="radio" name="status" value="Completed" /> Completed
 							</label>
-							<Link to="/task/add" className="btn btn-secondary m-1">
+							<Link to="/task/add" className="btn btn-secondary mb-2 ml-1">
 								<GrIcons.GrFormAdd /> Add Task
 							</Link>
 						</div>
