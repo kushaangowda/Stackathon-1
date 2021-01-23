@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import createNotification from "../../../Notification";
 
 export const Card = ({ emp, verify, reject }) => {
 	const [employee, setEmployee] = useState({
@@ -37,6 +38,7 @@ export const Card = ({ emp, verify, reject }) => {
 										className="form-control"
 										id="exampleInputPassword1"
 										placeholder="10000"
+										required
 										onChange={(e) => handleFormChange("Salary", e.target.value)}
 									/>
 								</div>
@@ -53,20 +55,54 @@ export const Card = ({ emp, verify, reject }) => {
 										className="form-control"
 										id="exampleInputPassword2"
 										placeholder="Engineer"
+										required
 										onChange={(e) => handleFormChange("Post", e.target.value)}
 									/>
 								</div>
 							</div>
 						</div>
+						<button className="btn btn-danger mr-4" onClick={() => {
+							reject(emp["sub"])
+							createNotification({
+								message: "Rejected the selected employee",
+								type: "danger"
+							})
+						}}>
+							Reject
+						</button>
+						<button className="btn btn-primary ml-4" type="submit" onClick={(e) => {
+							e.preventDefault()
+							if (employee.Salary === 0) {
+								createNotification({
+									message: "Please specify the salary of the employee!!",
+									type: "warning",
+									time: 3000,
+									position: "top-center"
+								})
+							}
+
+							else if (employee.Post === "") {
+								createNotification({
+									message: "Please specify the post of the employee!!",
+									type: "warning",
+									time: 3000,
+									position: "top-center"
+								})
+							}
+
+							else {
+								createNotification({
+									message: "Accepting employee!!",
+									type: "info",
+									time: 3000,
+								})
+								verify(emp, employee)
+							}
+
+						}}>
+							Verify
+						</button>
 					</form>
-				</div>
-				<div className="card-footer">
-					<button className="btn btn-danger mr-4" onClick={() => reject(emp["sub"])}>
-						Rejected
-					</button>
-					<button className="btn btn-primary ml-4" onClick={() => verify(emp, employee)}>
-						Verified
-					</button>
 				</div>
 			</div>
 		</div>

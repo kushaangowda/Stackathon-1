@@ -6,6 +6,8 @@ import { HomeTeam } from "./componentsTeam/HomeTeam";
 import axios from "axios";
 import { Navbar } from "./componentsTeam/Navbar";
 
+import createNotification from '../../Notification'
+
 function Team() {
 	const [teams, setTeams] = useState([]);
 
@@ -45,18 +47,26 @@ function Team() {
 	}
 
 	const handleDelete = (id) => {
-		var message = "Are you sure you want to delete this team??\nDetails of this team will be erased permanently.\nThis action cannot be undone";
-		var check = window.confirm(message);
-		if (check) {
-			var link = "http://api-stackathon.herokuapp.com/team/delete/" + id;
-			axios
-				.delete(link)
-				.then((res) => {
-					console.log(res.data);
-					setReload(true);
-				})
-				.catch((err) => console.log(err));
-		}
+		createNotification({
+			title: "Are you sure about that?",
+			message: "Are you sure you want to delete this team??\nDetails of this team will be erased permanently.\nThis action cannot be undone",
+			type: "danger",
+			time: 5000
+		})
+		setTimeout(() => {
+			var message = "Are you sure you want to delete this team??\nDetails of this team will be erased permanently.\nThis action cannot be undone";
+			var check = window.confirm(message);
+			if (check) {
+				var link = "http://api-stackathon.herokuapp.com/team/delete/" + id;
+				axios
+					.delete(link)
+					.then((res) => {
+						console.log(res.data);
+						setReload(true);
+					})
+					.catch((err) => console.log(err));
+			}
+		}, 4500)
 	};
 
 	const handleAdd = (team) => {
@@ -65,6 +75,10 @@ function Team() {
 			.then((res) => {
 				console.log(res.data);
 				setReload(true);
+				createNotification({
+					title: "Success",
+					message: "New Team successfully created!!"
+				})
 			})
 			.catch((err) => console.log(err));
 	};
@@ -75,6 +89,12 @@ function Team() {
 			.put(link, team)
 			.then((res) => {
 				console.log(res.data);
+				createNotification({
+					title: ":)",
+					message: "Successfully updated the team",
+					type: "success",
+					time: 5000
+				})
 				setReload(true);
 			})
 			.catch((err) => console.log(err));

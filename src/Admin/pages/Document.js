@@ -6,6 +6,8 @@ import { AddDocument } from "./componentsDocument/AddDocument";
 import { EditDocument } from "./componentsDocument/EditDocument";
 import axios from "axios";
 
+import createNotification from '../../Notification'
+
 function Document() {
 	const [documents, setDocuments] = useState([]);
 
@@ -51,6 +53,11 @@ function Document() {
 			.then((res) => {
 				console.log(res.data);
 				setReload(true);
+				createNotification({
+					title: "",
+					message: "Document successfully added",
+					type: "success"
+				})
 			})
 			.catch((err) => console.log(err));
 	};
@@ -62,6 +69,11 @@ function Document() {
 			.then((res) => {
 				console.log(res.data);
 				setReload(true);
+				createNotification({
+					title: "",
+					message: "Document successfully updated",
+					type: "success"
+				})
 			})
 			.catch((err) => console.log(err));
 	};

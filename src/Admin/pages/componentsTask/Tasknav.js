@@ -7,6 +7,7 @@ import "../pages.css";
 import * as GrIcons from "react-icons/gr";
 // import { Tasks } from "../../../Employee/pages/Tasks";
 import axios from "axios";
+import createNotification from "../../../Notification";
 
 export const Tasknav = ({ deleteTask }) => {
 	const [filter, setFilter] = useState('all');
@@ -81,16 +82,48 @@ export const Tasknav = ({ deleteTask }) => {
 					<div className="col-sm-5">
 						<div onChange={(e) => setFilter(e.target.value)} className="btn-group" data-toggle="buttons">
 							<label className="btn btn-info active">
-								<input type="radio" name="status" value="all" defaultChecked /> All
+								<input type="radio" name="status" value="all" defaultChecked onClick={() => {
+									createNotification({
+										title: "",
+										message: "Showing tasks all tasks",
+										type: "success",
+										time: 1000
+
+									})
+								}} /> All
 							</label>{" "}
 							<label className="btn btn-success">
-								<input type="radio" name="status" value="Active" /> Active
+								<input type="radio" name="status" value="Active" onClick={() => {
+									createNotification({
+										title: "",
+										message: "Showing tasks with status: ACTIVE",
+										type: "success",
+										time: 1000
+
+									})
+								}} /> Active
 							</label>
 							<label className="btn btn-warning">
-								<input type="radio" name="status" value="Pending" /> Pending
+								<input type="radio" name="status" value="Pending" onClick={() => {
+									createNotification({
+										title: "",
+										message: "Showing tasks with status: PENDING",
+										type: "warning",
+										time: 1000
+
+									})
+								}} /> Pending
 							</label>
 							<label className="btn btn-danger">
-								<input type="radio" name="status" value="Completed" /> Completed
+								<input type="radio" name="status" value="Completed" onClick={() => {
+									createNotification({
+										title: "",
+										message: "Showing only tasks with status: COMPLETED",
+										type: "danger",
+										time: 1000
+
+									})
+								}} /> Completed
 							</label>
 							<Link to="/task/add" className="btn btn-secondary mb-2 ml-1">
 								<GrIcons.GrFormAdd /> Add Task
