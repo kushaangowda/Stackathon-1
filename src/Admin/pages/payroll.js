@@ -107,7 +107,13 @@ function Payroll() {
 					setEmployes(temp);
 				})
 				.catch((err) => {
-					console.log(err);
+					createNotification({
+						title: "",
+						message: err.message,
+						type: "warning",
+						time: 1000
+
+					});
 					setIsError(true);
 				});
 		};

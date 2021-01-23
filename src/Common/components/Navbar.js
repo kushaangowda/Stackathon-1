@@ -15,7 +15,13 @@ export const Navbar = () => {
 			.then((res) => {
 				setDocuments(res.data);
 			})
-			.catch((err) => console.log(err));
+			.catch((err) => createNotification({
+				title: "",
+				message: err.message,
+				type: "warning",
+				time: 1000
+
+			}));
 	}, []);
 
 	return (

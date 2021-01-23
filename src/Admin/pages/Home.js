@@ -3,6 +3,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 import JSONPretty from "react-json-pretty";
 import axios from "axios";
 import EmployeeCard from "../components/EmployeeCard";
+import createNotification from "../../Notification";
 
 function Home() {
 	const { user } = useAuth0();
@@ -25,7 +26,13 @@ function Home() {
 				setEmployes(temp);
 			})
 			.catch((err) => {
-				console.log(err);
+				createNotification({
+					title: "",
+					message: err.message,
+					type: "warning",
+					time: 1000
+
+				});
 				setIsError(true);
 			});
 	};
@@ -37,6 +44,13 @@ function Home() {
 	useEffect(() => {
 		if (isError) {
 			setEmpDetails(<h1>Something went wrong</h1>);
+			createNotification({
+				title: ":(",
+				message: "Something went wrong, Please try again later!!",
+				type: "danger",
+				time: 10000
+			})
+
 		} else {
 			setEmpDetails(employees);
 		}

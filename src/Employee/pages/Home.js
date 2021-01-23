@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 // import JSONPretty from "react-json-pretty";
 import axios from "axios";
+import createNotification from "../../Notification";
 
 export const Home = () => {
 	const { user } = useAuth0();
@@ -32,10 +33,30 @@ export const Home = () => {
 				axios
 					.get(link)
 					.then((res) => {
-						if (String(res.data.error) !== 'Cast to ObjectId failed for value "0" at path "_id" for model "team"') setTeam(res.data);
+						if (String(res.data.error) !== 'Cast to ObjectId failed for value "0" at path "_id" for model "team"') {
+							setTeam(res.data);
+							createNotification({
+								title: " :(",
+								message: "Something went wrong, Please try again later!",
+								type: "danger"
+							})
+						}
 					})
-					.catch((err) => console.log(err));
-				link = "https://api-stackathon.herokuapp.com/attendance/" + emp.data.message["_id"];
+					.catch((err) => {
+						createNotification({
+							title: "",
+							message: err.message,
+							type: "warning",
+							time: 1000
+
+						})
+						createNotification({
+							title: " :(",
+							message: "Something went wrong, Please try again later!",
+							type: "danger"
+						})
+					});
+				link = "http://api-stackathon.herokuapp.com/attendance/" + emp.data.message["_id"];
 				axios
 					.get(link)
 					.then((res) => {
@@ -50,9 +71,21 @@ export const Home = () => {
 							}
 						}
 					})
-					.catch((err) => console.log(err));
+					.catch((err) => createNotification({
+						title: "",
+						message: err.message,
+						type: "warning",
+						time: 1000
+
+					}));
 			})
-			.catch((err) => console.log(err));
+			.catch((err) => createNotification({
+				title: "",
+				message: err.message,
+				type: "warning",
+				time: 1000
+
+			}));
 
 		axios
 			.get("https://api-stackathon.herokuapp.com/employee/")
@@ -63,7 +96,13 @@ export const Home = () => {
 				});
 				setEmpdict(dict);
 			})
-			.catch((err) => console.log(err));
+			.catch((err) => createNotification({
+				title: "",
+				message: err.message,
+				type: "warning",
+				time: 1000
+
+			}));
 	}, []);
 
 	if (reload) {
@@ -79,9 +118,21 @@ export const Home = () => {
 					.then((res) => {
 						setTeam(res.data);
 					})
-					.catch((err) => console.log(err));
+					.catch((err) => createNotification({
+						title: "",
+						message: err.message,
+						type: "warning",
+						time: 1000
+
+					}));
 			})
-			.catch((err) => console.log(err));
+			.catch((err) => createNotification({
+				title: "",
+				message: err.message,
+				type: "warning",
+				time: 1000
+
+			}));
 		link = "https://api-stackathon.herokuapp.com/attendance/" + employee._id;
 		axios
 			.get(link)
@@ -93,7 +144,13 @@ export const Home = () => {
 					setMarkAttendanceClickable(false)
 				}
 			})
-			.catch((err) => console.log(err));
+			.catch((err) => createNotification({
+				title: "",
+				message: err.message,
+				type: "warning",
+				time: 1000
+
+			}));
 	}
 
 	const markAttendance = () => {
@@ -102,11 +159,23 @@ export const Home = () => {
 		axios
 			.get(link)
 			.then((res) => {
-				if (res.data.message === "This Employee is already present")
+				if (res.data.message === "This Employee is already present") {
 					setMarkAttendanceClickable(false)
+					createNotification({
+						title: "Success",
+						message: "Attendance for today successfully marked!",
+						type: "success"
+					})
+				}
 				setReload(true);
 			})
-			.catch((err) => console.log(err));
+			.catch((err) => createNotification({
+				title: "",
+				message: err.message,
+				type: "warning",
+				time: 1000
+
+			}));
 	};
 
 	return (
@@ -142,7 +211,7 @@ export const Home = () => {
 						</tr>
 						<tr>
 							<td>Last Attendance Registered on</td>
-							<td>{lastDate}</td>
+							<td>{lastDate.slice(0, 15)}</td>
 						</tr>
 						<tr>
 							<td>Email</td>

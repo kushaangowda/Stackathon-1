@@ -2,10 +2,10 @@ import React, { useState, useEffect } from "react";
 import { Card } from "./componentsVerify/Card";
 import axios from "axios";
 
+import createNotification from '../../Notification'
+
 export const Verify = () => {
-	const [emps, setEmps] = useState([
-		{ name: "kushaan", email: "kush@gmail.com", picture: "https://picsum.photos/200", sub: "abc123def456", nickname: "kush" },
-	]);
+	const [emps, setEmps] = useState("");
 
 	const [reload, setReload] = useState(false);
 
@@ -19,15 +19,32 @@ export const Verify = () => {
 			.then((res) => {
 				console.log(res);
 				setReload(true);
+				createNotification({
+					title: "Done",
+					message: "Employee Successfully verified",
+					type: "success"
+				})
 				axios
 					.post("https://api-stackathon.herokuapp.com/employee/add", employee)
 					.then((res) => {
 						console.log(res.data);
 						setReload(true);
 					})
-					.catch((err) => console.log(err));
+					.catch((err) => createNotification({
+						title: "",
+						message: err.message,
+						type: "warning",
+						time: 1000
+
+					}));
 			})
-			.catch((err) => console.log(err));
+			.catch((err) => createNotification({
+				title: "",
+				message: err.message,
+				type: "warning",
+				time: 1000
+
+			}));
 	};
 
 	const reject = (sub) => {
@@ -36,9 +53,20 @@ export const Verify = () => {
 			.get(link)
 			.then((res) => {
 				console.log(res);
+				createNotification({
+					title: "",
+					message: "Employee rejected",
+					type: "danger"
+				})
 				setReload(true);
 			})
-			.catch((err) => console.log(err));
+			.catch((err) => createNotification({
+				title: "",
+				message: err.message,
+				type: "warning",
+				time: 1000
+
+			}));
 	};
 
 
@@ -50,7 +78,13 @@ export const Verify = () => {
 				console.log(res.data);
 				setEmps(res.data);
 			})
-			.catch((err) => console.log(err));
+			.catch((err) => createNotification({
+				title: "",
+				message: err.message,
+				type: "warning",
+				time: 1000
+
+			}));
 	}
 
 	useEffect(() => {
@@ -60,14 +94,20 @@ export const Verify = () => {
 				console.log(res.data);
 				setEmps(res.data);
 			})
-			.catch((err) => console.log(err));
+			.catch((err) => createNotification({
+				title: "",
+				message: err.message,
+				type: "warning",
+				time: 1000
+
+			}));
 	}, []);
 
 	return (
 		<div className="container-fluid">
 			<h2 className="pageTitle">Verify Employee</h2>
 			<div className="row">
-				{emps.map((emp) => {
+				{emps === "" ? <></> : emps.map((emp) => {
 					return <Card emp={emp} key={emp.sub} verify={verify} reject={reject} />;
 				})}
 			</div>

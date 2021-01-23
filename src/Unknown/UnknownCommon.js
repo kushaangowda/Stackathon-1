@@ -5,6 +5,9 @@ import Sidebar from "./components/Sidebar";
 import { Home } from "./Home";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
+import createNotification from '../Notification'
+
+
 export const UnknownCommon = () => {
 	// const history = useHistory();
 
@@ -16,9 +19,27 @@ export const UnknownCommon = () => {
 
 	const addEmployeeRequest = (emp) => {
 		axios
-			.post("https://api-stackathon.herokuapp.com/wannabeEmployee/new", emp)
-			.then((res) => console.log(res))
-			.catch((err) => console.log(err));
+			.post("http://api-stackathon.herokuapp.com/wannabeEmployee/new", emp)
+			.then((res) => {
+				console.log(res)
+				if (res.data.error) {
+					createNotification({
+						title: "Duplicate Request",
+						message: "Chotto Matte, Request already created!!",
+						type: "info",
+						time: 5000
+					})
+				}
+			})
+			.catch((err) => {
+				createNotification({
+					title: "",
+					message: err.message,
+					type: "warning",
+					time: 1000
+
+				})
+			});
 	};
 
 	useEffect(() => {
@@ -29,7 +50,13 @@ export const UnknownCommon = () => {
 				.then((res) => {
 					if (String(res.data["scope"]) === "unknown") setRender(true);
 				})
-				.catch((err) => console.log(err));
+				.catch((err) => createNotification({
+					title: "",
+					message: err.message,
+					type: "warning",
+					time: 1000
+
+				}));
 		}
 	}, [render]);
 

@@ -6,6 +6,8 @@ import { AddDocument } from "./componentsDocument/AddDocument";
 import { EditDocument } from "./componentsDocument/EditDocument";
 import axios from "axios";
 
+import createNotification from '../../Notification'
+
 function Document() {
 	const [documents, setDocuments] = useState([]);
 
@@ -17,7 +19,13 @@ function Document() {
 			.then((res) => {
 				setDocuments(res.data);
 			})
-			.catch((err) => console.log(err));
+			.catch((err) => createNotification({
+				title: "",
+				message: err.message,
+				type: "warning",
+				time: 1000
+
+			}));
 	}, []);
 
 	if (reload) {
@@ -27,7 +35,13 @@ function Document() {
 			.then((res) => {
 				setDocuments(res.data);
 			})
-			.catch((err) => console.log(err));
+			.catch((err) => createNotification({
+				title: "",
+				message: err.message,
+				type: "warning",
+				time: 1000
+
+			}));
 	}
 
 	const handleDelete = (id) => {
@@ -41,7 +55,13 @@ function Document() {
 					console.log(res.data);
 					setReload(true);
 				})
-				.catch((err) => console.log(err));
+				.catch((err) => createNotification({
+					title: "",
+					message: err.message,
+					type: "warning",
+					time: 1000
+
+				}));
 		}
 	};
 
@@ -51,8 +71,19 @@ function Document() {
 			.then((res) => {
 				console.log(res.data);
 				setReload(true);
+				createNotification({
+					title: "",
+					message: "Document successfully added",
+					type: "success"
+				})
 			})
-			.catch((err) => console.log(err));
+			.catch((err) => createNotification({
+				title: "",
+				message: err.message,
+				type: "warning",
+				time: 1000
+
+			}));
 	};
 
 	const handleEdit = (doc) => {
@@ -62,8 +93,19 @@ function Document() {
 			.then((res) => {
 				console.log(res.data);
 				setReload(true);
+				createNotification({
+					title: "",
+					message: "Document successfully updated",
+					type: "success"
+				})
 			})
-			.catch((err) => console.log(err));
+			.catch((err) => createNotification({
+				title: "",
+				message: err.message,
+				type: "warning",
+				time: 1000
+
+			}));
 	};
 
 	return (

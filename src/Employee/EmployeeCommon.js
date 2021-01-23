@@ -8,6 +8,8 @@ import { Payroll } from "./pages/Payroll";
 import { Tasks } from "./pages/Tasks";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
+import createNotification from '../Notification'
+
 export const EmployeeCommon = () => {
 	// const history = useHistory();
 
@@ -20,7 +22,7 @@ export const EmployeeCommon = () => {
 	// Temporarily Preventing redirect
 	// if (unknown) {
 	// setUnknown(false);
-	// window.location.href = "https://dev-f-rf7g-f.us.auth0.com/v2/logout?returnTo=http%3A%2F%2Flocalhost%3A3000";
+	// window.location.href = "https://dev-f-rf7g-f.us.auth0.com/v2/logout?returnTo=https%3A%2F%2Fstackathon.netlify.app";
 	//}
 
 	if (isAuthenticated) console.log(user);
@@ -34,7 +36,13 @@ export const EmployeeCommon = () => {
 					if (String(res.data["scope"]) === "employee") setRender("true");
 					// else if (String(res.data["scope"]) === "unknown") setUnknown(true);
 				})
-				.catch((err) => console.log(err));
+				.catch((err) => createNotification({
+					title: "",
+					message: err.message,
+					type: "warning",
+					time: 1000
+
+				}));
 		}
 	}, [render]);
 
@@ -44,6 +52,12 @@ export const EmployeeCommon = () => {
 				<Router>
 					<div className="Admincommon">
 						<Sidebar />
+						{createNotification({
+							title: "Welcome!",
+							message: `Successfully signed in as ${user.name}`,
+							type: "success",
+							time: 5000
+						})}
 						<Switch>
 							<Route path="/" exact component={Home} />
 							<Route path="/Leave" exact component={Leave} />

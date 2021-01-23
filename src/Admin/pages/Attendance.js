@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+
+
+import createNotification from '../../Notification'
 // import CustomModal from "../components/CustomModal";
 // import { RiAirplayLine } from "react-icons/ri";
 
@@ -12,21 +15,41 @@ function Home() {
 
 	const payrollAccept = async (_id, id) => {
 		axios.get(host + "payrollrequest/" + _id + "/accept");
+		createNotification({
+			title: "Accpeted!!",
+			message: "Payroll request accepted",
+			type: "info",
+		})
 		ChangePayrollData(id);
 	};
 
 	const payrollReject = async (_id, id) => {
 		axios.get(host + "payrollrequest/" + _id + "/reject");
+		createNotification({
+			title: "Rejected!!",
+			message: "Payroll request rejected",
+			type: "danger",
+		})
 		ChangePayrollData(id);
 	};
 
 	const leaveAccept = async (_id, id) => {
 		axios.get(host + "leaverequest/" + _id + "/accept");
+		createNotification({
+			title: "Accepted",
+			message: "Leave request accepted",
+			type: "info",
+		})
 		ChangeLeaveData(id);
 	};
 
 	const leaveReject = async (_id, id) => {
 		axios.get(host + "leaverequest/" + _id + "/reject");
+		createNotification({
+			title: "Rejected",
+			message: "Leave request rejected",
+			type: "danger",
+		})
 		ChangeLeaveData(id);
 	};
 
@@ -194,7 +217,13 @@ function Home() {
 					setEmployes(temp);
 				})
 				.catch((err) => {
-					console.log(err);
+					createNotification({
+						title: "",
+						message: err.message,
+						type: "warning",
+						time: 1000
+
+					});
 					setIsError(true);
 				});
 		};

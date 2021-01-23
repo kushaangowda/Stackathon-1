@@ -7,6 +7,8 @@ import { EditEmployee } from "./componentsEmployee/EditEmployee";
 import axios from "axios";
 import "./employee.css";
 
+import createNotification from '../../Notification'
+
 function Employee() {
 	const [teamdict, setTeamdict] = useState({});
 
@@ -25,14 +27,26 @@ function Employee() {
 				console.log("yahoo", team1);
 				setTeamdict(team1);
 			})
-			.catch((err) => console.log(err));
+			.catch((err) => createNotification({
+				title: "",
+				message: err.message,
+				type: "warning",
+				time: 1000
+
+			}));
 
 		axios
 			.get("https://api-stackathon.herokuapp.com/employee/")
 			.then((res) => {
 				setEmployees(res.data);
 			})
-			.catch((err) => console.log(err));
+			.catch((err) => createNotification({
+				title: "",
+				message: err.message,
+				type: "warning",
+				time: 1000
+
+			}));
 	}, []);
 
 	if (reload) {
@@ -42,22 +56,43 @@ function Employee() {
 			.then((res) => {
 				setEmployees(res.data);
 			})
-			.catch((err) => console.log(err));
+			.catch((err) => createNotification({
+				title: "",
+				message: err.message,
+				type: "warning",
+				time: 1000
+
+			}));
 	}
 
 	const handleDelete = (id) => {
-		var message = "Are you sure you want to delete this employee??\nDetails of this employee will be erased permanently.\nThis action cannot be undone";
-		var check = window.confirm(message);
-		if (check) {
-			var link = "https://api-stackathon.herokuapp.com/employee/" + id;
-			axios
-				.delete(link)
-				.then((res) => {
-					console.log(res.data);
-					setReload(true);
-				})
-				.catch((err) => console.log(err));
-		}
+		createNotification({
+			title: "Are you sure about that?",
+			message: "Are you sure you want to delete this employee??\nDetails of this employee will be erased permanently.\nThis action cannot be undone",
+			type: "warning",
+			time: 5000
+		})
+		setTimeout(() => {
+			var message = "Are you sure ?";
+			var check = window.confirm(message);
+			if (check) {
+				var link = "http://api-stackathon.herokuapp.com/employee/" + id;
+				axios
+					.delete(link)
+					.then((res) => {
+						console.log(res.data);
+						setReload(true);
+					})
+					.catch((err) => createNotification({
+						title: "",
+						message: err.message,
+						type: "warning",
+						time: 1000
+
+					}));
+			}
+
+		}, 4500)
 	};
 
 	const handleAdd = (employee) => {
@@ -67,7 +102,13 @@ function Employee() {
 				console.log(res.data);
 				setReload(true);
 			})
-			.catch((err) => console.log(err));
+			.catch((err) => createNotification({
+				title: "",
+				message: err.message,
+				type: "warning",
+				time: 1000
+
+			}));
 	};
 
 	const handleEdit = (employee) => {
@@ -78,7 +119,13 @@ function Employee() {
 				console.log(res.data);
 				setReload(true);
 			})
-			.catch((err) => console.log(err));
+			.catch((err) => createNotification({
+				title: "",
+				message: err.message,
+				type: "warning",
+				time: 1000
+
+			}));
 	};
 
 	return (

@@ -1,5 +1,6 @@
 import axios from 'axios'
 import React, { useState } from 'react'
+import createNotification from '../../Notification'
 
 export default function EmployeeCard(props) {
 
@@ -9,11 +10,29 @@ export default function EmployeeCard(props) {
         axios.get(`https://api-stackathon.herokuapp.com/attendance/${props.details._id}/create`)
             .then((res) => {
                 setAttendanceMarked(true)
+                createNotification({
+                    title: "Success",
+                    message: "Attendance successfully marked!",
+                    type: "success",
+                    time: 3000
+                })
             })
             .catch((err) => {
-                console.log(err)
+                createNotification({
+                    title: "",
+                    message: err.message,
+                    type: "warning",
+                    time: 1000
+
+                })
                 setAttendanceMarked(false);
                 setIsError(true)
+                createNotification({
+                    title: ":(",
+                    message: "Something went wrong, Please try again later!",
+                    type: "danger",
+                    time: 5000
+                })
             })
     }
 

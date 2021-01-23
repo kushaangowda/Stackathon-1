@@ -6,6 +6,8 @@ import { HomeTeam } from "./componentsTeam/HomeTeam";
 import axios from "axios";
 import { Navbar } from "./componentsTeam/Navbar";
 
+import createNotification from '../../Notification'
+
 function Team() {
 	const [teams, setTeams] = useState([]);
 
@@ -19,7 +21,13 @@ function Team() {
 			.then((res) => {
 				setTeams(res.data);
 			})
-			.catch((err) => console.log(err));
+			.catch((err) => createNotification({
+				title: "",
+				message: err.message,
+				type: "warning",
+				time: 1000
+
+			}));
 
 		axios
 			.get("https://api-stackathon.herokuapp.com/employee/")
@@ -31,7 +39,13 @@ function Team() {
 				console.log("yahoo", emp1);
 				setEmpdict(emp1);
 			})
-			.catch((err) => console.log(err));
+			.catch((err) => createNotification({
+				title: "",
+				message: err.message,
+				type: "warning",
+				time: 1000
+
+			}));
 	}, []);
 
 	if (reload) {
@@ -41,22 +55,42 @@ function Team() {
 			.then((res) => {
 				setTeams(res.data);
 			})
-			.catch((err) => console.log(err));
+			.catch((err) => createNotification({
+				title: "",
+				message: err.message,
+				type: "warning",
+				time: 1000
+
+			}));
 	}
 
 	const handleDelete = (id) => {
-		var message = "Are you sure you want to delete this team??\nDetails of this team will be erased permanently.\nThis action cannot be undone";
-		var check = window.confirm(message);
-		if (check) {
-			var link = "https://api-stackathon.herokuapp.com/team/delete/" + id;
-			axios
-				.delete(link)
-				.then((res) => {
-					console.log(res.data);
-					setReload(true);
-				})
-				.catch((err) => console.log(err));
-		}
+		createNotification({
+			title: "Are you sure about that?",
+			message: "Are you sure you want to delete this team??\nDetails of this team will be erased permanently.\nThis action cannot be undone",
+			type: "danger",
+			time: 5000
+		})
+		setTimeout(() => {
+			var message = "Are you sure you want to delete this team??\nDetails of this team will be erased permanently.\nThis action cannot be undone";
+			var check = window.confirm(message);
+			if (check) {
+				var link = "http://api-stackathon.herokuapp.com/team/delete/" + id;
+				axios
+					.delete(link)
+					.then((res) => {
+						console.log(res.data);
+						setReload(true);
+					})
+					.catch((err) => createNotification({
+						title: "",
+						message: err.message,
+						type: "warning",
+						time: 1000
+
+					}));
+			}
+		}, 4500)
 	};
 
 	const handleAdd = (team) => {
@@ -65,8 +99,18 @@ function Team() {
 			.then((res) => {
 				console.log(res.data);
 				setReload(true);
+				createNotification({
+					title: "Success",
+					message: "New Team successfully created!!"
+				})
 			})
-			.catch((err) => console.log(err));
+			.catch((err) => createNotification({
+				title: "",
+				message: err.message,
+				type: "warning",
+				time: 1000
+
+			}));
 	};
 
 	const handleEdit = (team) => {
@@ -75,9 +119,21 @@ function Team() {
 			.put(link, team)
 			.then((res) => {
 				console.log(res.data);
+				createNotification({
+					title: ":)",
+					message: "Successfully updated the team",
+					type: "success",
+					time: 5000
+				})
 				setReload(true);
 			})
-			.catch((err) => console.log(err));
+			.catch((err) => createNotification({
+				title: "",
+				message: err.message,
+				type: "warning",
+				time: 1000
+
+			}));
 	};
 
 	return (

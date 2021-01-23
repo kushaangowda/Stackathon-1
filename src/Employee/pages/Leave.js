@@ -7,6 +7,7 @@ import { Edit } from "../components/leaveComponents/Edit";
 import { useAuth0 } from "@auth0/auth0-react";
 // import { EditDocument } from "../../Admin/pages/componentsDocument/EditDocument";
 import axios from "axios";
+import createNotification from "../../Notification";
 
 export const Leave = () => {
 
@@ -23,16 +24,35 @@ export const Leave = () => {
 			.then((res) => {
 				if (res.data.error) {
 					seterror('Invalid Email ID. Please contact administration');
+					createNotification({
+						title: " :(",
+						message: "Please contact ADMIN, something went wrong !!",
+						type: "danger"
+					})
 					return;
 				}
 				setempid(res.data.message._id);
 
+				createNotification({
+					message: "Fetching your leave requests",
+					type: "info",
+					time: 1500
+				})
 				axios
 					.get(`https://api-stackathon.herokuapp.com/leaverequest/${res.data.message._id}`)
 					.then((res1) => {
+						createNotification({
+							message: "Successfully fetched your requests",
+						})
 						setRequests(res1.data);
 					})
-					.catch((err) => console.log(err));
+					.catch((err) => createNotification({
+						title: "",
+						message: err.message,
+						type: "warning",
+						time: 1000
+
+					}));
 			})
 
 	}, []);
@@ -44,7 +64,13 @@ export const Leave = () => {
 			.then((res) => {
 				setRequests(res.data);
 			})
-			.catch((err) => console.log(err));
+			.catch((err) => createNotification({
+				title: "",
+				message: err.message,
+				type: "warning",
+				time: 1000
+
+			}));
 	}
 
 
@@ -59,7 +85,13 @@ export const Leave = () => {
 					console.log(res.data);
 					setReload(true);
 				})
-				.catch((err) => console.log(err));
+				.catch((err) => createNotification({
+					title: "",
+					message: err.message,
+					type: "warning",
+					time: 1000
+
+				}));
 		}
 	};
 
@@ -68,9 +100,19 @@ export const Leave = () => {
 			.post("https://api-stackathon.herokuapp.com/leaverequest/add", newRequest)
 			.then((res) => {
 				console.log(res.data);
+				createNotification({
+					message: "New Leave Request added!",
+					type: "success"
+				})
 				setReload(true);
 			})
-			.catch((err) => console.log(err));
+			.catch((err) => createNotification({
+				title: "",
+				message: err.message,
+				type: "warning",
+				time: 1000
+
+			}));
 	};
 
 	const handleEdit = (request, id) => {
@@ -78,11 +120,19 @@ export const Leave = () => {
 		axios
 			.put(link, request)
 			.then((res) => {
-				console.log(id, request);
-				console.log(res.data);
+				createNotification({
+					message: "Leave Request successfully updated!",
+					type: "info"
+				})
 				setReload(true);
 			})
-			.catch((err) => console.log(err));
+			.catch((err) => createNotification({
+				title: "",
+				message: err.message,
+				type: "warning",
+				time: 1000
+
+			}));
 	};
 
 	return (

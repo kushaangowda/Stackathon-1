@@ -12,6 +12,7 @@ import Document from "./pages/Document";
 import { useAuth0 } from "@auth0/auth0-react";
 import axios from "axios";
 import { Verify } from "./pages/Verify";
+import createNotification from "../Notification";
 
 export const Admincommon = () => {
 	const { isAuthenticated, user } = useAuth0();
@@ -28,7 +29,13 @@ export const Admincommon = () => {
 						setRender(true);
 					}
 				})
-				.catch((err) => console.log(err));
+				.catch((err) => createNotification({
+					title: "",
+					message: "Showing tasks with status: PENDING",
+					type: "warning",
+					time: 1000
+
+				}));
 		}
 	});
 
@@ -38,6 +45,12 @@ export const Admincommon = () => {
 				<Router>
 					<div className="Admincommon">
 						<Sidebar />
+						{createNotification({
+							title: "Welcome Admin",
+							message: `Successfully signed in as ${user.name}`,
+							type: "success",
+							time: 5000
+						})}
 						<Switch>
 							<Route path="/" exact component={Home} />
 							<Route path="/Employee" exact component={Employee} />
