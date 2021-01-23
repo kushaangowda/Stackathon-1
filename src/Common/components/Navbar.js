@@ -3,7 +3,7 @@ import logo from "../../assets/logo.png";
 import { useAuth0 } from "@auth0/auth0-react";
 import { Link } from "react-router-dom";
 import axios from "axios";
-
+import createNotification from '../../Notification'
 export const Navbar = () => {
 	const { loginWithRedirect } = useAuth0();
 

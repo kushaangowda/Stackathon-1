@@ -22,7 +22,7 @@ export const EmployeeCommon = () => {
 	// Temporarily Preventing redirect
 	// if (unknown) {
 	// setUnknown(false);
-	// window.location.href = "https://dev-f-rf7g-f.us.auth0.com/v2/logout?returnTo=https%3A%2F%2Fstackathon.netlify.app";
+	// window.location.href = "https://dev-f-rf7g-f.us.auth0.com/v2/logout?returnTo=http%3A%2F%2Flocalhost%3A3000";
 	//}
 
 	if (isAuthenticated) console.log(user);
