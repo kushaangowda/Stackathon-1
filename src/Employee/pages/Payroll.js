@@ -7,6 +7,7 @@ import { Edit } from "../components/PayrollComponents/Edit";
 import { useAuth0 } from "@auth0/auth0-react";
 // import { EditDocument } from "../../Admin/pages/componentsDocument/EditDocument";
 import axios from "axios";
+import createNotification from '../../Notification'
 
 export const Payroll = () => {
 
@@ -23,13 +24,27 @@ export const Payroll = () => {
 			.then((res) => {
 				if (res.data.error) {
 					seterror('Invalid Email ID. Please contact administration');
+					createNotification({
+						title: " :(",
+						message: "Please contact ADMIN, something went wrong !!",
+						type: "danger"
+					})
 					return;
 				}
 				setempid(res.data.message._id);
 
+				createNotification({
+					message: "Fetching your payroll requests",
+					type: "info",
+					time: 1500
+				})
+
 				axios
 					.get(`http://api-stackathon.herokuapp.com/payrollrequest/${res.data.message._id}`)
 					.then((res1) => {
+						createNotification({
+							message: "Successfully fetched your requests",
+						})
 						setRequests(res1.data);
 					})
 					.catch((err) => console.log(err));
@@ -68,6 +83,10 @@ export const Payroll = () => {
 			.post("http://api-stackathon.herokuapp.com/payrollrequest/add", newRequest)
 			.then((res) => {
 				console.log(res.data);
+				createNotification({
+					message: "New Payroll Request added!",
+					type: "success"
+				})
 				setReload(true);
 			})
 			.catch((err) => console.log(err));
@@ -79,7 +98,10 @@ export const Payroll = () => {
 		axios
 			.put(link, request)
 			.then((res) => {
-				console.log(res.data);
+				createNotification({
+					message: "Payroll Request successfully updated!",
+					type: "info"
+				})
 				setReload(true);
 			})
 			.catch((err) => console.log(err));

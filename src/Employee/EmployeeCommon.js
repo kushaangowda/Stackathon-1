@@ -8,6 +8,8 @@ import { Payroll } from "./pages/Payroll";
 import { Tasks } from "./pages/Tasks";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
+import createNotification from '../Notification'
+
 export const EmployeeCommon = () => {
 	// const history = useHistory();
 
@@ -44,6 +46,12 @@ export const EmployeeCommon = () => {
 				<Router>
 					<div className="Admincommon">
 						<Sidebar />
+						{createNotification({
+							title: "Welcome!",
+							message: `Successfully signed in as ${user.name}`,
+							type: "success",
+							time: 5000
+						})}
 						<Switch>
 							<Route path="/" exact component={Home} />
 							<Route path="/Leave" exact component={Leave} />
