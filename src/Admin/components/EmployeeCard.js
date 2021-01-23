@@ -41,13 +41,12 @@ export default function EmployeeCard(props) {
 
     return (
         <tr className="emp-card">
-            <td>{props.details.name}</td>
-            <td>{props.details.email}</td>
-            <td>{props.details.Post}</td>
-            <td>{props.details.Role}</td>
-            <td>{props.details.Salary}</td>
-            <td>{attendance()}</td>
-
+            <td  data-title="NAME">{props.details.name}</td>
+            <td  data-title="EMAIL">{props.details.email}</td>
+            <td  data-title="POST">{props.details.Post}</td>
+            <td  data-title="ROLE">{props.details.Role}</td>
+            <td data-title="SALARY">{props.details.Salary}</td>
+            <td  data-title="ATTENDANCE">{attendance()}</td>
         </tr>
     )
 }
