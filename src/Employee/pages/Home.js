@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 // import JSONPretty from "react-json-pretty";
 import axios from "axios";
+import createNotification from "../../Notification";
 
 export const Home = () => {
 	const { user } = useAuth0();
@@ -32,9 +33,23 @@ export const Home = () => {
 				axios
 					.get(link)
 					.then((res) => {
-						if (String(res.data.error) !== 'Cast to ObjectId failed for value "0" at path "_id" for model "team"') setTeam(res.data);
+						if (String(res.data.error) !== 'Cast to ObjectId failed for value "0" at path "_id" for model "team"') {
+							setTeam(res.data);
+							createNotification({
+								title: " :(",
+								message: "Something went wrong, Please try again later!",
+								type: "danger"
+							})
+						}
 					})
-					.catch((err) => console.log(err));
+					.catch((err) => {
+						console.log(err)
+						createNotification({
+							title: " :(",
+							message: "Something went wrong, Please try again later!",
+							type: "danger"
+						})
+					});
 				link = "http://api-stackathon.herokuapp.com/attendance/" + emp.data.message["_id"];
 				axios
 					.get(link)
@@ -102,8 +117,14 @@ export const Home = () => {
 		axios
 			.get(link)
 			.then((res) => {
-				if (res.data.message === "This Employee is already present")
+				if (res.data.message === "This Employee is already present") {
 					setMarkAttendanceClickable(false)
+					createNotification({
+						title: "Success",
+						message: "Attendance for today successfully marked!",
+						type: "success"
+					})
+				}
 				setReload(true);
 			})
 			.catch((err) => console.log(err));
@@ -142,7 +163,7 @@ export const Home = () => {
 						</tr>
 						<tr>
 							<td>Last Attendance Registered on</td>
-							<td>{lastDate}</td>
+							<td>{lastDate.slice(0, 15)}</td>
 						</tr>
 						<tr>
 							<td>Email</td>
