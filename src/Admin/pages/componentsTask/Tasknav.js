@@ -15,7 +15,7 @@ export const Tasknav = ({ deleteTask }) => {
 
 	const display = () => {
 		axios
-			.get("http://api-stackathon.herokuapp.com/task/")
+			.get("https://api-stackathon.herokuapp.com/task/")
 			.then((res) => {
 				let tasks = res.data;
 				let final = [];
@@ -57,8 +57,14 @@ export const Tasknav = ({ deleteTask }) => {
 				);
 				setcurrtasks(final);
 			})
-			.catch((err) => console.log(err));
-	};
+			.catch((err) => createNotification({
+				title: "",
+				message: err.message,
+				type: "warning",
+				time: 1000
+
+			}));
+	}
 
 	useEffect(() => {
 		display();

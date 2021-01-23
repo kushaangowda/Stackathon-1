@@ -13,7 +13,7 @@ function Home() {
 	const [empDetails, setEmpDetails] = useState();
 	const fetchEmployees = async () => {
 		axios
-			.get("http://api-stackathon.herokuapp.com/employee")
+			.get("https://api-stackathon.herokuapp.com/employee")
 			.then((emp) => {
 				console.log(emp["data"]);
 				const fetchedEmployees = emp["data"];
@@ -26,7 +26,13 @@ function Home() {
 				setEmployes(temp);
 			})
 			.catch((err) => {
-				console.log(err);
+				createNotification({
+					title: "",
+					message: err.message,
+					type: "warning",
+					time: 1000
+
+				});
 				setIsError(true);
 			});
 	};

@@ -29,7 +29,7 @@ router.route('/removeFromAll/:empID').get((req, res) => {
     Team.find({}).then(result => {
         // console.log(result)
         result.forEach(team => {
-            axios.get(`http://api-stackathon.herokuapp.com/team/removemember/${team._id}/${empid}`).then(r => {
+            axios.get(`https://api-stackathon.herokuapp.com/team/removemember/${team._id}/${empid}`).then(r => {
                 console.log(r.data.message)
             })
         })

@@ -20,7 +20,7 @@ export const Payroll = () => {
 
 	useEffect(() => {
 		axios
-			.get("http://api-stackathon.herokuapp.com/employee/email/" + user["email"])
+			.get("https://api-stackathon.herokuapp.com/employee/email/" + user["email"])
 			.then((res) => {
 				if (res.data.error) {
 					seterror('Invalid Email ID. Please contact administration');
@@ -40,14 +40,20 @@ export const Payroll = () => {
 				})
 
 				axios
-					.get(`http://api-stackathon.herokuapp.com/payrollrequest/${res.data.message._id}`)
+					.get(`https://api-stackathon.herokuapp.com/payrollrequest/${res.data.message._id}`)
 					.then((res1) => {
 						createNotification({
 							message: "Successfully fetched your requests",
 						})
 						setRequests(res1.data);
 					})
-					.catch((err) => console.log(err));
+					.catch((err) => createNotification({
+						title: "",
+						message: err.message,
+						type: "warning",
+						time: 1000
+
+					}));
 			})
 
 	}, []);
@@ -55,11 +61,17 @@ export const Payroll = () => {
 	if (reload) {
 		setReload(false);
 		axios
-			.get(`http://api-stackathon.herokuapp.com/payrollrequest/${empID}`)
+			.get(`https://api-stackathon.herokuapp.com/payrollrequest/${empID}`)
 			.then((res) => {
 				setRequests(res.data);
 			})
-			.catch((err) => console.log(err));
+			.catch((err) => createNotification({
+				title: "",
+				message: err.message,
+				type: "warning",
+				time: 1000
+
+			}));
 	}
 
 
@@ -67,20 +79,26 @@ export const Payroll = () => {
 		var message = "Are you sure you want to delete this document??\nDetails of this document will be erased permanently.\nThis action cannot be undone";
 		var check = window.confirm(message);
 		if (check) {
-			var link = "http://api-stackathon.herokuapp.com/payrollrequest/" + id;
+			var link = "https://api-stackathon.herokuapp.com/payrollrequest/" + id;
 			axios
 				.delete(link)
 				.then((res) => {
 					console.log(res.data);
 					setReload(true);
 				})
-				.catch((err) => console.log(err));
+				.catch((err) => createNotification({
+					title: "",
+					message: err.message,
+					type: "warning",
+					time: 1000
+
+				}));
 		}
 	};
 
 	const handleAdd = (newRequest) => {
 		axios
-			.post("http://api-stackathon.herokuapp.com/payrollrequest/add", newRequest)
+			.post("https://api-stackathon.herokuapp.com/payrollrequest/add", newRequest)
 			.then((res) => {
 				console.log(res.data);
 				createNotification({
@@ -89,12 +107,18 @@ export const Payroll = () => {
 				})
 				setReload(true);
 			})
-			.catch((err) => console.log(err));
+			.catch((err) => createNotification({
+				title: "",
+				message: err.message,
+				type: "warning",
+				time: 1000
+
+			}));
 	};
 
 	const handleEdit = (request) => {
 		// console.log("request id" + request.id)
-		var link = "http://api-stackathon.herokuapp.com/payrollrequest/update/" + request.id;
+		var link = "https://api-stackathon.herokuapp.com/payrollrequest/update/" + request.id;
 		axios
 			.put(link, request)
 			.then((res) => {
@@ -104,7 +128,13 @@ export const Payroll = () => {
 				})
 				setReload(true);
 			})
-			.catch((err) => console.log(err));
+			.catch((err) => createNotification({
+				title: "",
+				message: err.message,
+				type: "warning",
+				time: 1000
+
+			}));
 	};
 
 	return (

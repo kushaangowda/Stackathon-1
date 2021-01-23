@@ -17,14 +17,20 @@ function Team() {
 
 	useEffect(() => {
 		axios
-			.get("http://api-stackathon.herokuapp.com/team/")
+			.get("https://api-stackathon.herokuapp.com/team/")
 			.then((res) => {
 				setTeams(res.data);
 			})
-			.catch((err) => console.log(err));
+			.catch((err) => createNotification({
+				title: "",
+				message: err.message,
+				type: "warning",
+				time: 1000
+
+			}));
 
 		axios
-			.get("http://api-stackathon.herokuapp.com/employee/")
+			.get("https://api-stackathon.herokuapp.com/employee/")
 			.then((res) => {
 				var emp1 = {};
 				res.data.forEach((emp) => {
@@ -33,17 +39,29 @@ function Team() {
 				console.log("yahoo", emp1);
 				setEmpdict(emp1);
 			})
-			.catch((err) => console.log(err));
+			.catch((err) => createNotification({
+				title: "",
+				message: err.message,
+				type: "warning",
+				time: 1000
+
+			}));
 	}, []);
 
 	if (reload) {
 		setReload(false);
 		axios
-			.get("http://api-stackathon.herokuapp.com/team/")
+			.get("https://api-stackathon.herokuapp.com/team/")
 			.then((res) => {
 				setTeams(res.data);
 			})
-			.catch((err) => console.log(err));
+			.catch((err) => createNotification({
+				title: "",
+				message: err.message,
+				type: "warning",
+				time: 1000
+
+			}));
 	}
 
 	const handleDelete = (id) => {
@@ -64,14 +82,20 @@ function Team() {
 						console.log(res.data);
 						setReload(true);
 					})
-					.catch((err) => console.log(err));
+					.catch((err) => createNotification({
+						title: "",
+						message: err.message,
+						type: "warning",
+						time: 1000
+
+					}));
 			}
 		}, 4500)
 	};
 
 	const handleAdd = (team) => {
 		axios
-			.post("http://api-stackathon.herokuapp.com/team/add", team)
+			.post("https://api-stackathon.herokuapp.com/team/add", team)
 			.then((res) => {
 				console.log(res.data);
 				setReload(true);
@@ -80,11 +104,17 @@ function Team() {
 					message: "New Team successfully created!!"
 				})
 			})
-			.catch((err) => console.log(err));
+			.catch((err) => createNotification({
+				title: "",
+				message: err.message,
+				type: "warning",
+				time: 1000
+
+			}));
 	};
 
 	const handleEdit = (team) => {
-		var link = "http://api-stackathon.herokuapp.com/team/update/" + team.id;
+		var link = "https://api-stackathon.herokuapp.com/team/update/" + team.id;
 		axios
 			.put(link, team)
 			.then((res) => {
@@ -97,7 +127,13 @@ function Team() {
 				})
 				setReload(true);
 			})
-			.catch((err) => console.log(err));
+			.catch((err) => createNotification({
+				title: "",
+				message: err.message,
+				type: "warning",
+				time: 1000
+
+			}));
 	};
 
 	return (

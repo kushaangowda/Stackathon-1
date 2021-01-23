@@ -29,14 +29,20 @@ export const EmployeeCommon = () => {
 
 	useEffect(() => {
 		if (isAuthenticated) {
-			var link = "http://api-stackathon.herokuapp.com/auth/check/" + user["sub"];
+			var link = "https://api-stackathon.herokuapp.com/auth/check/" + user["sub"];
 			axios
 				.get(link)
 				.then((res) => {
 					if (String(res.data["scope"]) === "employee") setRender("true");
 					// else if (String(res.data["scope"]) === "unknown") setUnknown(true);
 				})
-				.catch((err) => console.log(err));
+				.catch((err) => createNotification({
+					title: "",
+					message: err.message,
+					type: "warning",
+					time: 1000
+
+				}));
 		}
 	}, [render]);
 

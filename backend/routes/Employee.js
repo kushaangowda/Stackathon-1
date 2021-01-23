@@ -103,37 +103,40 @@ router.route('/:empID').delete((req, res) => {
     let empID = req.params.empID.toString();
     let auth_ID = "";
     Employee.findById(empID).then(result => {
-        auth_ID = result["sub"]
-    })
-    Employee.findByIdAndDelete({ _id: empID }).then(result => {
+        auth_ID = result["sub"];
+        console.log('authid', auth_ID);
+        Employee.findByIdAndDelete({ _id: empID }).then(result => {
 
-        Attendance.findByIdAndDelete(empID).then(_ => {
-            console.log("Attendance cleared for :" + empID)
+            Attendance.findByIdAndDelete(empID).then(_ => {
+                console.log("Attendance cleared for :" + empID)
 
-            axios.post("http://api-stackathon.herokuapp.com/auth/delEmployee", {
-                "auth_id": auth_ID
-            }).then(res => {
-                // console.log(res.data.message)
-                console.log("Auth cleared for: " + empID)
+                axios.post("https://api-stackathon.herokuapp.com/auth/delEmployee", {
+                    "auth_id": auth_ID
+                }).then(res => {
+                    // console.log(res.data.message)
+                    console.log("Auth cleared for: " + empID)
 
-                LeaveRequest.findOneAndDelete({
-                    "empID": empID
-                }).then(result => {
-                    // console.log(result.data.message);
-                    console.log("Leave Requests cleared for: " + empID)
-
-                    PayrollRequest.findOneAndDelete({
+                    LeaveRequest.findOneAndDelete({
                         "empID": empID
                     }).then(result => {
                         // console.log(result.data.message);
-                        console.log("Payroll Requests cleared for: " + empID)
+                        console.log("Leave Requests cleared for: " + empID)
 
-                        axios.get("http://api-stackathon.herokuapp.com/team/removeFromAll/" + empID).then(r => {
-                            console.log(r.data)
+                        PayrollRequest.findOneAndDelete({
+                            "empID": empID
+                        }).then(result => {
+                            // console.log(result.data.message);
+                            console.log("Payroll Requests cleared for: " + empID)
+
+                            axios.get("https://api-stackathon.herokuapp.com/team/removeFromAll/" + empID).then(r => {
+                                console.log(r.data)
+                            }).catch(err => {
+                                console.log(err)
+                            })
+
                         }).catch(err => {
                             console.log(err)
                         })
-
                     }).catch(err => {
                         console.log(err)
                     })
@@ -143,11 +146,9 @@ router.route('/:empID').delete((req, res) => {
             }).catch(err => {
                 console.log(err)
             })
-        }).catch(err => {
-            console.log(err)
-        })
-        res.send({
-            "message": "Deleted:" + result
+            res.send({
+                "message": "Deleted:" + result
+            })
         })
     }).catch(err => {
         res.send({

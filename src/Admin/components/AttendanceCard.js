@@ -4,7 +4,7 @@ import React, { useState } from 'react'
 export default function AttendanceCard(props) {
     const [attendanceMarked, setAttendanceMarked] = useState(false);
     const [isError, setIsError] = useState(false);
-    const host = 'http://api-stackathon.herokuapp.com/'
+    const host = 'https://api-stackathon.herokuapp.com/'
 
     const name = props.name
     // {host + 'leaverequest/' + props.details._id}

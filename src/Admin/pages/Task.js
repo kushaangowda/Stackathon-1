@@ -17,11 +17,17 @@ export const Task = () => {
 
 	const display = () => {
 		axios
-			.get("http://api-stackathon.herokuapp.com/task/")
+			.get("https://api-stackathon.herokuapp.com/task/")
 			.then((res) => {
 				if (String(res.data.message) !== "No tasks currently present.") setTasks(res.data);
 			})
-			.catch((err) => console.log(err));
+			.catch((err) => createNotification({
+				title: "",
+				message: err.message,
+				type: "warning",
+				time: 1000
+
+			}));
 
 		axios
 			.get("http://api-stackathon.herokuapp.com/team/")
@@ -34,7 +40,13 @@ export const Task = () => {
 				console.log(teams1);
 				setTeams(teams1);
 			})
-			.catch((err) => console.log(err));
+			.catch((err) => createNotification({
+				title: "",
+				message: err.message,
+				type: "warning",
+				time: 1000
+
+			}));
 	};
 
 	if (reload) {
@@ -62,7 +74,13 @@ export const Task = () => {
 				setReload(true);
 			})
 			.catch((err) => {
-				console.log(err);
+				createNotification({
+					title: "",
+					message: err.message,
+					type: "warning",
+					time: 1000
+
+				});
 				createNotification({
 					title: " :( ",
 					message: "Something went wrong, please try again later!!",
@@ -78,7 +96,7 @@ export const Task = () => {
 		});
 		var newTasks = [task, ...newTasks1];
 		setTasks(newTasks);
-		var link = "http://api-stackathon.herokuapp.com/task/update/" + task.taskID;
+		var link = "https://api-stackathon.herokuapp.com/task/update/" + task.taskID;
 		axios
 			.put(link, task)
 			.then((res) => {
@@ -92,7 +110,13 @@ export const Task = () => {
 				});
 				setReload(true);
 			})
-			.catch((err) => console.log(err));
+			.catch((err) => createNotification({
+				title: "",
+				message: err.message,
+				type: "warning",
+				time: 1000
+
+			}));
 	};
 
 	const deleteTask = (id) => {
@@ -117,7 +141,13 @@ export const Task = () => {
 						console.log(res.data);
 						setReload(true);
 					})
-					.catch((err) => console.log(err));
+					.catch((err) => createNotification({
+						title: "",
+						message: err.message,
+						type: "warning",
+						time: 1000
+
+					}));
 			}
 		}, 3000);
 	};
