@@ -62,13 +62,20 @@ export const Tasknav = ({ deleteTask }) => {
 				);
 				setcurrtasks(final);
 			})
-			.catch((err) => createNotification({
-				title: "",
-				message: err.message,
-				type: "warning",
-				time: 1000
+			.catch((err) => {
+				console.log(err.message);
+				if (err.message == 'tasks.filter is not a function') {
+					err.message = "No Tasks currently present";
+				}
+				createNotification({
+					title: "",
+					message: err.message,
+					type: "warning",
+					time: 1000
 
-			}));
+				})
+			}
+			);
 	}
 
 	useEffect(() => {
@@ -83,7 +90,7 @@ export const Tasknav = ({ deleteTask }) => {
 			<div className="Tasks ml-2 mr-2">
 				<div className="row mt-2">
 					<div className="navheading col-sm-7">
-					<h2 className="pageTitle">Manage Task</h2>
+						<h2 className="pageTitle">Manage Task</h2>
 					</div>
 					<div className="col-sm-5">
 						<div onChange={(e) => setFilter(e.target.value)} className="btn-group" data-toggle="buttons">
@@ -156,23 +163,23 @@ export const Tasknav = ({ deleteTask }) => {
 					</div>
 				</div>
 				<div className="table-responsive">
-				<div id="no-more-tables">
-					<table className="table table-bordered table-hover">
-						<caption>List of Tasks</caption>
-						<thead className="thead-dark">
-							<tr>
-								{/*<th>#</th>*/}
-								<th className="text-uppercase">Name</th>
-								<th className="text-uppercase">Description</th>
-								<th className="text-uppercase">Team</th>
-								<th className="text-uppercase">Deadline</th>
-								<th className="text-uppercase">Status</th>
-								<th className="text-uppercase">Edit</th>
-								<th className="text-uppercase">Delete</th>
-							</tr>
-						</thead>
-						<tbody>{currtasks}</tbody>
-					</table>
+					<div id="no-more-tables">
+						<table className="table table-bordered table-hover">
+							<caption>List of Tasks</caption>
+							<thead className="thead-dark">
+								<tr>
+									{/*<th>#</th>*/}
+									<th className="text-uppercase">Name</th>
+									<th className="text-uppercase">Description</th>
+									<th className="text-uppercase">Team</th>
+									<th className="text-uppercase">Deadline</th>
+									<th className="text-uppercase">Status</th>
+									<th className="text-uppercase">Edit</th>
+									<th className="text-uppercase">Delete</th>
+								</tr>
+							</thead>
+							<tbody>{currtasks}</tbody>
+						</table>
 					</div>
 				</div>
 			</div>
