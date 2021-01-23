@@ -10,25 +10,23 @@ import axios from "axios";
 import createNotification from "../../../Notification";
 
 export const Tasknav = ({ deleteTask }) => {
-	const [filter, setFilter] = useState('all');
+	const [filter, setFilter] = useState("all");
 	const [currtasks, setcurrtasks] = useState([]);
 
 	const display = () => {
-
 		axios
 			.get("https://api-stackathon.herokuapp.com/task/")
 			.then((res) => {
 				let tasks = res.data;
 				let final = [];
 				let temp = [];
-				temp = tasks.filter(item => {
-					return (item.status === filter || filter === 'all');
+				temp = tasks.filter((item) => {
+					return item.status === filter || filter === "all";
 				});
 				final.push(
-					temp.map(Tasks => {
+					temp.map((Tasks) => {
 						return (
 							<tr data-status={Tasks.Status} key={Tasks._id}>
-
 								<td>{Tasks.name}</td>
 								<td>{Tasks.description}</td>
 								<td>{Tasks.teamID} </td>
@@ -44,21 +42,20 @@ export const Tasknav = ({ deleteTask }) => {
 									</span>
 								</td>
 								<td>
-									<Link to={`./task/edit/${Tasks._id}`} className="btn btn">
-										<MdIcons.MdModeEdit />
+									<Link to={`./task/edit/${Tasks._id}`} className="btn btn-primary">
+										Edit
 									</Link>
-									<button onClick={() => deleteTask(Tasks._id)}>
-										{" "}
-										<MdIcons.MdDeleteForever />
+								</td>
+								<td>
+									<button onClick={() => deleteTask(Tasks._id)} className="btn btn-danger">
+										Delete
 									</button>
 								</td>
 							</tr>
-						)
-					}
-					)
-				)
+						);
+					})
+				);
 				setcurrtasks(final);
-
 			})
 			.catch((err) => createNotification({
 				title: "",
@@ -88,48 +85,69 @@ export const Tasknav = ({ deleteTask }) => {
 					<div className="col-sm-5">
 						<div onChange={(e) => setFilter(e.target.value)} className="btn-group" data-toggle="buttons">
 							<label className="btn btn-info active">
-								<input type="radio" name="status" value="all" defaultChecked onClick={() => {
-									createNotification({
-										title: "",
-										message: "Showing tasks all tasks",
-										type: "success",
-										time: 1000
-
-									})
-								}} /> All
+								<input
+									type="radio"
+									name="status"
+									value="all"
+									defaultChecked
+									onClick={() => {
+										createNotification({
+											title: "",
+											message: "Showing tasks all tasks",
+											type: "success",
+											time: 1000,
+										});
+									}}
+								/>{" "}
+								All
 							</label>{" "}
 							<label className="btn btn-success">
-								<input type="radio" name="status" value="Active" onClick={() => {
-									createNotification({
-										title: "",
-										message: "Showing tasks with status: ACTIVE",
-										type: "success",
-										time: 1000
-
-									})
-								}} /> Active
+								<input
+									type="radio"
+									name="status"
+									value="Active"
+									onClick={() => {
+										createNotification({
+											title: "",
+											message: "Showing tasks with status: ACTIVE",
+											type: "success",
+											time: 1000,
+										});
+									}}
+								/>{" "}
+								Active
 							</label>
 							<label className="btn btn-warning">
-								<input type="radio" name="status" value="Pending" onClick={() => {
-									createNotification({
-										title: "",
-										message: "Showing tasks with status: PENDING",
-										type: "warning",
-										time: 1000
-
-									})
-								}} /> Pending
+								<input
+									type="radio"
+									name="status"
+									value="Pending"
+									onClick={() => {
+										createNotification({
+											title: "",
+											message: "Showing tasks with status: PENDING",
+											type: "warning",
+											time: 1000,
+										});
+									}}
+								/>{" "}
+								Pending
 							</label>
 							<label className="btn btn-danger">
-								<input type="radio" name="status" value="Completed" onClick={() => {
-									createNotification({
-										title: "",
-										message: "Showing only tasks with status: COMPLETED",
-										type: "danger",
-										time: 1000
-
-									})
-								}} /> Completed
+								<input
+									type="radio"
+									name="status"
+									value="Completed"
+									onClick={() => {
+										createNotification({
+											title: "",
+											message: "Showing only tasks with status: COMPLETED",
+											type: "danger",
+											time: 1000,
+										});
+									}}
+								/>{" "}
+								Completed
 							</label>
 							<Link to="/task/add" className="btn btn-secondary mb-2 ml-1">
 								<GrIcons.GrFormAdd /> Add Task
@@ -148,12 +166,11 @@ export const Tasknav = ({ deleteTask }) => {
 								<th className="text-uppercase">Team</th>
 								<th className="text-uppercase">Deadline</th>
 								<th className="text-uppercase">Status</th>
-								<th className="text-uppercase">Action</th>
+								<th className="text-uppercase">Edit</th>
+								<th className="text-uppercase">Delete</th>
 							</tr>
 						</thead>
-						<tbody>
-							{currtasks}
-						</tbody>
+						<tbody>{currtasks}</tbody>
 					</table>
 				</div>
 			</div>

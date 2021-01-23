@@ -15,11 +15,6 @@ export const Task = () => {
 
 	const [reload, setReload] = useState(false);
 
-	if (reload) {
-		setReload(false);
-		display();
-	}
-
 	const display = () => {
 		axios
 			.get("https://api-stackathon.herokuapp.com/task/")
@@ -53,6 +48,11 @@ export const Task = () => {
 
 			}));
 	};
+
+	if (reload) {
+		setReload(false);
+		display();
+	}
 
 	useEffect(() => {
 		display();
@@ -124,7 +124,7 @@ export const Task = () => {
 			title: "Are you sure about that?",
 			message: "Are you sure you want to delete this task??\nDetails of this task will be erased permanently.\nThis action cannot be undone",
 			type: "warning",
-			time: 5000,
+			time: 2000,
 		});
 		setTimeout(() => {
 			var message = "Are you sure?";
@@ -149,7 +149,7 @@ export const Task = () => {
 
 					}));
 			}
-		}, 4500);
+		}, 3000);
 	};
 
 	return (

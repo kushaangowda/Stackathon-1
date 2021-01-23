@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
-import JSONPretty from "react-json-pretty";
+// import JSONPretty from "react-json-pretty";
 import axios from "axios";
 import EmployeeCard from "../components/EmployeeCard";
 import createNotification from "../../Notification";
@@ -48,9 +48,8 @@ function Home() {
 				title: ":(",
 				message: "Something went wrong, Please try again later!!",
 				type: "danger",
-				time: 10000
-			})
-
+				time: 10000,
+			});
 		} else {
 			setEmpDetails(employees);
 		}
@@ -58,10 +57,10 @@ function Home() {
 	return (
 		<div className="Home">
 			<div className="user" style={{ textAlign: "center" }}>
-				<h1>Welcome {user.given_name}</h1>
+				<h2 className="pageTitle">Welcome {user.given_name}</h2>
 
 				<img src={user.picture} style={{ borderRadius: "50%" }} alt="profile pic" />
-				<JSONPretty data={user} />
+				{/*<JSONPretty data={user} />*/}
 			</div>
 
 			<table className="table table-hover table-bordered mt-5">

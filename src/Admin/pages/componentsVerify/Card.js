@@ -61,45 +61,47 @@ export const Card = ({ emp, verify, reject }) => {
 								</div>
 							</div>
 						</div>
-						<button className="btn btn-danger mr-4" onClick={() => {
-							reject(emp["sub"])
-							createNotification({
-								message: "Rejected the selected employee",
-								type: "danger"
-							})
-						}}>
+						<button
+							className="btn btn-danger mr-4"
+							onClick={() => {
+								reject(emp["sub"]);
+								createNotification({
+									message: "Rejected the selected employee",
+									type: "danger",
+								});
+							}}
+						>
 							Reject
 						</button>
-						<button className="btn btn-primary ml-4" type="submit" onClick={(e) => {
-							e.preventDefault()
-							if (employee.Salary === 0) {
-								createNotification({
-									message: "Please specify the salary of the employee!!",
-									type: "warning",
-									time: 3000,
-									position: "top-center"
-								})
-							}
-
-							else if (employee.Post === "") {
-								createNotification({
-									message: "Please specify the post of the employee!!",
-									type: "warning",
-									time: 3000,
-									position: "top-center"
-								})
-							}
-
-							else {
-								createNotification({
-									message: "Accepting employee!!",
-									type: "info",
-									time: 3000,
-								})
-								verify(emp, employee)
-							}
-
-						}}>
+						<button
+							className="btn btn-success ml-4"
+							type="submit"
+							onClick={(e) => {
+								e.preventDefault();
+								if (employee.Salary === 0) {
+									createNotification({
+										message: "Please specify the salary of the employee!!",
+										type: "warning",
+										time: 3000,
+										position: "top-center",
+									});
+								} else if (employee.Post === "") {
+									createNotification({
+										message: "Please specify the post of the employee!!",
+										type: "warning",
+										time: 3000,
+										position: "top-center",
+									});
+								} else {
+									createNotification({
+										message: "Accepting employee!!",
+										type: "info",
+										time: 3000,
+									});
+									verify(emp, employee);
+								}
+							}}
+						>
 							Verify
 						</button>
 					</form>
