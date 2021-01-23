@@ -6,6 +6,7 @@ import { EditTask } from "./componentsTask/EditTask";
 import { AddTask } from "./componentsTask/AddTask";
 import { Tasknav } from "./componentsTask/Tasknav";
 import axios from "axios";
+import createNotification from "../../Notification";
 
 export const Task = () => {
 	const [tasks, setTasks] = useState([]);
@@ -29,8 +30,24 @@ export const Task = () => {
 		setTasks(newTasks);
 		axios
 			.post("http://api-stackathon.herokuapp.com/task/add", task)
-			.then((res) => console.log(res.data))
-			.catch((err) => console.log(err));
+			.then((res) => {
+				console.log(res.data)
+				createNotification({
+					title: " :) ",
+					message: "New task added successfully",
+					type: "success",
+					time: 3000
+				})
+			})
+			.catch((err) => {
+				console.log(err)
+				createNotification({
+					title: " :( ",
+					message: "Something went wrong, please try again later!!",
+					type: "danger",
+					time: 5000
+				})
+			});
 	};
 
 	const editTask = (task) => {
@@ -42,28 +59,44 @@ export const Task = () => {
 		var link = "http://api-stackathon.herokuapp.com/task/update/" + task.taskID;
 		axios
 			.put(link, task)
-			.then((res) => { console.log(res.data); display() })
+			.then((res) => {
+				console.log(res.data);
+				display()
+				createNotification({
+					title: " Task Update ",
+					message: "Successfully updated the task",
+					type: "success",
+					time: 3000
+				})
+			})
 			.catch((err) => console.log(err));
 	};
 
 	const deleteTask = (id) => {
-		var message = "Are you sure you want to delete this task??\nDetails of this task will be erased permanently.\nThis action cannot be undone";
-		var check = window.confirm(message);
-		if (check) {
-			var newTasks = tasks.filter((task) => {
-				return String(task._id) !== String(id);
-			});
-			console.log("yo", newTasks);
-			setTasks(newTasks);
-			var link = "http://api-stackathon.herokuapp.com/task/" + id;
-			axios
-				.delete(link)
-				.then((res) => {
-					console.log(res.data);
+		createNotification({
+			title: "Are you sure about that?",
+			message: "Are you sure you want to delete this task??\nDetails of this task will be erased permanently.\nThis action cannot be undone",
+			type: "warning",
+			time: 5000
+		})
+		setTimeout(() => {
+			var message = "Are you sure?";
+			var check = window.confirm(message);
+			if (check) {
+				var newTasks = tasks.filter((task) => {
+					return String(task._id) !== String(id);
+				});
+				setTasks(newTasks);
+				var link = "http://api-stackathon.herokuapp.com/task/" + id;
+				axios
+					.delete(link)
+					.then((res) => {
+						console.log(res.data);
 
-				})
-				.catch((err) => console.log(err));
-		}
+					})
+					.catch((err) => console.log(err));
+			}
+		}, 4500);
 	};
 
 	return (

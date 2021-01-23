@@ -7,6 +7,8 @@ import { EditEmployee } from "./componentsEmployee/EditEmployee";
 import axios from "axios";
 import "./employee.css";
 
+import createNotification from '../../Notification'
+
 function Employee() {
 	const [teamdict, setTeamdict] = useState({});
 
@@ -46,18 +48,27 @@ function Employee() {
 	}
 
 	const handleDelete = (id) => {
-		var message = "Are you sure you want to delete this employee??\nDetails of this employee will be erased permanently.\nThis action cannot be undone";
-		var check = window.confirm(message);
-		if (check) {
-			var link = "http://api-stackathon.herokuapp.com/employee/" + id;
-			axios
-				.delete(link)
-				.then((res) => {
-					console.log(res.data);
-					setReload(true);
-				})
-				.catch((err) => console.log(err));
-		}
+		createNotification({
+			title: "Are you sure about that?",
+			message: "Are you sure you want to delete this employee??\nDetails of this employee will be erased permanently.\nThis action cannot be undone",
+			type: "warning",
+			time: 5000
+		})
+		setTimeout(() => {
+			var message = "Are you sure ?";
+			var check = window.confirm(message);
+			if (check) {
+				var link = "http://api-stackathon.herokuapp.com/employee/" + id;
+				axios
+					.delete(link)
+					.then((res) => {
+						console.log(res.data);
+						setReload(true);
+					})
+					.catch((err) => console.log(err));
+			}
+
+		}, 4500)
 	};
 
 	const handleAdd = (employee) => {
