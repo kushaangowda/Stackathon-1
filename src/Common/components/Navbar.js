@@ -11,11 +11,17 @@ export const Navbar = () => {
 
 	useEffect(() => {
 		axios
-			.get("http://api-stackathon.herokuapp.com/document/")
+			.get("https://api-stackathon.herokuapp.com/document/")
 			.then((res) => {
 				setDocuments(res.data);
 			})
-			.catch((err) => console.log(err));
+			.catch((err) => createNotification({
+				title: "",
+				message: err.message,
+				type: "warning",
+				time: 1000
+
+			}));
 	}, []);
 
 	return (

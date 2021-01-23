@@ -5,6 +5,7 @@ import * as FaIcons from "react-icons/fa";
 import * as RiIcons from "react-icons/ri";
 
 export const Home = ({ requests, handleDelete }) => {
+
     return (
         <div className="table-responsive">
             <h2 className="pageTitle">Manage Your Leave Requests</h2>
@@ -54,4 +55,5 @@ export const Home = ({ requests, handleDelete }) => {
             </div>
         </div>
     );
+
 };

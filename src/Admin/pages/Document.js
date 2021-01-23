@@ -15,41 +15,59 @@ function Document() {
 
 	useEffect(() => {
 		axios
-			.get("http://api-stackathon.herokuapp.com/document/")
+			.get("https://api-stackathon.herokuapp.com/document/")
 			.then((res) => {
 				setDocuments(res.data);
 			})
-			.catch((err) => console.log(err));
+			.catch((err) => createNotification({
+				title: "",
+				message: err.message,
+				type: "warning",
+				time: 1000
+
+			}));
 	}, []);
 
 	if (reload) {
 		setReload(false);
 		axios
-			.get("http://api-stackathon.herokuapp.com/document/")
+			.get("https://api-stackathon.herokuapp.com/document/")
 			.then((res) => {
 				setDocuments(res.data);
 			})
-			.catch((err) => console.log(err));
+			.catch((err) => createNotification({
+				title: "",
+				message: err.message,
+				type: "warning",
+				time: 1000
+
+			}));
 	}
 
 	const handleDelete = (id) => {
 		var message = "Are you sure you want to delete this document??\nDetails of this document will be erased permanently.\nThis action cannot be undone";
 		var check = window.confirm(message);
 		if (check) {
-			var link = "http://api-stackathon.herokuapp.com/document/" + id;
+			var link = "https://api-stackathon.herokuapp.com/document/" + id;
 			axios
 				.delete(link)
 				.then((res) => {
 					console.log(res.data);
 					setReload(true);
 				})
-				.catch((err) => console.log(err));
+				.catch((err) => createNotification({
+					title: "",
+					message: err.message,
+					type: "warning",
+					time: 1000
+
+				}));
 		}
 	};
 
 	const handleAdd = (doc) => {
 		axios
-			.post("http://api-stackathon.herokuapp.com/document/add", doc)
+			.post("https://api-stackathon.herokuapp.com/document/add", doc)
 			.then((res) => {
 				console.log(res.data);
 				setReload(true);
@@ -59,11 +77,17 @@ function Document() {
 					type: "success"
 				})
 			})
-			.catch((err) => console.log(err));
+			.catch((err) => createNotification({
+				title: "",
+				message: err.message,
+				type: "warning",
+				time: 1000
+
+			}));
 	};
 
 	const handleEdit = (doc) => {
-		var link = "http://api-stackathon.herokuapp.com/document/update/" + doc.id;
+		var link = "https://api-stackathon.herokuapp.com/document/update/" + doc.id;
 		axios
 			.put(link, doc)
 			.then((res) => {
@@ -75,7 +99,13 @@ function Document() {
 					type: "success"
 				})
 			})
-			.catch((err) => console.log(err));
+			.catch((err) => createNotification({
+				title: "",
+				message: err.message,
+				type: "warning",
+				time: 1000
+
+			}));
 	};
 
 	return (

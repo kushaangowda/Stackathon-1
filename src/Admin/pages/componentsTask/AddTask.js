@@ -5,11 +5,11 @@ import "bootstrap/dist/css/bootstrap.min.css";
 // import { GlobalContext } from "./context/GlobalState";
 // import * as MdIcons from "react-icons/md";
 
-export const AddTask = ({ addTask }) => {
+export const AddTask = ({ addTask, teams }) => {
 	const [task, setTask] = useState({
 		name: "",
 		description: "",
-		teamID: "",
+		teamID: teams[0],
 		deadline: null,
 		status: "",
 	});
@@ -38,32 +38,51 @@ export const AddTask = ({ addTask }) => {
 							<div className="controls">
 								<div className="row">
 									<div className="col-md-12">
-										<label>Name :</label> <input id="Name"
+										<label>Name :</label>{" "}
+										<input
+											id="Name"
 											type="text"
 											onChange={(e) => {
 												onchange(e, "name");
-											}} className="form-control" />
+											}}
+											className="form-control"
+										/>
 									</div>
 								</div>
 								<div className="row">
 									<div className="col-md-12">
-										<label HtmlFor="form_name">Team :</label> <input
-											id="Team"
-											type="text"
+										<label HtmlFor="form_name">Team :</label>{" "}
+										<select
+											className="form-control"
+											name="cars"
+											id="form_name"
 											onChange={(e) => {
 												onchange(e, "teamID");
 											}}
-											className="form-control" />
+										>
+											{teams.map((team) => {
+												return (
+													<option value={team} key={team}>
+														{team}
+													</option>
+												);
+											})}
+										</select>
 									</div>
 								</div>
 								<div className="row">
 									<div className="col-md-12">
-										<div className="form-group"> <label >Description :</label> <textarea id="Description"
-											type="textarea"
-											onChange={(e) => {
-												onchange(e, "description");
-											}}
-											className="form-control"></textarea>
+										<div className="form-group">
+											{" "}
+											<label>Description :</label>{" "}
+											<textarea
+												id="Description"
+												type="textarea"
+												onChange={(e) => {
+													onchange(e, "description");
+												}}
+												className="form-control"
+											></textarea>
 										</div>
 									</div>
 								</div>
@@ -81,18 +100,13 @@ export const AddTask = ({ addTask }) => {
 								</div>
 								<button className="btn btn-info ml-5">Submit</button>
 								<Link to="/task" className="btn btn-danger ml-2">
-									Cancel</Link>
+									Cancel
+								</Link>
 							</div>
 						</form>
 					</div>
 				</div>
 			</div>
 		</>
-
 	);
 };
-
-
-
-
-
