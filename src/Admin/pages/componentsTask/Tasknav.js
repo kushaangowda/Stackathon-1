@@ -15,7 +15,7 @@ export const Tasknav = ({ deleteTask }) => {
 	const display = () => {
 
 		axios
-			.get("http://api-stackathon.herokuapp.com/task/")
+			.get("https://api-stackathon.herokuapp.com/task/")
 			.then((res) => {
 				let tasks = res.data;
 				let final = [];

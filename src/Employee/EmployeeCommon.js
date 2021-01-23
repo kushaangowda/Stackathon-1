@@ -27,7 +27,7 @@ export const EmployeeCommon = () => {
 
 	useEffect(() => {
 		if (isAuthenticated) {
-			var link = "http://api-stackathon.herokuapp.com/auth/check/" + user["sub"];
+			var link = "https://api-stackathon.herokuapp.com/auth/check/" + user["sub"];
 			axios
 				.get(link)
 				.then((res) => {

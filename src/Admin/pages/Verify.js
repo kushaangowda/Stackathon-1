@@ -15,12 +15,12 @@ export const Verify = () => {
 			auth_id: emp["sub"],
 		};
 		axios
-			.post("http://api-stackathon.herokuapp.com/auth/addEmployee", id)
+			.post("https://api-stackathon.herokuapp.com/auth/addEmployee", id)
 			.then((res) => {
 				console.log(res);
 				setReload(true);
 				axios
-					.post("http://api-stackathon.herokuapp.com/employee/add", employee)
+					.post("https://api-stackathon.herokuapp.com/employee/add", employee)
 					.then((res) => {
 						console.log(res.data);
 						setReload(true);
@@ -31,7 +31,7 @@ export const Verify = () => {
 	};
 
 	const reject = (sub) => {
-		var link = "http://api-stackathon.herokuapp.com/wannabeEmployee/remove/" + sub;
+		var link = "https://api-stackathon.herokuapp.com/wannabeEmployee/remove/" + sub;
 		axios
 			.get(link)
 			.then((res) => {
@@ -45,7 +45,7 @@ export const Verify = () => {
 	if (reload) {
 		setReload(false);
 		axios
-			.get("http://api-stackathon.herokuapp.com/wannabeEmployee/")
+			.get("https://api-stackathon.herokuapp.com/wannabeEmployee/")
 			.then((res) => {
 				console.log(res.data);
 				setEmps(res.data);
@@ -55,7 +55,7 @@ export const Verify = () => {
 
 	useEffect(() => {
 		axios
-			.get("http://api-stackathon.herokuapp.com/wannabeEmployee/")
+			.get("https://api-stackathon.herokuapp.com/wannabeEmployee/")
 			.then((res) => {
 				console.log(res.data);
 				setEmps(res.data);

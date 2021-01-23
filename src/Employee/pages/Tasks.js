@@ -17,17 +17,17 @@ export const Tasks = () => {
 	}, []);
 
 	const displaydata = () => {
-		axios.get("http://api-stackathon.herokuapp.com/employee/email/" + user["email"]).then(async (res1) => {
+		axios.get("https://api-stackathon.herokuapp.com/employee/email/" + user["email"]).then(async (res1) => {
 			if (res1.data.error) {
 				seterror("Invalid Email ID. Please contact administration");
 				return;
 			}
 			let team = res1.data.message.teamID;
 			console.log("team", team);
-			let teamres = await axios.get("http://api-stackathon.herokuapp.com/team/" + team);
+			let teamres = await axios.get("https://api-stackathon.herokuapp.com/team/" + team);
 			let teamname = teamres.data.name;
 			axios
-				.get("http://api-stackathon.herokuapp.com/task/" + teamname)
+				.get("https://api-stackathon.herokuapp.com/task/" + teamname)
 				.then((res) => {
 					console.log("here", res, res1);
 					setTasks(res.data);
@@ -74,7 +74,7 @@ export const Tasks = () => {
 	};
 
 	const ChangeStatus = (taskid, status) => {
-		axios.get("http://api-stackathon.herokuapp.com/task/setstatus/" + taskid + "/" + status).then((res) => {
+		axios.get("https://api-stackathon.herokuapp.com/task/setstatus/" + taskid + "/" + status).then((res) => {
 			if (res.error != null) {
 				seterror(res.error);
 			} else {

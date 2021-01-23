@@ -12,7 +12,7 @@ function Home() {
 	const [empDetails, setEmpDetails] = useState();
 	const fetchEmployees = async () => {
 		axios
-			.get("http://api-stackathon.herokuapp.com/employee")
+			.get("https://api-stackathon.herokuapp.com/employee")
 			.then((emp) => {
 				console.log(emp["data"]);
 				const fetchedEmployees = emp["data"];

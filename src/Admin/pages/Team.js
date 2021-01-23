@@ -15,14 +15,14 @@ function Team() {
 
 	useEffect(() => {
 		axios
-			.get("http://api-stackathon.herokuapp.com/team/")
+			.get("https://api-stackathon.herokuapp.com/team/")
 			.then((res) => {
 				setTeams(res.data);
 			})
 			.catch((err) => console.log(err));
 
 		axios
-			.get("http://api-stackathon.herokuapp.com/employee/")
+			.get("https://api-stackathon.herokuapp.com/employee/")
 			.then((res) => {
 				var emp1 = {};
 				res.data.forEach((emp) => {
@@ -37,7 +37,7 @@ function Team() {
 	if (reload) {
 		setReload(false);
 		axios
-			.get("http://api-stackathon.herokuapp.com/team/")
+			.get("https://api-stackathon.herokuapp.com/team/")
 			.then((res) => {
 				setTeams(res.data);
 			})
@@ -48,7 +48,7 @@ function Team() {
 		var message = "Are you sure you want to delete this team??\nDetails of this team will be erased permanently.\nThis action cannot be undone";
 		var check = window.confirm(message);
 		if (check) {
-			var link = "http://api-stackathon.herokuapp.com/team/delete/" + id;
+			var link = "https://api-stackathon.herokuapp.com/team/delete/" + id;
 			axios
 				.delete(link)
 				.then((res) => {
@@ -61,7 +61,7 @@ function Team() {
 
 	const handleAdd = (team) => {
 		axios
-			.post("http://api-stackathon.herokuapp.com/team/add", team)
+			.post("https://api-stackathon.herokuapp.com/team/add", team)
 			.then((res) => {
 				console.log(res.data);
 				setReload(true);
@@ -70,7 +70,7 @@ function Team() {
 	};
 
 	const handleEdit = (team) => {
-		var link = "http://api-stackathon.herokuapp.com/team/update/" + team.id;
+		var link = "https://api-stackathon.herokuapp.com/team/update/" + team.id;
 		axios
 			.put(link, team)
 			.then((res) => {

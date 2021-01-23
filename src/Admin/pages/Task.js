@@ -12,7 +12,7 @@ export const Task = () => {
 
 	const display = () => {
 		axios
-			.get("http://api-stackathon.herokuapp.com/task/")
+			.get("https://api-stackathon.herokuapp.com/task/")
 			.then((res) => {
 				if (String(res.data.message) !== "No tasks currently present.") setTasks(res.data);
 			})
@@ -28,7 +28,7 @@ export const Task = () => {
 		var newTasks = [task, ...tasks];
 		setTasks(newTasks);
 		axios
-			.post("http://api-stackathon.herokuapp.com/task/add", task)
+			.post("https://api-stackathon.herokuapp.com/task/add", task)
 			.then((res) => console.log(res.data))
 			.catch((err) => console.log(err));
 	};
@@ -39,7 +39,7 @@ export const Task = () => {
 		});
 		var newTasks = [task, ...newTasks1];
 		setTasks(newTasks);
-		var link = "http://api-stackathon.herokuapp.com/task/update/" + task.taskID;
+		var link = "https://api-stackathon.herokuapp.com/task/update/" + task.taskID;
 		axios
 			.put(link, task)
 			.then((res) => { console.log(res.data); display() })
@@ -55,7 +55,7 @@ export const Task = () => {
 			});
 			console.log("yo", newTasks);
 			setTasks(newTasks);
-			var link = "http://api-stackathon.herokuapp.com/task/" + id;
+			var link = "https://api-stackathon.herokuapp.com/task/" + id;
 			axios
 				.delete(link)
 				.then((res) => {

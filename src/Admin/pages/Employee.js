@@ -16,7 +16,7 @@ function Employee() {
 
 	useEffect(() => {
 		axios
-			.get("http://api-stackathon.herokuapp.com/team/")
+			.get("https://api-stackathon.herokuapp.com/team/")
 			.then((res) => {
 				var team1 = {};
 				res.data.forEach((team) => {
@@ -28,7 +28,7 @@ function Employee() {
 			.catch((err) => console.log(err));
 
 		axios
-			.get("http://api-stackathon.herokuapp.com/employee/")
+			.get("https://api-stackathon.herokuapp.com/employee/")
 			.then((res) => {
 				setEmployees(res.data);
 			})
@@ -38,7 +38,7 @@ function Employee() {
 	if (reload) {
 		setReload(false);
 		axios
-			.get("http://api-stackathon.herokuapp.com/employee/")
+			.get("https://api-stackathon.herokuapp.com/employee/")
 			.then((res) => {
 				setEmployees(res.data);
 			})
@@ -49,7 +49,7 @@ function Employee() {
 		var message = "Are you sure you want to delete this employee??\nDetails of this employee will be erased permanently.\nThis action cannot be undone";
 		var check = window.confirm(message);
 		if (check) {
-			var link = "http://api-stackathon.herokuapp.com/employee/" + id;
+			var link = "https://api-stackathon.herokuapp.com/employee/" + id;
 			axios
 				.delete(link)
 				.then((res) => {
@@ -62,7 +62,7 @@ function Employee() {
 
 	const handleAdd = (employee) => {
 		axios
-			.post("http://api-stackathon.herokuapp.com/employee/add", employee)
+			.post("https://api-stackathon.herokuapp.com/employee/add", employee)
 			.then((res) => {
 				console.log(res.data);
 				setReload(true);
@@ -71,7 +71,7 @@ function Employee() {
 	};
 
 	const handleEdit = (employee) => {
-		var link = "http://api-stackathon.herokuapp.com/employee/update/" + employee.id;
+		var link = "https://api-stackathon.herokuapp.com/employee/update/" + employee.id;
 		axios
 			.put(link, employee)
 			.then((res) => {
