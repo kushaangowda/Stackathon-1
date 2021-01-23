@@ -5,12 +5,12 @@ export default function createNotification({ title, message, type, position, tim
         title: title,
         message: message,
         type: type || "success",
-        insert: position,
-        container: "top-right",
+        insert: "top",
+        container: position || "top-right",
         animationIn: ["animate__animated", "animate__fadeIn"],
         animationOut: ["animate__animated", "animate__fadeOut"],
         dismiss: {
-            duration: time,
+            duration: time || 2000,
             pauseOnHover: true,
             onScreen: true
         }

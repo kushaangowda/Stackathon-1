@@ -5,6 +5,9 @@ import Sidebar from "./components/Sidebar";
 import { Home } from "./Home";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
+import createNotification from '../Notification'
+
+
 export const UnknownCommon = () => {
 	// const history = useHistory();
 
@@ -17,8 +20,20 @@ export const UnknownCommon = () => {
 	const addEmployeeRequest = (emp) => {
 		axios
 			.post("http://api-stackathon.herokuapp.com/wannabeEmployee/new", emp)
-			.then((res) => console.log(res))
-			.catch((err) => console.log(err));
+			.then((res) => {
+				console.log(res)
+				if (res.data.error) {
+					createNotification({
+						title: "Duplicate Request",
+						message: "Chotto Matte, Request already created!!",
+						type: "info",
+						time: 5000
+					})
+				}
+			})
+			.catch((err) => {
+				console.log(err)
+			});
 	};
 
 	useEffect(() => {

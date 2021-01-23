@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
+import createNotification from '../Notification'
 // import JSONPretty from "react-json-pretty";
 
 export const Home = ({ addEmployeeRequest }) => {
@@ -41,7 +42,14 @@ export const Home = ({ addEmployeeRequest }) => {
 					<tr>
 						<td>Send Request</td>
 						<td>
-							<button className="btn btn-primary" onClick={() => addEmployeeRequest(emp)}>
+							<button className="btn btn-primary" onClick={() => {
+								addEmployeeRequest(emp)
+								createNotification({
+									title: "Success",
+									message: "We have sent a request to the admin, Please try again later",
+								})
+								console.log(this)
+							}}>
 								Send Request
 							</button>
 						</td>
