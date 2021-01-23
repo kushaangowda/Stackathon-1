@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useAuth0 } from "@auth0/auth0-react";
 import axios from "axios";
+import createNotification from "../../Notification";
 
 export const Tasks = () => {
 	const [currtask, setcurrTask] = useState("");
@@ -20,6 +21,10 @@ export const Tasks = () => {
 		axios.get("http://api-stackathon.herokuapp.com/employee/email/" + user["email"]).then(async (res1) => {
 			if (res1.data.error) {
 				seterror("Invalid Email ID. Please contact administration");
+				createNotification({
+					message: "Invalid Email ID. Please contact administration",
+					type: "danger"
+				})
 				return;
 			}
 			let team = res1.data.message.teamID;
