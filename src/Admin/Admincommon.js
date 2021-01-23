@@ -21,7 +21,7 @@ export const Admincommon = () => {
 
 	useEffect(() => {
 		if (isAuthenticated) {
-			var link = "http://api-stackathon.herokuapp.com/auth/check/" + user["sub"];
+			var link = "https://api-stackathon.herokuapp.com/auth/check/" + user["sub"];
 			axios
 				.get(link)
 				.then((res) => {
@@ -29,7 +29,13 @@ export const Admincommon = () => {
 						setRender(true);
 					}
 				})
-				.catch((err) => console.log(err));
+				.catch((err) => createNotification({
+					title: "",
+					message: "Showing tasks with status: PENDING",
+					type: "warning",
+					time: 1000
+
+				}));
 		}
 	});
 

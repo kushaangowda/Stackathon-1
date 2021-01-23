@@ -24,12 +24,12 @@ export const Home = () => {
 	const [markAttendanceClickable, setMarkAttendanceClickable] = useState(true);
 
 	useEffect(() => {
-		var link = "http://api-stackathon.herokuapp.com/employee/email/" + user["email"];
+		var link = "https://api-stackathon.herokuapp.com/employee/email/" + user["email"];
 		axios
 			.get(link)
 			.then((emp) => {
 				setEmployee(emp.data.message);
-				link = "http://api-stackathon.herokuapp.com/team/" + emp.data.message["teamID"];
+				link = "https://api-stackathon.herokuapp.com/team/" + emp.data.message["teamID"];
 				axios
 					.get(link)
 					.then((res) => {
@@ -43,7 +43,13 @@ export const Home = () => {
 						}
 					})
 					.catch((err) => {
-						console.log(err)
+						createNotification({
+							title: "",
+							message: err.message,
+							type: "warning",
+							time: 1000
+
+						})
 						createNotification({
 							title: " :(",
 							message: "Something went wrong, Please try again later!",
@@ -62,15 +68,32 @@ export const Home = () => {
 
 							if (lastDate.slice(0, 15) === now.toString().slice(0, 15)) {
 								setMarkAttendanceClickable(false)
+								createNotification({
+									title: "Success",
+									message: "Attendance for today successfully marked!",
+									type: "success"
+								})
 							}
 						}
 					})
-					.catch((err) => console.log(err));
+					.catch((err) => createNotification({
+						title: "",
+						message: err.message,
+						type: "warning",
+						time: 1000
+
+					}));
 			})
-			.catch((err) => console.log(err));
+			.catch((err) => createNotification({
+				title: "",
+				message: err.message,
+				type: "warning",
+				time: 1000
+
+			}));
 
 		axios
-			.get("http://api-stackathon.herokuapp.com/employee/")
+			.get("https://api-stackathon.herokuapp.com/employee/")
 			.then((res) => {
 				var dict = {};
 				res.data.forEach((emp) => {
@@ -78,26 +101,44 @@ export const Home = () => {
 				});
 				setEmpdict(dict);
 			})
-			.catch((err) => console.log(err));
+			.catch((err) => createNotification({
+				title: "",
+				message: err.message,
+				type: "warning",
+				time: 1000
+
+			}));
 	}, []);
 
 	if (reload) {
 		setReload(false);
-		var link = "http://api-stackathon.herokuapp.com/employee/email/" + user["email"];
+		var link = "https://api-stackathon.herokuapp.com/employee/email/" + user["email"];
 		axios
 			.get(link)
 			.then((emp) => {
 				setEmployee(emp.data.message);
-				link = "http://api-stackathon.herokuapp.com/team/" + emp.data.message["teamID"];
+				link = "https://api-stackathon.herokuapp.com/team/" + emp.data.message["teamID"];
 				axios
 					.get(link)
 					.then((res) => {
 						setTeam(res.data);
 					})
-					.catch((err) => console.log(err));
+					.catch((err) => createNotification({
+						title: "",
+						message: err.message,
+						type: "warning",
+						time: 1000
+
+					}));
 			})
-			.catch((err) => console.log(err));
-		link = "http://api-stackathon.herokuapp.com/attendance/" + employee._id;
+			.catch((err) => createNotification({
+				title: "",
+				message: err.message,
+				type: "warning",
+				time: 1000
+
+			}));
+		link = "https://api-stackathon.herokuapp.com/attendance/" + employee._id;
 		axios
 			.get(link)
 			.then((res) => {
@@ -108,12 +149,18 @@ export const Home = () => {
 					setMarkAttendanceClickable(false)
 				}
 			})
-			.catch((err) => console.log(err));
+			.catch((err) => createNotification({
+				title: "",
+				message: err.message,
+				type: "warning",
+				time: 1000
+
+			}));
 	}
 
 	const markAttendance = () => {
 		console.log(employee._id);
-		var link = "http://api-stackathon.herokuapp.com/attendance/" + employee._id + "/create";
+		var link = "https://api-stackathon.herokuapp.com/attendance/" + employee._id + "/create";
 		axios
 			.get(link)
 			.then((res) => {
@@ -127,7 +174,13 @@ export const Home = () => {
 				}
 				setReload(true);
 			})
-			.catch((err) => console.log(err));
+			.catch((err) => createNotification({
+				title: "",
+				message: err.message,
+				type: "warning",
+				time: 1000
+
+			}));
 	};
 
 	return (

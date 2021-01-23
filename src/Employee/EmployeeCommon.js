@@ -22,21 +22,27 @@ export const EmployeeCommon = () => {
 	// Temporarily Preventing redirect
 	// if (unknown) {
 	// setUnknown(false);
-	// window.location.href = "https://dev-f-rf7g-f.us.auth0.com/v2/logout?returnTo=https%3A%2F%2Fstackathon.netlify.app";
+	// window.location.href = "https://dev-f-rf7g-f.us.auth0.com/v2/logout?returnTo=http%3A%2F%2Flocalhost%3A3000";
 	//}
 
 	if (isAuthenticated) console.log(user);
 
 	useEffect(() => {
 		if (isAuthenticated) {
-			var link = "http://api-stackathon.herokuapp.com/auth/check/" + user["sub"];
+			var link = "https://api-stackathon.herokuapp.com/auth/check/" + user["sub"];
 			axios
 				.get(link)
 				.then((res) => {
 					if (String(res.data["scope"]) === "employee") setRender("true");
 					// else if (String(res.data["scope"]) === "unknown") setUnknown(true);
 				})
-				.catch((err) => console.log(err));
+				.catch((err) => createNotification({
+					title: "",
+					message: err.message,
+					type: "warning",
+					time: 1000
+
+				}));
 		}
 	}, [render]);
 

@@ -7,7 +7,7 @@ function Payroll() {
 	const [isError, setIsError] = useState(false);
 	const [empDetails, setEmpDetails] = useState();
 	const [currdata, setcurdata] = useState();
-	const host = "http://api-stackathon.herokuapp.com/";
+	const host = "https://api-stackathon.herokuapp.com/";
 
 	const Accept = async (_id, id) => {
 		axios.get(host + "payrollrequest/" + _id + "/accept");
@@ -107,7 +107,13 @@ function Payroll() {
 					setEmployes(temp);
 				})
 				.catch((err) => {
-					console.log(err);
+					createNotification({
+						title: "",
+						message: err.message,
+						type: "warning",
+						time: 1000
+
+					});
 					setIsError(true);
 				});
 		};

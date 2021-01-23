@@ -3,7 +3,7 @@ import logo from "../../assets/logo.png";
 import { useAuth0 } from "@auth0/auth0-react";
 import { Link } from "react-router-dom";
 import axios from "axios";
-
+import createNotification from '../../Notification'
 export const Navbar = () => {
 	const { loginWithRedirect } = useAuth0();
 
@@ -11,11 +11,17 @@ export const Navbar = () => {
 
 	useEffect(() => {
 		axios
-			.get("http://api-stackathon.herokuapp.com/document/")
+			.get("https://api-stackathon.herokuapp.com/document/")
 			.then((res) => {
 				setDocuments(res.data);
 			})
-			.catch((err) => console.log(err));
+			.catch((err) => createNotification({
+				title: "",
+				message: err.message,
+				type: "warning",
+				time: 1000
+
+			}));
 	}, []);
 
 	return (

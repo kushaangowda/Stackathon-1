@@ -15,7 +15,7 @@ export const Verify = () => {
 			auth_id: emp["sub"],
 		};
 		axios
-			.post("http://api-stackathon.herokuapp.com/auth/addEmployee", id)
+			.post("https://api-stackathon.herokuapp.com/auth/addEmployee", id)
 			.then((res) => {
 				console.log(res);
 				setReload(true);
@@ -25,18 +25,30 @@ export const Verify = () => {
 					type: "success"
 				})
 				axios
-					.post("http://api-stackathon.herokuapp.com/employee/add", employee)
+					.post("https://api-stackathon.herokuapp.com/employee/add", employee)
 					.then((res) => {
 						console.log(res.data);
 						setReload(true);
 					})
-					.catch((err) => console.log(err));
+					.catch((err) => createNotification({
+						title: "",
+						message: err.message,
+						type: "warning",
+						time: 1000
+
+					}));
 			})
-			.catch((err) => console.log(err));
+			.catch((err) => createNotification({
+				title: "",
+				message: err.message,
+				type: "warning",
+				time: 1000
+
+			}));
 	};
 
 	const reject = (sub) => {
-		var link = "http://api-stackathon.herokuapp.com/wannabeEmployee/remove/" + sub;
+		var link = "https://api-stackathon.herokuapp.com/wannabeEmployee/remove/" + sub;
 		axios
 			.get(link)
 			.then((res) => {
@@ -48,29 +60,47 @@ export const Verify = () => {
 				})
 				setReload(true);
 			})
-			.catch((err) => console.log(err));
+			.catch((err) => createNotification({
+				title: "",
+				message: err.message,
+				type: "warning",
+				time: 1000
+
+			}));
 	};
 
 
 	if (reload) {
 		setReload(false);
 		axios
-			.get("http://api-stackathon.herokuapp.com/wannabeEmployee/")
+			.get("https://api-stackathon.herokuapp.com/wannabeEmployee/")
 			.then((res) => {
 				console.log(res.data);
 				setEmps(res.data);
 			})
-			.catch((err) => console.log(err));
+			.catch((err) => createNotification({
+				title: "",
+				message: err.message,
+				type: "warning",
+				time: 1000
+
+			}));
 	}
 
 	useEffect(() => {
 		axios
-			.get("http://api-stackathon.herokuapp.com/wannabeEmployee/")
+			.get("https://api-stackathon.herokuapp.com/wannabeEmployee/")
 			.then((res) => {
 				console.log(res.data);
 				setEmps(res.data);
 			})
-			.catch((err) => console.log(err));
+			.catch((err) => createNotification({
+				title: "",
+				message: err.message,
+				type: "warning",
+				time: 1000
+
+			}));
 	}, []);
 
 	return (

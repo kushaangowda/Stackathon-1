@@ -50,6 +50,7 @@ export const Edit = ({ handleEdit, requests }) => {
                         aria-describedby="desc"
                         onChange={(e) => handleFormChange(e.target.value)}
                         value={payrollRequest.description}
+
                     />
                     <span>Duration of Leave:</span>
                     <input value={payrollRequest.duration} type="number" onChange={(e) => handleFormChange3(e.target.value)} className="form-control" />

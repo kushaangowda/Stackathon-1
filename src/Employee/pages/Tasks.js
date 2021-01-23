@@ -18,21 +18,21 @@ export const Tasks = () => {
 	}, []);
 
 	const displaydata = () => {
-		axios.get("http://api-stackathon.herokuapp.com/employee/email/" + user["email"]).then(async (res1) => {
+		axios.get("https://api-stackathon.herokuapp.com/employee/email/" + user["email"]).then(async (res1) => {
 			if (res1.data.error) {
 				seterror("Invalid Email ID. Please contact administration");
 				createNotification({
 					message: "Invalid Email ID. Please contact administration",
-					type: "danger"
-				})
+					type: "danger",
+				});
 				return;
 			}
 			let team = res1.data.message.teamID;
 			console.log("team", team);
-			let teamres = await axios.get("http://api-stackathon.herokuapp.com/team/" + team);
+			let teamres = await axios.get("https://api-stackathon.herokuapp.com/team/" + team);
 			let teamname = teamres.data.name;
 			axios
-				.get("http://api-stackathon.herokuapp.com/task/" + teamname)
+				.get("https://api-stackathon.herokuapp.com/task/" + teamname)
 				.then((res) => {
 					console.log("here", res, res1);
 					setTasks(res.data);
@@ -74,12 +74,18 @@ export const Tasks = () => {
 					setDisplay(final);
 					console.log(final);
 				})
-				.catch((err) => console.log(err));
+				.catch((err) => createNotification({
+					title: "",
+					message: err.message,
+					type: "warning",
+					time: 1000
+
+				}));
 		});
 	};
 
 	const ChangeStatus = (taskid, status) => {
-		axios.get("http://api-stackathon.herokuapp.com/task/setstatus/" + taskid + "/" + status).then((res) => {
+		axios.get("https://api-stackathon.herokuapp.com/task/setstatus/" + taskid + "/" + status).then((res) => {
 			if (res.error != null) {
 				seterror(res.error);
 			} else {
@@ -145,20 +151,63 @@ export const Tasks = () => {
 						<div className="filter">
 							<div onChange={(e) => setFilter(e.target.value)} className="btn-group" data-toggle="buttons">
 								<label className="btn btn-info active">
-									<input type="radio" name="status" value="all" defaultChecked /> All
+									<input
+										type="radio"
+										name="status"
+										value="all"
+										defaultChecked
+										onClick={() => {
+											createNotification({
+												title: "",
+												message: "Showing tasks all tasks",
+												type: "success",
+												time: 1000,
+											});
+										}}
+									/>{" "}
+									All
 								</label>{" "}
+
 								{/* <label className="btn btn-success">
 									<input type="radio" name="status" value="Active" /> Active
 								</label> */}
+
 								<label className="btn btn-warning">
-									<input type="radio" name="status" value="Pending" /> Pending
+									<input
+										type="radio"
+										name="status"
+										value="Pending"
+										onClick={() => {
+											createNotification({
+												title: "",
+												message: "Showing tasks with status: PENDING",
+												type: "warning",
+												time: 1000,
+											});
+										}}
+									/>{" "}
+									Pending
 								</label>
 								<label className="btn btn-danger">
-									<input type="radio" name="status" value="Completed" /> Completed
+									<input
+										type="radio"
+										name="status"
+										value="Completed"
+										onClick={() => {
+											createNotification({
+												title: "",
+												message: "Showing only tasks with status: COMPLETED",
+												type: "danger",
+												time: 1000,
+											});
+										}}
+									/>{" "}
+									Completed
 								</label>
 							</div>
 						</div>
 					</div>
+
 					<div id="no-more-tables">
 					<table className="table table-hover table-bordered">
 					<caption className="listofdocument">List of Task</caption>
@@ -174,6 +223,7 @@ export const Tasks = () => {
 						</thead>
 						<tbody>{display}</tbody>
 					</table>
+
 					</div>
 					{error ? <p>{error}</p> : null}
 				</div>

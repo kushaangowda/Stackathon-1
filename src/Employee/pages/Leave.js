@@ -20,7 +20,7 @@ export const Leave = () => {
 
 	useEffect(() => {
 		axios
-			.get("http://api-stackathon.herokuapp.com/employee/email/" + user["email"])
+			.get("https://api-stackathon.herokuapp.com/employee/email/" + user["email"])
 			.then((res) => {
 				if (res.data.error) {
 					seterror('Invalid Email ID. Please contact administration');
@@ -39,14 +39,20 @@ export const Leave = () => {
 					time: 1500
 				})
 				axios
-					.get(`http://api-stackathon.herokuapp.com/leaverequest/${res.data.message._id}`)
+					.get(`https://api-stackathon.herokuapp.com/leaverequest/${res.data.message._id}`)
 					.then((res1) => {
 						createNotification({
 							message: "Successfully fetched your requests",
 						})
 						setRequests(res1.data);
 					})
-					.catch((err) => console.log(err));
+					.catch((err) => createNotification({
+						title: "",
+						message: err.message,
+						type: "warning",
+						time: 1000
+
+					}));
 			})
 
 	}, []);
@@ -54,11 +60,17 @@ export const Leave = () => {
 	if (reload) {
 		setReload(false);
 		axios
-			.get(`http://api-stackathon.herokuapp.com/leaverequest/${empID}`)
+			.get(`https://api-stackathon.herokuapp.com/leaverequest/${empID}`)
 			.then((res) => {
 				setRequests(res.data);
 			})
-			.catch((err) => console.log(err));
+			.catch((err) => createNotification({
+				title: "",
+				message: err.message,
+				type: "warning",
+				time: 1000
+
+			}));
 	}
 
 
@@ -66,20 +78,26 @@ export const Leave = () => {
 		var message = "Are you sure you want to delete this document??\nDetails of this document will be erased permanently.\nThis action cannot be undone";
 		var check = window.confirm(message);
 		if (check) {
-			var link = "http://api-stackathon.herokuapp.com/leaverequest/" + id;
+			var link = "https://api-stackathon.herokuapp.com/leaverequest/" + id;
 			axios
 				.delete(link)
 				.then((res) => {
 					console.log(res.data);
 					setReload(true);
 				})
-				.catch((err) => console.log(err));
+				.catch((err) => createNotification({
+					title: "",
+					message: err.message,
+					type: "warning",
+					time: 1000
+
+				}));
 		}
 	};
 
 	const handleAdd = (newRequest) => {
 		axios
-			.post("http://api-stackathon.herokuapp.com/leaverequest/add", newRequest)
+			.post("https://api-stackathon.herokuapp.com/leaverequest/add", newRequest)
 			.then((res) => {
 				console.log(res.data);
 				createNotification({
@@ -88,11 +106,17 @@ export const Leave = () => {
 				})
 				setReload(true);
 			})
-			.catch((err) => console.log(err));
+			.catch((err) => createNotification({
+				title: "",
+				message: err.message,
+				type: "warning",
+				time: 1000
+
+			}));
 	};
 
 	const handleEdit = (request, id) => {
-		var link = "http://api-stackathon.herokuapp.com/leaverequest/update/" + id;
+		var link = "https://api-stackathon.herokuapp.com/leaverequest/update/" + id;
 		axios
 			.put(link, request)
 			.then((res) => {
@@ -102,7 +126,13 @@ export const Leave = () => {
 				})
 				setReload(true);
 			})
-			.catch((err) => console.log(err));
+			.catch((err) => createNotification({
+				title: "",
+				message: err.message,
+				type: "warning",
+				time: 1000
+
+			}));
 	};
 
 	return (
