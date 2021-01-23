@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import "./pages.css";
 
 
 import createNotification from '../../Notification'
@@ -59,9 +60,9 @@ function Home() {
 			if (Number(res["data"].length) === 0) {
 				setcurdata(
 					<tr>
-						<td>No Pending Requests</td>
-						<td>-</td>
-						<td>-</td>
+						<td data-title="DESCRIPTION">No Pending Requests</td>
+						<td data-title="ACCEPT">-</td>
+						<td data-title="REJECT">-</td>
 					</tr>
 				);
 			} else {
@@ -71,13 +72,13 @@ function Home() {
 						if (String(Status) === "Pending") {
 							return (
 								<tr>
-									<td>{description}</td>
-									<td>
+									<td data-title="DESCRIPTION">{description}</td>
+									<td data-title="ACCEPT">
 										<button onClick={() => payrollAccept(_id, id)} type="button" className="btn btn-success">
 											Accept
 										</button>
 									</td>
-									<td>
+									<td data-title="REJECT">
 										<button onClick={() => payrollReject(_id, id)} type="button" className="btn btn-danger">
 											Reject
 										</button>
@@ -87,17 +88,17 @@ function Home() {
 						} else if (String(Status) === "Accepted") {
 							return (
 								<tr>
-									<td>{description}</td>
-									<td>Accepted</td>
-									<td>-</td>
+									<td data-title="DESCRIPTION">{description}</td>
+									<td data-title="ACCEPT">Accepted</td>
+									<td data-title="REJECT">-</td>
 								</tr>
 							);
 						} else {
 							return (
 								<tr>
-									<td>{description}</td>
-									<td>-</td>
-									<td>Rejected</td>
+									<td data-title="DESCRIPTION">{description}</td>
+									<td data-title="ACCEPT">-</td>
+									<td data-title="REJECT">Rejected</td>
 								</tr>
 							);
 						}
@@ -114,11 +115,11 @@ function Home() {
 			if (Number(res["data"].length) === 0) {
 				setcurdata(
 					<tr>
-						<td>No Pending Requests</td>
-						<td>-</td>
-						<td>-</td>
-						<td>-</td>
-						<td>-</td>
+						<td data-title="START">No Pending Requests</td>
+						<td data-title="DURATION">-</td>
+						<td data-title="DESCRIPTION">-</td>
+						<td data-title="ACCEPT">-</td>
+						<td data-title="REJECT">-</td>
 					</tr>
 				);
 			} else {
@@ -128,15 +129,15 @@ function Home() {
 						if (String(Status) === "Pending") {
 							return (
 								<tr>
-									<td>{start.slice(0, 10)}</td>
-									<td>{duration}</td>
-									<td>{description}</td>
-									<td>
+									<td data-title="START">{start.slice(0, 10)}</td>
+									<td data-title="DURATION">{duration}</td>
+									<td data-title="DESCRIPTION">{description}</td>
+									<td data-title="ACCEPT">
 										<button onClick={() => leaveAccept(_id, id)} type="button" className="btn btn-success">
 											Accept
 										</button>
 									</td>
-									<td>
+									<td data-title="REJECT">
 										<button onClick={() => leaveReject(_id, id)} type="button" className="btn btn-danger">
 											Reject
 										</button>
@@ -146,21 +147,21 @@ function Home() {
 						} else if (String(Status) === "Accepted") {
 							return (
 								<tr>
-									<td>{start.slice(0, 10)}</td>
-									<td>{duration}</td>
-									<td>{description}</td>
-									<td>Accepted</td>
-									<td>-</td>
+									<td data-title="START">{start.slice(0, 10)}</td>
+									<td data-title="DURATION">{duration}</td>
+									<td data-title="DESCRIPTION">{description}</td>
+									<td data-title="ACCEPT">Accepted</td>
+									<td data-title="REJECT">-</td>
 								</tr>
 							);
 						} else {
 							return (
 								<tr>
-									<td>{start.slice(0, 10)}</td>
-									<td>{duration}</td>
-									<td>{description}</td>
-									<td>-</td>
-									<td>Rejected</td>
+									<td data-title="START">{start.slice(0, 10)}</td>
+									<td data-title="DURATION">{duration}</td>
+									<td data-title="DESCRIPTION">{description}</td>
+									<td data-title="ACCEPT">-</td>
+									<td data-title="REJECT">Rejected</td>
 								</tr>
 							);
 						}
@@ -183,12 +184,12 @@ function Home() {
 						fetchedEmployees.map(({ _id, name, email, attendance, Salary }) => {
 							return (
 								<tr key={_id}>
-									<td>{name}</td>
-									<td>{email}</td>
-									<td>{attendance}</td>
-									<td>{Salary}</td>
+									<td  data-title="NAME">{name}</td>
+									<td  data-title="EMAIL">{email}</td>
+									<td  data-title="ATTENDANCE">{attendance}</td>
+									<td  data-title="SALARY">{Salary}</td>
 									{/* <td><button className="btn btn-warning" onClick={() => handleClick(name, _id)}>Check</button></td> */}
-									<td>
+									<td  data-title="LEAVE REQUESTS">
 										<button
 											onClick={() => ChangeLeaveData(_id)}
 											type="button"
@@ -199,7 +200,7 @@ function Home() {
 											Check
 										</button>{" "}
 									</td>
-									<td>
+									<td  data-title="PAYROLL REQUESTS">
 										<button
 											onClick={() => ChangePayrollData(_id)}
 											type="button"
@@ -241,8 +242,9 @@ function Home() {
 	return (
 		<div>
 			<h2 className="pageTitle">Leave and Payroll Requests</h2>
+			<div id="no-more-tables">
 			<table className="table table-hover table-bordered mt-5">
-				<caption>List of Employees</caption>
+				<caption>List of Requests</caption>
 				<thead className="thead-dark">
 					<tr>
 						<th className="text-uppercase">name</th>
@@ -255,6 +257,7 @@ function Home() {
 				</thead>
 				<tbody>{empDetails}</tbody>
 			</table>
+			</div>
 			<div
 				className="modal fade bd-example-modal-xl"
 				id="exampleModal1"
@@ -274,6 +277,7 @@ function Home() {
 							</button>
 						</div>
 						<div className="modal-body">
+						<div id="no-more-tables">
 							<table className="table table-hover table-bordered mt-5">
 								<thead className="thead-dark">
 									<tr>
@@ -284,6 +288,7 @@ function Home() {
 								</thead>
 								<tbody>{currdata}</tbody>
 							</table>
+							</div>
 						</div>
 						<div className="modal-footer">
 							<button type="button" className="btn btn-secondary" data-dismiss="modal">
@@ -312,6 +317,7 @@ function Home() {
 							</button>
 						</div>
 						<div className="modal-body">
+						<div id="no-more-tables">
 							<table className="table table-hover table-bordered mt-5">
 								<thead className="thead-dark">
 									<tr>
@@ -324,7 +330,9 @@ function Home() {
 								</thead>
 								<tbody>{currdata}</tbody>
 							</table>
-						</div>
+							</div>
+							</div>
+						{/* </div> */}
 						<div className="modal-footer">
 							<button type="button" className="btn btn-secondary" data-dismiss="modal">
 								Close

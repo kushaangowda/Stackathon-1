@@ -41,14 +41,24 @@ export default function EmployeeCard(props) {
 			);
 	};
 
-	return (
-		<tr className="emp-card">
-			<td>{props.details.name}</td>
-			<td>{props.details.email}</td>
-			<td>{props.details.Post}</td>
-			<td>{props.details.Role}</td>
-			<td>{props.details.Salary}</td>
-			<td>{attendance()}</td>
-		</tr>
-	);
+
+    const attendance = () => {
+        if (isError)
+            return <h6>Something Went Wrong</h6>
+        if (attendanceMarked)
+            return <h6>Attendance for today already marked</h6>
+        else
+            return <button onClick={markAttendance}>Mark Attendance</button>
+    }
+
+    return (
+        <tr className="emp-card">
+            <td  data-title="NAME">{props.details.name}</td>
+            <td  data-title="EMAIL">{props.details.email}</td>
+            <td  data-title="POST">{props.details.Post}</td>
+            <td  data-title="ROLE">{props.details.Role}</td>
+            <td data-title="SALARY">{props.details.Salary}</td>
+            <td  data-title="ATTENDANCE">{attendance()}</td>
+        </tr>
+    )
 }

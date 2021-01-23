@@ -47,13 +47,13 @@ export const Tasks = () => {
 							return (
 								<tr data-status={Tasks.Status} key={Tasks._id}>
 									{/*<td>{Tasks.Id}</td>*/}
-									<td>{Tasks.name}</td>
-									<td>{Tasks.description}</td>
-									<td>{Tasks.deadline.slice(0, 10)}</td>
-									<td>
+									<td className="text-uppercase" data-title="Name">{Tasks.name}</td>
+									<td className="text-uppercase" data-title="Description">{Tasks.description}</td>
+									<td className="text-uppercase" data-title="Deadline">{Tasks.deadline.slice(0, 10)}</td>
+									<td className="text-uppercase" data-title="Status">
 										<span className={Tasks.Status || "pending"}>{Tasks.status}</span>
 									</td>
-									<td>
+									<td className="text-uppercase" data-title="Action">
 										<button
 											className="btn btn-primary"
 											data-toggle="modal"
@@ -106,7 +106,6 @@ export const Tasks = () => {
 				<select name="status" id="status">
 					<option value="Pending">Pending</option>
 					<option value="Completed">Completed</option>
-					<option value="Active">Active</option>
 				</select>
 				<button
 					data-dismiss="modal"
@@ -147,11 +146,9 @@ export const Tasks = () => {
 				<div className="Tasks ml-2 mr-2">
 					<div className="row mt-2">
 						<div className="navheading col-sm-7">
-							<h2>
-								Manage <b>Task</b>
-							</h2>
+						<h2 className="pageTitle">Manage Task</h2>
 						</div>
-						<div className="col-sm-5">
+						<div className="filter">
 							<div onChange={(e) => setFilter(e.target.value)} className="btn-group" data-toggle="buttons">
 								<label className="btn btn-info active">
 									<input
@@ -170,22 +167,11 @@ export const Tasks = () => {
 									/>{" "}
 									All
 								</label>{" "}
-								<label className="btn btn-success">
-									<input
-										type="radio"
-										name="status"
-										value="Active"
-										onClick={() => {
-											createNotification({
-												title: "",
-												message: "Showing tasks with status: ACTIVE",
-												type: "success",
-												time: 1000,
-											});
-										}}
-									/>{" "}
-									Active
-								</label>
+
+								{/* <label className="btn btn-success">
+									<input type="radio" name="status" value="Active" /> Active
+								</label> */}
+
 								<label className="btn btn-warning">
 									<input
 										type="radio"
@@ -221,20 +207,23 @@ export const Tasks = () => {
 							</div>
 						</div>
 					</div>
-					<div className="table-responsive">
-						<table className="table table-bordered table-hover">
-							<thead className="thead-dark">
-								<tr>
-									{/*<th>#</th>*/}
-									<th>Name</th>
-									<th>Description</th>
-									<th>Deadline</th>
-									<th>Status</th>
-									<th>Action</th>
-								</tr>
-							</thead>
-							<tbody>{display}</tbody>
-						</table>
+
+					<div id="no-more-tables">
+					<table className="table table-hover table-bordered">
+					<caption className="listofdocument">List of Task</caption>
+					<thead className="thead-dark">
+							<tr>
+								{/*<th>#</th>*/}
+								<th  className="text-uppercase">Name</th>
+								<th  className="text-uppercase">Description</th>
+								<th  className="text-uppercase">Deadline</th>
+								<th  className="text-uppercase">Status</th>
+								<th  className="text-uppercase">Action</th>
+							</tr>
+						</thead>
+						<tbody>{display}</tbody>
+					</table>
+
 					</div>
 					{error ? <p>{error}</p> : null}
 				</div>

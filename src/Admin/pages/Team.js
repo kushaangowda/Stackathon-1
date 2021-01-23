@@ -140,7 +140,6 @@ function Team() {
 		<div className="Team">
 			<Router>
 				<Navbar />
-				<h2 className="pageTitle">Manage Teams</h2>
 				<Route path="/team" exact component={() => <HomeTeam teams={teams} empdict={empdict} handleDelete={handleDelete} />} />
 				<Route path="/team/add" exact component={() => <AddTeam empdict={empdict} handleAdd={handleAdd} />} />
 				<Route path="/team/edit/:id" exact component={() => <EditTeam teams={teams} empdict={empdict} handleEdit={handleEdit} />} />

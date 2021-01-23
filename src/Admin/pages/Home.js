@@ -4,6 +4,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 import axios from "axios";
 import EmployeeCard from "../components/EmployeeCard";
 import createNotification from "../../Notification";
+import "./pages.css"
 
 function Home() {
 	const { user } = useAuth0();
@@ -62,21 +63,22 @@ function Home() {
 				<img src={user.picture} style={{ borderRadius: "50%" }} alt="profile pic" />
 				{/*<JSONPretty data={user} />*/}
 			</div>
-
-			<table className="table table-hover table-bordered mt-5">
-				<caption>List of Employees</caption>
-				<thead className="thead-dark">
-					<tr>
-						<th className="text-uppercase">name</th>
-						<th className="text-uppercase">email</th>
-						<th className="text-uppercase">post</th>
-						<th className="text-uppercase">role</th>
-						<th className="text-uppercase">salary</th>
-						<th className="text-uppercase">mark attendance</th>
-					</tr>
-				</thead>
-				<tbody>{empDetails}</tbody>
-			</table>
+			<div id="no-more-tables">
+				<table className="table table-hover table-bordered mt-5">
+					<caption>List of Employees</caption>
+					<thead className="thead-dark">
+						<tr>
+							<th className="text-uppercase">name</th>
+							<th className="text-uppercase">email</th>
+							<th className="text-uppercase">post</th>
+							<th className="text-uppercase">role</th>
+							<th className="text-uppercase">salary</th>
+							<th className="text-uppercase">mark attendance</th>
+						</tr>
+					</thead>
+					<tbody>{empDetails}</tbody>
+				</table>
+			</div>
 		</div>
 	);
 }

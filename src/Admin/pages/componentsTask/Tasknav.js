@@ -27,11 +27,14 @@ export const Tasknav = ({ deleteTask }) => {
 					temp.map((Tasks) => {
 						return (
 							<tr data-status={Tasks.Status} key={Tasks._id}>
-								<td>{Tasks.name}</td>
-								<td>{Tasks.description}</td>
-								<td>{Tasks.teamID} </td>
-								<td>{Tasks.deadline.slice(0, 10)}</td>
-								<td>
+
+
+								<td data-title="NAME">{Tasks.name}</td>
+								<td data-title="DESCRIPTION">{Tasks.description}</td>
+								<td data-title="TEAM">{Tasks.teamID} </td>
+								<td data-title="DEADLINE">{Tasks.deadline.slice(0, 10)}</td>
+								<td data-title="STATUS">
+
 									<span
 										className={
 											"btn btn-" +
@@ -41,9 +44,11 @@ export const Tasknav = ({ deleteTask }) => {
 										{String(Tasks.status)}
 									</span>
 								</td>
-								<td>
-									<Link to={`./task/edit/${Tasks._id}`} className="btn btn-primary">
-										Edit
+
+								<td data-title="ACTION">
+									<Link to={`./task/edit/${Tasks._id}`} className="btn btn">
+										<MdIcons.MdModeEdit />
+
 									</Link>
 								</td>
 								<td>
@@ -78,9 +83,7 @@ export const Tasknav = ({ deleteTask }) => {
 			<div className="Tasks ml-2 mr-2">
 				<div className="row mt-2">
 					<div className="navheading col-sm-7">
-						<h2>
-							Manage <b>Task</b>
-						</h2>
+					<h2 className="pageTitle">Manage Task</h2>
 					</div>
 					<div className="col-sm-5">
 						<div onChange={(e) => setFilter(e.target.value)} className="btn-group" data-toggle="buttons">
@@ -101,22 +104,19 @@ export const Tasknav = ({ deleteTask }) => {
 								/>{" "}
 								All
 							</label>{" "}
-							<label className="btn btn-success">
-								<input
-									type="radio"
-									name="status"
-									value="Active"
-									onClick={() => {
-										createNotification({
-											title: "",
-											message: "Showing tasks with status: ACTIVE",
-											type: "success",
-											time: 1000,
-										});
-									}}
-								/>{" "}
-								Active
-							</label>
+
+							{/* <label className="btn btn-success">
+								<input type="radio" name="status" value="Active" onClick={() => {
+									createNotification({
+										title: "",
+										message: "Showing tasks with status: ACTIVE",
+										type: "success",
+										time: 1000
+
+									})
+								}} /> Active
+							</label> */}
+
 							<label className="btn btn-warning">
 								<input
 									type="radio"
@@ -156,6 +156,7 @@ export const Tasknav = ({ deleteTask }) => {
 					</div>
 				</div>
 				<div className="table-responsive">
+				<div id="no-more-tables">
 					<table className="table table-bordered table-hover">
 						<caption>List of Tasks</caption>
 						<thead className="thead-dark">
@@ -172,6 +173,7 @@ export const Tasknav = ({ deleteTask }) => {
 						</thead>
 						<tbody>{currtasks}</tbody>
 					</table>
+					</div>
 				</div>
 			</div>
 		</div>
