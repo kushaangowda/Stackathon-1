@@ -68,6 +68,11 @@ export const Home = () => {
 
 							if (lastDate.slice(0, 15) === now.toString().slice(0, 15)) {
 								setMarkAttendanceClickable(false)
+								createNotification({
+									title: "Success",
+									message: "Attendance for today successfully marked!",
+									type: "success"
+								})
 							}
 						}
 					})
