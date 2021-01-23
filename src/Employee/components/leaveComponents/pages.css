@@ -1,25 +1,3 @@
-.Pending {
-	background-color: rgb(224, 173, 62);
-	padding: 1px 4px 2px 4px;
-	border-radius: 3px;
-}
-.Done {
-	background-color: rgb(230, 68, 63);
-	padding: 1px 13px 2px 13px;
-	border-radius: 3px;
-}
-span {
-	margin: 2px;
-}
-.add-new {
-	background-color: rgb(147, 220, 233);
-	height: 2rem;
-	width: 6rem;
-	border-radius: 10px;
-}
-.navheading{
-	z-index: 1;
-}
 @media only screen and (max-width: 800px) {
     
     /* Force table to not be like tables anymore */
@@ -46,7 +24,6 @@ span {
 		padding-left: 50%; 
 		white-space: normal;
 		text-align:left;
-		word-wrap: break-word;
 	}
  
 	#no-more-tables td:before { 
@@ -61,6 +38,14 @@ span {
 	}
 	#no-more-tables td:before { content: attr(data-title); }
 }
+.listofdocument{
+	align-items: center;
+}
 .empnav ul{
 	list-style: none;
+}
+.filter{
+	align-items: center;
+	margin-left: 50px;
+	margin-top: 10px;
 }
