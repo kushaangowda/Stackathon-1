@@ -23,8 +23,8 @@ export const Tasks = () => {
 				seterror("Invalid Email ID. Please contact administration");
 				createNotification({
 					message: "Invalid Email ID. Please contact administration",
-					type: "danger"
-				})
+					type: "danger",
+				});
 				return;
 			}
 			let team = res1.data.message.teamID;
@@ -148,33 +148,88 @@ export const Tasks = () => {
 						<div className="col-sm-5">
 							<div onChange={(e) => setFilter(e.target.value)} className="btn-group" data-toggle="buttons">
 								<label className="btn btn-info active">
-									<input type="radio" name="status" value="all" defaultChecked /> All
+									<input
+										type="radio"
+										name="status"
+										value="all"
+										defaultChecked
+										onClick={() => {
+											createNotification({
+												title: "",
+												message: "Showing tasks all tasks",
+												type: "success",
+												time: 1000,
+											});
+										}}
+									/>{" "}
+									All
 								</label>{" "}
 								<label className="btn btn-success">
-									<input type="radio" name="status" value="Active" /> Active
+									<input
+										type="radio"
+										name="status"
+										value="Active"
+										onClick={() => {
+											createNotification({
+												title: "",
+												message: "Showing tasks with status: ACTIVE",
+												type: "success",
+												time: 1000,
+											});
+										}}
+									/>{" "}
+									Active
 								</label>
 								<label className="btn btn-warning">
-									<input type="radio" name="status" value="Pending" /> Pending
+									<input
+										type="radio"
+										name="status"
+										value="Pending"
+										onClick={() => {
+											createNotification({
+												title: "",
+												message: "Showing tasks with status: PENDING",
+												type: "warning",
+												time: 1000,
+											});
+										}}
+									/>{" "}
+									Pending
 								</label>
 								<label className="btn btn-danger">
-									<input type="radio" name="status" value="Completed" /> Completed
+									<input
+										type="radio"
+										name="status"
+										value="Completed"
+										onClick={() => {
+											createNotification({
+												title: "",
+												message: "Showing only tasks with status: COMPLETED",
+												type: "danger",
+												time: 1000,
+											});
+										}}
+									/>{" "}
+									Completed
 								</label>
 							</div>
 						</div>
 					</div>
-					<table className="table table-striped table-hover">
-						<thead>
-							<tr>
-								{/*<th>#</th>*/}
-								<th>Name</th>
-								<th>Description</th>
-								<th>Deadline</th>
-								<th>Status</th>
-								<th>Action</th>
-							</tr>
-						</thead>
-						<tbody>{display}</tbody>
-					</table>
+					<div className="table-responsive">
+						<table className="table table-bordered table-hover">
+							<thead className="thead-dark">
+								<tr>
+									{/*<th>#</th>*/}
+									<th>Name</th>
+									<th>Description</th>
+									<th>Deadline</th>
+									<th>Status</th>
+									<th>Action</th>
+								</tr>
+							</thead>
+							<tbody>{display}</tbody>
+						</table>
+					</div>
 					{error ? <p>{error}</p> : null}
 				</div>
 			</div>
