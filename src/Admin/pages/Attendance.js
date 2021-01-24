@@ -3,7 +3,7 @@ import axios from "axios";
 import "./pages.css";
 
 
-import createNotification from '../../Notification'
+import createNotification, { demo } from '../../Notification'
 // import CustomModal from "../components/CustomModal";
 // import { RiAirplayLine } from "react-icons/ri";
 
@@ -184,27 +184,27 @@ function Home() {
 						fetchedEmployees.map(({ _id, name, email, attendance, Salary }) => {
 							return (
 								<tr key={_id}>
-									<td  data-title="NAME">{name}</td>
-									<td  data-title="EMAIL">{email}</td>
-									<td  data-title="ATTENDANCE">{attendance}</td>
-									<td  data-title="SALARY">{Salary}</td>
+									<td data-title="NAME">{name}</td>
+									<td data-title="EMAIL">{email}</td>
+									<td data-title="ATTENDANCE">{attendance}</td>
+									<td data-title="SALARY">{Salary}</td>
 									{/* <td><button className="btn btn-warning" onClick={() => handleClick(name, _id)}>Check</button></td> */}
-									<td  data-title="LEAVE REQUESTS">
+									<td data-title="LEAVE REQUESTS">
 										<button
 											onClick={() => ChangeLeaveData(_id)}
 											type="button"
-											className="btn btn-primary"
+											className="btn btn-warning"
 											data-toggle="modal"
 											data-target="#exampleModal2"
 										>
 											Check
 										</button>{" "}
 									</td>
-									<td  data-title="PAYROLL REQUESTS">
+									<td data-title="PAYROLL REQUESTS">
 										<button
 											onClick={() => ChangePayrollData(_id)}
 											type="button"
-											className="btn btn-primary"
+											className="btn btn-warning"
 											data-toggle="modal"
 											data-target="#exampleModal1"
 										>
@@ -229,6 +229,7 @@ function Home() {
 				});
 		};
 		fetchEmployees();
+		demo(["Welcome to the Requests page, Here you can manage all the leave requests and payroll requests by the employees", "Try accepting or rejecting some requests, if available!"])
 		// eslint-disable-next-line
 	}, []);
 
@@ -243,20 +244,20 @@ function Home() {
 		<div>
 			<h2 className="pageTitle">Leave and Payroll Requests</h2>
 			<div id="no-more-tables">
-			<table className="table table-hover table-bordered mt-5">
-				<caption>List of Requests</caption>
-				<thead className="thead-dark">
-					<tr>
-						<th className="text-uppercase">name</th>
-						<th className="text-uppercase">email</th>
-						<th className="text-uppercase">attendance</th>
-						<th className="text-uppercase">Salary</th>
-						<th className="text-uppercase">Leave Requests</th>
-						<th className="text-uppercase">Payroll Requests</th>
-					</tr>
-				</thead>
-				<tbody>{empDetails}</tbody>
-			</table>
+				<table className="table table-hover table-bordered mt-5">
+					<caption>List of Requests</caption>
+					<thead className="thead-dark">
+						<tr>
+							<th className="text-uppercase">name</th>
+							<th className="text-uppercase">email</th>
+							<th className="text-uppercase">attendance</th>
+							<th className="text-uppercase">Salary</th>
+							<th className="text-uppercase">Leave Requests</th>
+							<th className="text-uppercase">Payroll Requests</th>
+						</tr>
+					</thead>
+					<tbody>{empDetails}</tbody>
+				</table>
 			</div>
 			<div
 				className="modal fade bd-example-modal-xl"
@@ -277,17 +278,17 @@ function Home() {
 							</button>
 						</div>
 						<div className="modal-body">
-						<div id="no-more-tables">
-							<table className="table table-hover table-bordered mt-5">
-								<thead className="thead-dark">
-									<tr>
-										<th className="text-uppercase">Description</th>
-										<th className="text-uppercase">Accept</th>
-										<th className="text-uppercase">Reject</th>
-									</tr>
-								</thead>
-								<tbody>{currdata}</tbody>
-							</table>
+							<div id="no-more-tables">
+								<table className="table table-hover table-bordered mt-5">
+									<thead className="thead-dark">
+										<tr>
+											<th className="text-uppercase">Description</th>
+											<th className="text-uppercase">Accept</th>
+											<th className="text-uppercase">Reject</th>
+										</tr>
+									</thead>
+									<tbody>{currdata}</tbody>
+								</table>
 							</div>
 						</div>
 						<div className="modal-footer">
@@ -317,21 +318,21 @@ function Home() {
 							</button>
 						</div>
 						<div className="modal-body">
-						<div id="no-more-tables">
-							<table className="table table-hover table-bordered mt-5">
-								<thead className="thead-dark">
-									<tr>
-										<th className="text-uppercase">Start</th>
-										<th className="text-uppercase">Duration</th>
-										<th className="text-uppercase">Description</th>
-										<th className="text-uppercase">Accept</th>
-										<th className="text-uppercase">Reject</th>
-									</tr>
-								</thead>
-								<tbody>{currdata}</tbody>
-							</table>
+							<div id="no-more-tables">
+								<table className="table table-hover table-bordered mt-5">
+									<thead className="thead-dark">
+										<tr>
+											<th className="text-uppercase">Start</th>
+											<th className="text-uppercase">Duration</th>
+											<th className="text-uppercase">Description</th>
+											<th className="text-uppercase">Accept</th>
+											<th className="text-uppercase">Reject</th>
+										</tr>
+									</thead>
+									<tbody>{currdata}</tbody>
+								</table>
 							</div>
-							</div>
+						</div>
 						{/* </div> */}
 						<div className="modal-footer">
 							<button type="button" className="btn btn-secondary" data-dismiss="modal">

@@ -12,7 +12,7 @@ import Document from "./pages/Document";
 import { useAuth0 } from "@auth0/auth0-react";
 import axios from "axios";
 import { Verify } from "./pages/Verify";
-import createNotification, { demo } from "../Notification";
+import createNotification from "../Notification";
 
 export const Admincommon = () => {
 	const { isAuthenticated, user } = useAuth0();
@@ -39,9 +39,7 @@ export const Admincommon = () => {
 		}
 	});
 
-	useEffect(() => {
-		demo(["This is the admin page where you can access the details of other employees and mark their attendances just in case."])
-	}, [])
+
 
 
 	return (

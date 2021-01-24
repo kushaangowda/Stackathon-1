@@ -6,7 +6,7 @@ import { AddDocument } from "./componentsDocument/AddDocument";
 import { EditDocument } from "./componentsDocument/EditDocument";
 import axios from "axios";
 
-import createNotification from '../../Notification'
+import createNotification, { demo } from '../../Notification'
 
 function Document() {
 	const [documents, setDocuments] = useState([]);
@@ -26,6 +26,8 @@ function Document() {
 				time: 1000
 
 			}));
+
+		demo(["Here the admin can upload the company's privacy policies, faqs etc.", "All these docs are available to view by any new user who is neither admin or employee"])
 	}, []);
 
 	if (reload) {
@@ -45,67 +47,85 @@ function Document() {
 	}
 
 	const handleDelete = (id) => {
-		var message = "Are you sure you want to delete this document??\nDetails of this document will be erased permanently.\nThis action cannot be undone";
-		var check = window.confirm(message);
-		if (check) {
-			var link = "https://api-stackathon.herokuapp.com/document/" + id;
-			axios
-				.delete(link)
-				.then((res) => {
-					console.log(res.data);
-					setReload(true);
-				})
-				.catch((err) => createNotification({
-					title: "",
-					message: err.message,
-					type: "warning",
-					time: 1000
+		createNotification({
+			title: ": ",
+			message: "Nope, I can't allow you to change the company's documents",
+			type: "danger",
+			time: 10000
+		})
+		// var message = "Are you sure you want to delete this document??\nDetails of this document will be erased permanently.\nThis action cannot be undone";
+		// var check = window.confirm(message);
+		// if (check) {
+		// var link = "https://api-stackathon.herokuapp.com/document/" + id;
+		// axios
+		// 	.delete(link)
+		// 	.then((res) => {
+		// 		console.log(res.data);
+		// 		setReload(true);
+		// 	})
+		// 	.catch((err) => createNotification({
+		// 		title: "",
+		// 		message: err.message,
+		// 		type: "warning",
+		// 		time: 1000
 
-				}));
-		}
+		// 	}));
+		// }
 	};
 
 	const handleAdd = (doc) => {
-		axios
-			.post("https://api-stackathon.herokuapp.com/document/add", doc)
-			.then((res) => {
-				console.log(res.data);
-				setReload(true);
-				createNotification({
-					title: "",
-					message: "Document successfully added",
-					type: "success"
-				})
-			})
-			.catch((err) => createNotification({
-				title: "",
-				message: err.message,
-				type: "warning",
-				time: 1000
+		createNotification({
+			title: ": ",
+			message: "Nope, I can't allow you to change the company's documents",
+			type: "danger",
+			time: 10000
+		})
+		// axios
+		// 	.post("https://api-stackathon.herokuapp.com/document/add", doc)
+		// 	.then((res) => {
+		// 		console.log(res.data);
+		// 		setReload(true);
+		// 		createNotification({
+		// 			title: "",
+		// 			message: "Document successfully added",
+		// 			type: "success"
+		// 		})
+		// 	})
+		// 	.catch((err) => createNotification({
+		// 		title: "",
+		// 		message: err.message,
+		// 		type: "warning",
+		// 		time: 1000
 
-			}));
+		// 	}));
 	};
 
 	const handleEdit = (doc) => {
-		var link = "https://api-stackathon.herokuapp.com/document/update/" + doc.id;
-		axios
-			.put(link, doc)
-			.then((res) => {
-				console.log(res.data);
-				setReload(true);
-				createNotification({
-					title: "",
-					message: "Document successfully updated",
-					type: "success"
-				})
-			})
-			.catch((err) => createNotification({
-				title: "",
-				message: err.message,
-				type: "warning",
-				time: 1000
+		createNotification({
+			title: ": ",
+			message: "Nope, I can't allow you to change the company's documents",
+			type: "danger",
+			time: 10000
+		})
+		// var link = "https://api-stackathon.herokuapp.com/document/update/" + doc.id;
+		// axios
+		// 	.put(link, doc)
+		// 	.then((res) => {
+		// 		console.log(res.data);
+		// 		setReload(true);
+		// 		createNotification({
+		// 			title: "",
+		// 			message: "Document successfully updated",
+		// 			type: "success"
+		// 		})
+		// 	})
+		// 	.catch((err) => createNotification({
+		// 		title: "",
+		// 		message: err.message,
+		// 		type: "warning",
+		// 		time: 1000
 
-			}));
+		// 	}));
 	};
 
 	return (

@@ -43,6 +43,7 @@ export const AddTeam = ({ handleAdd, empdict }) => {
 						className="form-control"
 						id="exampleInputEmail1"
 						aria-describedby="emailHelp"
+						required
 						onChange={(e) => handleFormChange("name", e)}
 					/>
 				</div>
@@ -55,6 +56,7 @@ export const AddTeam = ({ handleAdd, empdict }) => {
 								value={key}
 								id={key}
 								name="members"
+								required
 								onChange={(e) => handleFormChange("members", e)}
 							/>
 							<label className="form-check-label" htmlFor={key}>
