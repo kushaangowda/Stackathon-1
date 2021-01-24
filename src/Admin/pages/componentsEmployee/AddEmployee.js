@@ -34,6 +34,7 @@ export const AddEmployee = ({ handleAdd }) => {
 						className="form-control"
 						id="exampleInputEmail1"
 						aria-describedby="emailHelp"
+						required
 						onChange={(e) => handleFormChange("email", e.target.value)}
 					/>
 				</div>
@@ -44,14 +45,15 @@ export const AddEmployee = ({ handleAdd }) => {
 						className="form-control"
 						id="exampleInputEmail2"
 						aria-describedby="emailHelp"
+						required
 						onChange={(e) => handleFormChange("name", e.target.value)}
 					/>
 				</div>
 				<div className="form-group">
 					<label htmlFor="exampleFormControlSelect1">Role</label>
 					<select className="form-control" id="exampleFormControlSelect1" onChange={(e) => handleFormChange("Role", e.target.value)}>
-						<option value="admin">Admin</option>
 						<option value="employee">Employee</option>
+						<option value="admin">Admin</option>
 					</select>
 				</div>
 				<div className="form-group">
@@ -61,6 +63,7 @@ export const AddEmployee = ({ handleAdd }) => {
 						className="form-control"
 						id="exampleInputEmail5"
 						aria-describedby="emailHelp"
+						required
 						onChange={(e) => handleFormChange("Post", e.target.value)}
 					/>
 				</div>
@@ -71,6 +74,7 @@ export const AddEmployee = ({ handleAdd }) => {
 						className="form-control"
 						id="exampleInputEmail6"
 						aria-describedby="emailHelp"
+						required
 						onChange={(e) => handleFormChange("Salary", e.target.value)}
 					/>
 				</div>

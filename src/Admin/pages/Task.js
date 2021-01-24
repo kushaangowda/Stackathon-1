@@ -6,7 +6,7 @@ import { EditTask } from "./componentsTask/EditTask";
 import { AddTask } from "./componentsTask/AddTask";
 import { Tasknav } from "./componentsTask/Tasknav";
 import axios from "axios";
-import createNotification from "../../Notification";
+import createNotification, { demo } from "../../Notification";
 
 export const Task = () => {
 	const [tasks, setTasks] = useState([]);
@@ -56,6 +56,7 @@ export const Task = () => {
 
 	useEffect(() => {
 		display();
+		demo(["Welcome to tasks page", "Here you can edit/ delete/ assign tasks to different teams.", "Try sorting tasks based on their status"])
 	}, []);
 
 	const addTask = (task) => {
@@ -130,30 +131,31 @@ export const Task = () => {
 			var message = "Are you sure?";
 			var check = window.confirm(message);
 			if (check) {
-				createNotification({
-					title: " :| ",
-					message: "Sorry!! But you are admin just for testing purposes, Kindly don't delete our tasks",
-					type: "danger",
-					time: 10000
-				})
-				// var newTasks = tasks.filter((task) => {
-				// 	return String(task._id) !== String(id);
-				// });
-				// setTasks(newTasks);
-				// var link = "http://api-stackathon.herokuapp.com/task/" + id;
-				// axios
-				// 	.delete(link)
-				// 	.then((res) => {
-				// 		console.log(res.data);
-				// 		setReload(true);
-				// 	})
-				// 	.catch((err) => createNotification({
-				// 		title: "",
-				// 		message: err.message,
-				// 		type: "warning",
-				// 		time: 1000
 
-				// 	}));
+				var newTasks = tasks.filter((task) => {
+					return String(task._id) !== String(id);
+				});
+				setTasks(newTasks);
+				var link = "http://api-stackathon.herokuapp.com/task/" + id;
+				axios
+					.delete(link)
+					.then((res) => {
+						console.log(res.data);
+						setReload(true);
+						createNotification({
+							title: " :) ",
+							message: "Successfully deteled the task.",
+							type: "success",
+							time: 1000,
+						});
+					})
+					.catch((err) => createNotification({
+						title: "",
+						message: err.message,
+						type: "warning",
+						time: 1000
+
+					}));
 			}
 		}, 3000);
 	};

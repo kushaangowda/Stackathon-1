@@ -57,6 +57,7 @@ export const AddTask = ({ addTask, teams }) => {
 											className="form-control"
 											name="cars"
 											id="form_name"
+											required
 											onChange={(e) => {
 												onchange(e, "teamID");
 											}}

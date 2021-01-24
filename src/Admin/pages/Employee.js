@@ -107,7 +107,12 @@ function Employee() {
 		axios
 			.post("https://api-stackathon.herokuapp.com/employee/add", employee)
 			.then((res) => {
-				console.log(res.data);
+				createNotification({
+					title: "Success ",
+					message: "New Employee Added!!",
+					type: "success",
+					time: 2000
+				})
 				setReload(true);
 			})
 			.catch((err) => createNotification({

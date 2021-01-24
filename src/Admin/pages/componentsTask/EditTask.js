@@ -55,6 +55,7 @@ export const EditTask = ({ editTask, tasks }) => {
 											}}
 											value={name}
 											type="text"
+											required
 										/>
 									</div>
 								</div>
@@ -72,6 +73,7 @@ export const EditTask = ({ editTask, tasks }) => {
 												value={description}
 												type="textarea"
 												className="form-control"
+												required
 											></textarea>
 										</div>
 									</div>
@@ -88,6 +90,7 @@ export const EditTask = ({ editTask, tasks }) => {
 													setStatus(e.target.value);
 												}}
 												value={status}
+												required
 											>
 												<option>Pending</option>
 												<option>Completed</option>
@@ -105,6 +108,7 @@ export const EditTask = ({ editTask, tasks }) => {
 											}}
 											value={deadline}
 											type="date"
+											required
 										/>
 									</div>
 								</div>
