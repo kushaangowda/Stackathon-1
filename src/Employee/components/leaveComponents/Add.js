@@ -1,5 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useHistory, Link } from "react-router-dom";
+
+import { demo } from '../../../Notification'
 
 export const Add = ({ handleAdd, id }) => {
     let history = useHistory();
@@ -11,6 +13,10 @@ export const Add = ({ handleAdd, id }) => {
         start: "",
         Status: "Pending"
     })
+
+    useEffect(() => {
+        demo(["Fill in the details and create your new leave request", "Then click on ADD REQUEST button to make your request reach the admin"])
+    }, [])
 
     const handleFormChange = (value) => {
         setPayrollRequest({ ...payrollRequest, description: value });
@@ -40,12 +46,13 @@ export const Add = ({ handleAdd, id }) => {
                         className="form-control"
                         id="desc"
                         aria-describedby="description"
+                        required
                         onChange={(e) => handleFormChange(e.target.value)}
                     />
                     <span>Duration of Leave:</span>
-                    <input type="number" onChange={(e) => handleFormChange3(e.target.value)} className="form-control" />
+                    <input type="number" onChange={(e) => handleFormChange3(e.target.value)} className="form-control" required />
                     <span>Start of Leave:</span>
-                    <input type="date" onChange={(e) => handleFormChange2(e.target.value)} className="form-control" />
+                    <input type="date" onChange={(e) => handleFormChange2(e.target.value)} className="form-control" required />
                 </div>
                 <button type="submit" className="btn btn-primary">
                     Add Request

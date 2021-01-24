@@ -3,6 +3,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 // import JSONPretty from "react-json-pretty";
 import axios from "axios";
 import createNotification from "../../Notification";
+import { demo } from "../../Notification";
 
 export const Home = () => {
 	const { user } = useAuth0();
@@ -35,11 +36,6 @@ export const Home = () => {
 					.then((res) => {
 						if (String(res.data.error) !== 'Cast to ObjectId failed for value "0" at path "_id" for model "team"') {
 							setTeam(res.data);
-							createNotification({
-								title: " :(",
-								message: "Something went wrong, Please try again later!",
-								type: "danger"
-							})
 						}
 					})
 					.catch((err) => {
@@ -108,6 +104,9 @@ export const Home = () => {
 				time: 1000
 
 			}));
+
+		demo(["This is your Home page as an Employee.", "You can mark your attendance and see details about yourself here."])
+
 	}, []);
 
 	if (reload) {

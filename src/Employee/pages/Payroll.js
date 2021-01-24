@@ -9,6 +9,8 @@ import { useAuth0 } from "@auth0/auth0-react";
 import axios from "axios";
 import createNotification from '../../Notification'
 
+import { demo } from '../../Notification'
+
 export const Payroll = () => {
 
 	const [documents, setDocuments] = useState([]);
@@ -55,6 +57,8 @@ export const Payroll = () => {
 
 					}));
 			})
+
+		demo(["This page lets you create payroll requests which can be seen by your admin.", "The admin can accept or reject your payroll request based on the circumstances", "Try creating a new leave request by click on the NEW PAYROLL REQUEST button below this card"])
 
 	}, []);
 

@@ -9,6 +9,8 @@ import { useAuth0 } from "@auth0/auth0-react";
 import axios from "axios";
 import createNotification from "../../Notification";
 
+import { demo } from '../../Notification'
+
 export const Leave = () => {
 
 	const [documents, setDocuments] = useState([]);
@@ -54,6 +56,8 @@ export const Leave = () => {
 
 					}));
 			})
+
+		demo(["This page lets you create leave requests which can be seen by your admin.", "The admin can accept or reject your leave request based on the circumstances", "Try creating a new leave request by click on the NEW LEAVE REQUEST button below this card"])
 
 	}, []);
 
