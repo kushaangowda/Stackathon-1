@@ -7,7 +7,7 @@ import { EditEmployee } from "./componentsEmployee/EditEmployee";
 import axios from "axios";
 import "./employee.css";
 
-import createNotification from '../../Notification'
+import createNotification, { demo } from '../../Notification'
 
 function Employee() {
 	const [teamdict, setTeamdict] = useState({});
@@ -24,7 +24,10 @@ function Employee() {
 				res.data.forEach((team) => {
 					team1[team._id] = team.name;
 				});
-				console.log("yahoo", team1);
+				createNotification({
+					message: "All employees fetched successfully!!",
+					time: 1000
+				})
 				setTeamdict(team1);
 			})
 			.catch((err) => createNotification({
@@ -47,6 +50,8 @@ function Employee() {
 				time: 1000
 
 			}));
+
+		demo(["Here you can manage your employee i.e update their information from the database"])
 	}, []);
 
 	if (reload) {
@@ -76,20 +81,26 @@ function Employee() {
 			var message = "Are you sure ?";
 			var check = window.confirm(message);
 			if (check) {
-				var link = "http://api-stackathon.herokuapp.com/employee/" + id;
-				axios
-					.delete(link)
-					.then((res) => {
-						console.log(res.data);
-						setReload(true);
-					})
-					.catch((err) => createNotification({
-						title: "",
-						message: err.message,
-						type: "warning",
-						time: 1000
+				createNotification({
+					title: " :| ",
+					message: "Sorry!! But you are admin just for testing purposes, Kindly don't delete our employees",
+					type: "danger",
+					time: 10000
+				})
+				// var link = "http://api-stackathon.herokuapp.com/employee/" + id;
+				// axios
+				// 	.delete(link)
+				// 	.then((res) => {
+				// 		console.log(res.data);
+				// 		setReload(true);
+				// 	})
+				// 	.catch((err) => createNotification({
+				// 		title: "",
+				// 		message: err.message,
+				// 		type: "warning",
+				// 		time: 1000
 
-					}));
+				// 	}));
 			}
 
 		}, 4500)
@@ -99,7 +110,12 @@ function Employee() {
 		axios
 			.post("https://api-stackathon.herokuapp.com/employee/add", employee)
 			.then((res) => {
-				console.log(res.data);
+				createNotification({
+					title: "Success ",
+					message: "New Employee Added!!",
+					type: "success",
+					time: 2000
+				})
 				setReload(true);
 			})
 			.catch((err) => createNotification({
@@ -112,20 +128,26 @@ function Employee() {
 	};
 
 	const handleEdit = (employee) => {
-		var link = "https://api-stackathon.herokuapp.com/employee/update/" + employee.id;
-		axios
-			.put(link, employee)
-			.then((res) => {
-				console.log(res.data);
-				setReload(true);
-			})
-			.catch((err) => createNotification({
-				title: "",
-				message: err.message,
-				type: "warning",
-				time: 1000
+		createNotification({
+			title: " -_- ",
+			message: "Sorry!! But you are admin just for testing purposes, Kindly don't edit our employees",
+			type: "danger",
+			time: 10000
+		})
+		// var link = "https://api-stackathon.herokuapp.com/employee/update/" + employee.id;
+		// axios
+		// 	.put(link, employee)
+		// 	.then((res) => {
+		// 		console.log(res.data);
+		// 		setReload(true);
+		// 	})
+		// 	.catch((err) => createNotification({
+		// 		title: "",
+		// 		message: err.message,
+		// 		type: "warning",
+		// 		time: 1000
 
-			}));
+		// 	}));
 	};
 
 	return (

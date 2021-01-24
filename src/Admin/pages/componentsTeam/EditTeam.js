@@ -55,6 +55,7 @@ export const EditTeam = ({ empdict, handleEdit, teams }) => {
 						aria-describedby="emailHelp"
 						onChange={(e) => handleNameChange(e.target.value)}
 						value={name}
+						required
 					/>
 				</div>
 				{Object.keys(empdict).map((key) => {
@@ -67,6 +68,7 @@ export const EditTeam = ({ empdict, handleEdit, teams }) => {
 									value={key}
 									id={key}
 									name="members"
+									required
 									onChange={(e) => handleMembersChange(e)}
 									defaultChecked
 								/>

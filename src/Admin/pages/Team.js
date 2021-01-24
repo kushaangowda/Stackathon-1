@@ -6,7 +6,7 @@ import { HomeTeam } from "./componentsTeam/HomeTeam";
 import axios from "axios";
 import { Navbar } from "./componentsTeam/Navbar";
 
-import createNotification from '../../Notification'
+import createNotification, { demo } from '../../Notification'
 
 function Team() {
 	const [teams, setTeams] = useState([]);
@@ -20,6 +20,10 @@ function Team() {
 			.get("https://api-stackathon.herokuapp.com/team/")
 			.then((res) => {
 				setTeams(res.data);
+				createNotification({
+					message: "All teams fetched successfully!!",
+					time: 1000
+				})
 			})
 			.catch((err) => createNotification({
 				title: "",
@@ -46,6 +50,8 @@ function Team() {
 				time: 1000
 
 			}));
+
+		demo(["This is the teams page for managing teams", "Try changing someones team."])
 	}, []);
 
 	if (reload) {
@@ -75,20 +81,26 @@ function Team() {
 			var message = "Are you sure you want to delete this team??\nDetails of this team will be erased permanently.\nThis action cannot be undone";
 			var check = window.confirm(message);
 			if (check) {
-				var link = "http://api-stackathon.herokuapp.com/team/delete/" + id;
-				axios
-					.delete(link)
-					.then((res) => {
-						console.log(res.data);
-						setReload(true);
-					})
-					.catch((err) => createNotification({
-						title: "",
-						message: err.message,
-						type: "warning",
-						time: 1000
+				createNotification({
+					title: " :| ",
+					message: "Sorry!! But you are admin just for testing purposes, Kindly don't delete any teams",
+					type: "danger",
+					time: 10000
+				})
+				// var link = "http://api-stackathon.herokuapp.com/team/delete/" + id;
+				// axios
+				// 	.delete(link)
+				// 	.then((res) => {
+				// 		console.log(res.data);
+				// 		setReload(true);
+				// 	})
+				// 	.catch((err) => createNotification({
+				// 		title: "",
+				// 		message: err.message,
+				// 		type: "warning",
+				// 		time: 1000
 
-					}));
+				// 	}));
 			}
 		}, 4500)
 	};

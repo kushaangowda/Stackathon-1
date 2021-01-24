@@ -2,10 +2,10 @@ import React, { useState, useEffect } from "react";
 import { Card } from "./componentsVerify/Card";
 import axios from "axios";
 
-import createNotification from '../../Notification'
+import createNotification, { demo } from '../../Notification'
 
 export const Verify = () => {
-	const [emps, setEmps] = useState("");
+	const [emps, setEmps] = useState([]);
 
 	const [reload, setReload] = useState(false);
 
@@ -101,16 +101,22 @@ export const Verify = () => {
 				time: 1000
 
 			}));
+		demo(["Here the admin can verify the unverified employees and allow them to use the portal", "If currently their are no requests here try adding a new request by logging out and signing in using any other email id"])
 	}, []);
 
 	return (
 		<div className="container-fluid">
 			<h2 className="pageTitle">Verify Employee</h2>
-			<div className="row">
-				{emps === "" ? <></> : emps.map((emp) => {
-					return <Card emp={emp} key={emp.sub} verify={verify} reject={reject} />;
-				})}
-			</div>
+			{emps.length === 0 ?
+				<h1 className="text-center mt-5 pt-5">Nothing Here</h1>
+				:
+				<div className="row">
+					{emps.map((emp) => {
+						return <Card emp={emp} key={emp.sub} verify={verify} reject={reject} />;
+					})}
+				</div>
+			}
+
 		</div>
 	);
 };

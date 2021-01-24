@@ -3,7 +3,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 // import JSONPretty from "react-json-pretty";
 import axios from "axios";
 import EmployeeCard from "../components/EmployeeCard";
-import createNotification from "../../Notification";
+import createNotification, { demo } from "../../Notification";
 import "./pages.css"
 
 function Home() {
@@ -25,6 +25,10 @@ function Home() {
 					})
 				);
 				setEmployes(temp);
+				createNotification({
+					message: "All employees fetched successfully!!",
+					time: 1000
+				})
 			})
 			.catch((err) => {
 				createNotification({
@@ -40,6 +44,7 @@ function Home() {
 
 	useEffect(() => {
 		fetchEmployees();
+		demo(["This is the admin page where you can access the details of other employees and mark their attendances just in case."])
 	}, []);
 
 	useEffect(() => {

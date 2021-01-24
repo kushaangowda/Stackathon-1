@@ -6,7 +6,7 @@ import { EditTask } from "./componentsTask/EditTask";
 import { AddTask } from "./componentsTask/AddTask";
 import { Tasknav } from "./componentsTask/Tasknav";
 import axios from "axios";
-import createNotification from "../../Notification";
+import createNotification, { demo } from "../../Notification";
 
 export const Task = () => {
 	const [tasks, setTasks] = useState([]);
@@ -20,6 +20,10 @@ export const Task = () => {
 			.get("https://api-stackathon.herokuapp.com/task/")
 			.then((res) => {
 				if (String(res.data.message) !== "No tasks currently present.") setTasks(res.data);
+				createNotification({
+					message: "All tasks fetched successfully!!",
+					time: 1000
+				})
 			})
 			.catch((err) => createNotification({
 				title: "",
@@ -56,6 +60,7 @@ export const Task = () => {
 
 	useEffect(() => {
 		display();
+		demo(["Welcome to tasks page", "Here you can edit/ delete/ assign tasks to different teams.", "Try sorting tasks based on their status"])
 	}, []);
 
 	const addTask = (task) => {
@@ -124,12 +129,13 @@ export const Task = () => {
 			title: "Are you sure about that?",
 			message: "Are you sure you want to delete this task??\nDetails of this task will be erased permanently.\nThis action cannot be undone",
 			type: "warning",
-			time: 2000,
+			time: 5000,
 		});
 		setTimeout(() => {
 			var message = "Are you sure?";
 			var check = window.confirm(message);
 			if (check) {
+
 				var newTasks = tasks.filter((task) => {
 					return String(task._id) !== String(id);
 				});
@@ -140,6 +146,12 @@ export const Task = () => {
 					.then((res) => {
 						console.log(res.data);
 						setReload(true);
+						createNotification({
+							title: " :) ",
+							message: "Successfully deteled the task.",
+							type: "success",
+							time: 1000,
+						});
 					})
 					.catch((err) => createNotification({
 						title: "",
