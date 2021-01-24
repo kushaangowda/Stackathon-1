@@ -38,7 +38,7 @@ export const Tasknav = ({ deleteTask }) => {
 									<span
 										className={
 											"btn btn-" +
-											(String(Tasks.status) === "Pending" ? "warning" : String(Tasks.status) === "Active" ? "success" : "danger")
+											(String(Tasks.status) === "Pending" ? "warning" : String(Tasks.status) === "Active" ? "success" : "success")
 										}
 									>
 										{String(Tasks.status)}
@@ -94,7 +94,7 @@ export const Tasknav = ({ deleteTask }) => {
 					</div>
 					<div className="col-sm-5">
 						<div onChange={(e) => setFilter(e.target.value)} className="btn-group" data-toggle="buttons">
-							<label className="btn btn-info active">
+							<label className="btn btn-info success">
 								<input
 									type="radio"
 									name="status"
@@ -104,7 +104,7 @@ export const Tasknav = ({ deleteTask }) => {
 										createNotification({
 											title: "",
 											message: "Showing tasks all tasks",
-											type: "success",
+											type: "default",
 											time: 1000,
 										});
 									}}
@@ -140,7 +140,7 @@ export const Tasknav = ({ deleteTask }) => {
 								/>{" "}
 								Pending
 							</label>
-							<label className="btn btn-danger">
+							<label className="btn btn-success">
 								<input
 									type="radio"
 									name="status"
@@ -149,7 +149,7 @@ export const Tasknav = ({ deleteTask }) => {
 										createNotification({
 											title: "",
 											message: "Showing only tasks with status: COMPLETED",
-											type: "danger",
+											type: "success",
 											time: 1000,
 										});
 									}}

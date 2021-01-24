@@ -124,30 +124,36 @@ export const Task = () => {
 			title: "Are you sure about that?",
 			message: "Are you sure you want to delete this task??\nDetails of this task will be erased permanently.\nThis action cannot be undone",
 			type: "warning",
-			time: 2000,
+			time: 5000,
 		});
 		setTimeout(() => {
 			var message = "Are you sure?";
 			var check = window.confirm(message);
 			if (check) {
-				var newTasks = tasks.filter((task) => {
-					return String(task._id) !== String(id);
-				});
-				setTasks(newTasks);
-				var link = "http://api-stackathon.herokuapp.com/task/" + id;
-				axios
-					.delete(link)
-					.then((res) => {
-						console.log(res.data);
-						setReload(true);
-					})
-					.catch((err) => createNotification({
-						title: "",
-						message: err.message,
-						type: "warning",
-						time: 1000
+				createNotification({
+					title: " :| ",
+					message: "Sorry!! But you are admin just for testing purposes, Kindly don't delete our tasks",
+					type: "danger",
+					time: 10000
+				})
+				// var newTasks = tasks.filter((task) => {
+				// 	return String(task._id) !== String(id);
+				// });
+				// setTasks(newTasks);
+				// var link = "http://api-stackathon.herokuapp.com/task/" + id;
+				// axios
+				// 	.delete(link)
+				// 	.then((res) => {
+				// 		console.log(res.data);
+				// 		setReload(true);
+				// 	})
+				// 	.catch((err) => createNotification({
+				// 		title: "",
+				// 		message: err.message,
+				// 		type: "warning",
+				// 		time: 1000
 
-					}));
+				// 	}));
 			}
 		}, 3000);
 	};

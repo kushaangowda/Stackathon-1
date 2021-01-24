@@ -45,6 +45,7 @@ export const AddTask = ({ addTask, teams }) => {
 											onChange={(e) => {
 												onchange(e, "name");
 											}}
+											required
 											className="form-control"
 										/>
 									</div>
@@ -81,6 +82,7 @@ export const AddTask = ({ addTask, teams }) => {
 												onChange={(e) => {
 													onchange(e, "description");
 												}}
+												required
 												className="form-control"
 											></textarea>
 										</div>
@@ -92,6 +94,7 @@ export const AddTask = ({ addTask, teams }) => {
 										<input
 											id="Deadline"
 											type="date"
+											required
 											onChange={(e) => {
 												onchange(e, "deadline");
 											}}
