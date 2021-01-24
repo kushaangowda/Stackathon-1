@@ -5,11 +5,18 @@ import createNotification from '../../Notification'
 
 function Text() {
 
-	const copyEmail = () => {
+	const copyEmail1 = () => {
 		createNotification({
-			message: "Email Copied to clipboard"
+			message: "(Employee) Email Copied to clipboard"
 		})
 		navigator.clipboard.writeText("stackhack@iiti.ac.in")
+	}
+
+	const copyEmail2 = () => {
+		createNotification({
+			message: "(Admin) Email Copied to clipboard"
+		})
+		navigator.clipboard.writeText("stackhackadmin@iiti.ac.in")
 	}
 
 	const copyPassword = () => {
@@ -28,10 +35,17 @@ function Text() {
 
 			<p className="text-white">This application is developed to be used as a medium between the admin and employees of a company.</p>
 			<p className="text-white">You can use this email id and password for testing purposes.</p>
-			<div className="jumbotron">
-				<h6>click to copy</h6>
-				<h3 onClick={copyEmail}>Email: <b>stackhack@iiti.ac.in</b></h3>
-				<h3 onClick={copyPassword}>Password: <b>Stackhack2.0</b></h3>
+			<div className="credentials d-flex">
+				<div className="jumbotron">
+					<h6>click to copy (Employee)</h6>
+					<h5 onClick={copyEmail1}>Email: <b>stackhack@iiti.ac.in</b></h5>
+					<h5 onClick={copyPassword}>Password: <b>Stackhack2.0</b></h5>
+				</div>
+				<div className="jumbotron">
+					<h6>click to copy (Admin)</h6>
+					<h5 onClick={copyEmail2}>Email: <b>stackhackadmin@iiti.ac.in</b></h5>
+					<h5 onClick={copyPassword}>Password: <b>Stackhack2.0</b></h5>
+				</div>
 			</div>
 			<LoginButton />
 		</div>
