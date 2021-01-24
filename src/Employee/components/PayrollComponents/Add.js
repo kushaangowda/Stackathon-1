@@ -1,5 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useHistory, Link } from "react-router-dom";
+
+import { demo } from '../../../Notification'
 
 export const Add = ({ handleAdd, id }) => {
     let history = useHistory();
@@ -9,10 +11,10 @@ export const Add = ({ handleAdd, id }) => {
         description: "",
         Status: "Pending"
     })
-    // const [doc, setDoc] = useState({
-    // 	name: "",
-    // 	link: "",
-    // });
+
+    useEffect(() => {
+        demo(["Fill in the details and create your new payroll request", "Then click on ADD REQUEST button to make your request reach the admin"])
+    }, [])
 
     const handleFormChange = (value) => {
         setPayrollRequest({ ...payrollRequest, description: value });
@@ -34,6 +36,7 @@ export const Add = ({ handleAdd, id }) => {
                         className="form-control"
                         id="desc"
                         aria-describedby="description"
+                        required
                         onChange={(e) => handleFormChange(e.target.value)}
                     />
                 </div>

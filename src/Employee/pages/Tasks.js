@@ -5,6 +5,8 @@ import { useAuth0 } from "@auth0/auth0-react";
 import axios from "axios";
 import createNotification from "../../Notification";
 
+import { demo } from '../../Notification'
+
 export const Tasks = () => {
 	const [currtask, setcurrTask] = useState("");
 	const [tasks, setTasks] = useState([]);
@@ -15,6 +17,7 @@ export const Tasks = () => {
 	const { user } = useAuth0();
 	useEffect(() => {
 		displaydata();
+		demo(["This is your tasks page.", "The admin assigns tasks to different teams which are shown here based on your team", "You can set the status of your tasks by clicking on the SET STATUS button telling the admin if you have finished your assigned task or not", "Try sorting the tasks based on their category!!"])
 	}, []);
 
 	const displaydata = () => {
@@ -146,7 +149,7 @@ export const Tasks = () => {
 				<div className="Tasks ml-2 mr-2">
 					<div className="row mt-2">
 						<div className="navheading col-sm-7">
-						<h2 className="pageTitle">Manage Task</h2>
+							<h2 className="pageTitle">Manage Task</h2>
 						</div>
 						<div className="filter">
 							<div onChange={(e) => setFilter(e.target.value)} className="btn-group" data-toggle="buttons">
@@ -209,20 +212,20 @@ export const Tasks = () => {
 					</div>
 
 					<div id="no-more-tables">
-					<table className="table table-hover table-bordered">
-					<caption className="listofdocument">List of Task</caption>
-					<thead className="thead-dark">
-							<tr>
-								{/*<th>#</th>*/}
-								<th  className="text-uppercase">Name</th>
-								<th  className="text-uppercase">Description</th>
-								<th  className="text-uppercase">Deadline</th>
-								<th  className="text-uppercase">Status</th>
-								<th  className="text-uppercase">Action</th>
-							</tr>
-						</thead>
-						<tbody>{display}</tbody>
-					</table>
+						<table className="table table-hover table-bordered">
+							<caption className="listofdocument">List of Task</caption>
+							<thead className="thead-dark">
+								<tr>
+									{/*<th>#</th>*/}
+									<th className="text-uppercase">Name</th>
+									<th className="text-uppercase">Description</th>
+									<th className="text-uppercase">Deadline</th>
+									<th className="text-uppercase">Status</th>
+									<th className="text-uppercase">Action</th>
+								</tr>
+							</thead>
+							<tbody>{display}</tbody>
+						</table>
 
 					</div>
 					{error ? <p>{error}</p> : null}

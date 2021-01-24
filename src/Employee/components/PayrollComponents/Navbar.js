@@ -11,7 +11,7 @@ export const Navbar = () => {
 			        </Link>
                 </li> */}
                 <li>
-                    <Link className="empnavLink" to="/leave/add">
+                    <Link className="empnavLink" to="/Payroll/add">
                         New Payroll Request
 			        </Link>
                 </li>
