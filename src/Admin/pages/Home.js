@@ -25,6 +25,10 @@ function Home() {
 					})
 				);
 				setEmployes(temp);
+				createNotification({
+					message: "All employees fetched successfully!!",
+					time: 1000
+				})
 			})
 			.catch((err) => {
 				createNotification({

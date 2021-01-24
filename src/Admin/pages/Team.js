@@ -20,6 +20,10 @@ function Team() {
 			.get("https://api-stackathon.herokuapp.com/team/")
 			.then((res) => {
 				setTeams(res.data);
+				createNotification({
+					message: "All teams fetched successfully!!",
+					time: 1000
+				})
 			})
 			.catch((err) => createNotification({
 				title: "",

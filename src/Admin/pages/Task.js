@@ -20,6 +20,10 @@ export const Task = () => {
 			.get("https://api-stackathon.herokuapp.com/task/")
 			.then((res) => {
 				if (String(res.data.message) !== "No tasks currently present.") setTasks(res.data);
+				createNotification({
+					message: "All tasks fetched successfully!!",
+					time: 1000
+				})
 			})
 			.catch((err) => createNotification({
 				title: "",

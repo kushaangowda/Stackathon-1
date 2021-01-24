@@ -177,6 +177,11 @@ function Home() {
 			axios
 				.get(host + "employee")
 				.then((emp) => {
+					createNotification({
+						message: "Fetching all requests!!",
+						type: "warning",
+						time: 1000
+					})
 					console.log(emp["data"]);
 					const fetchedEmployees = emp["data"];
 					let temp = [];
@@ -216,6 +221,10 @@ function Home() {
 						})
 					);
 					setEmployes(temp);
+					createNotification({
+						message: "All requests fetched successfully!!",
+						time: 2000
+					})
 				})
 				.catch((err) => {
 					createNotification({

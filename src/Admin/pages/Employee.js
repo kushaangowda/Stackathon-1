@@ -24,7 +24,10 @@ function Employee() {
 				res.data.forEach((team) => {
 					team1[team._id] = team.name;
 				});
-				console.log("yahoo", team1);
+				createNotification({
+					message: "All employees fetched successfully!!",
+					time: 1000
+				})
 				setTeamdict(team1);
 			})
 			.catch((err) => createNotification({
